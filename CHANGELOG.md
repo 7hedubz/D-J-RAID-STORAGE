@@ -173,3 +173,6 @@
 
 ## 0.1.52
 - Right-click the AUTO-CRAFTER to open a crafting menu. An On/Off button toggles auto-crafting.
+
+## 0.1.53
+- AUTO-CRAFTER grid items sit upright in the squares and turn to face the nearest player within 3 blocks.
