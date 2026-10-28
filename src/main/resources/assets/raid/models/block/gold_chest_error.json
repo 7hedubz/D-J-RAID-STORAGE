@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/chest/gold/side",
+    "north": "raid:block/chest/gold/front_error",
+    "south": "raid:block/chest/gold/back",
+    "east": "raid:block/chest/gold/side",
+    "west": "raid:block/chest/gold/side",
+    "up": "raid:block/chest/gold/side",
+    "down": "raid:block/chest/gold/side"
+  }
+}

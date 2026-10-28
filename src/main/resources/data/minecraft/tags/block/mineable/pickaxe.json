@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "raid:raid_chassis",
+    "raid:data_cable",
+    "raid:hopper",
+    "raid:stone_chest",
+    "raid:copper_chest",
+    "raid:iron_chest",
+    "raid:gold_chest",
+    "raid:quartz_chest",
+    "raid:amethyst_chest",
+    "raid:diamond_chest",
+    "raid:netherite_chest",
+    "raid:admin_chest"
+  ]
+}

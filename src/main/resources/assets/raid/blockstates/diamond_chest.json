@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "facing=north,status=ok": {
+      "model": "raid:block/diamond_chest_ok"
+    },
+    "facing=north,status=disconnected": {
+      "model": "raid:block/diamond_chest_disconnected"
+    },
+    "facing=north,status=error": {
+      "model": "raid:block/diamond_chest_error"
+    },
+    "facing=east,status=ok": {
+      "model": "raid:block/diamond_chest_ok",
+      "y": 90
+    },
+    "facing=east,status=disconnected": {
+      "model": "raid:block/diamond_chest_disconnected",
+      "y": 90
+    },
+    "facing=east,status=error": {
+      "model": "raid:block/diamond_chest_error",
+      "y": 90
+    },
+    "facing=south,status=ok": {
+      "model": "raid:block/diamond_chest_ok",
+      "y": 180
+    },
+    "facing=south,status=disconnected": {
+      "model": "raid:block/diamond_chest_disconnected",
+      "y": 180
+    },
+    "facing=south,status=error": {
+      "model": "raid:block/diamond_chest_error",
+      "y": 180
+    },
+    "facing=west,status=ok": {
+      "model": "raid:block/diamond_chest_ok",
+      "y": 270
+    },
+    "facing=west,status=disconnected": {
+      "model": "raid:block/diamond_chest_disconnected",
+      "y": 270
+    },
+    "facing=west,status=error": {
+      "model": "raid:block/diamond_chest_error",
+      "y": 270
+    }
+  }
+}

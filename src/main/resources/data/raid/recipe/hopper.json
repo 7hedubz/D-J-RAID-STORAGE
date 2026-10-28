@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "EEE",
+    "EHE",
+    "EEE"
+  ],
+  "key": {
+    "E": "minecraft:emerald",
+    "H": "minecraft:hopper"
+  },
+  "result": {
+    "id": "raid:hopper",
+    "count": 1
+  }
+}

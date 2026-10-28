@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/chest/diamond/side",
+    "north": "raid:block/chest/diamond/front_error",
+    "south": "raid:block/chest/diamond/back",
+    "east": "raid:block/chest/diamond/side",
+    "west": "raid:block/chest/diamond/side",
+    "up": "raid:block/chest/diamond/side",
+    "down": "raid:block/chest/diamond/side"
+  }
+}

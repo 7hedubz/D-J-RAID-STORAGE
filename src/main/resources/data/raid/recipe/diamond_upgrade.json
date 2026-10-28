@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RRR",
+    "R#R",
+    "RRR"
+  ],
+  "key": {
+    "R": "minecraft:diamond",
+    "#": "minecraft:redstone"
+  },
+  "result": {
+    "id": "raid:diamond_upgrade",
+    "count": 1
+  }
+}

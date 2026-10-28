@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "raid_chest_tier",
+  "ingredients": [
+    "raid:copper_chest",
+    "raid:iron_upgrade"
+  ],
+  "result": {
+    "id": "raid:iron_chest",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/hopper/side",
+    "north": "raid:block/hopper/front_ok",
+    "south": "raid:block/hopper/side",
+    "east": "raid:block/hopper/right",
+    "west": "raid:block/hopper/left",
+    "up": "raid:block/hopper/side",
+    "down": "raid:block/hopper/side"
+  }
+}

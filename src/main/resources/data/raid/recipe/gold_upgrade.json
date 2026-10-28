@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RRR",
+    "R#R",
+    "RRR"
+  ],
+  "key": {
+    "R": "minecraft:gold_ingot",
+    "#": "minecraft:redstone"
+  },
+  "result": {
+    "id": "raid:gold_upgrade",
+    "count": 1
+  }
+}

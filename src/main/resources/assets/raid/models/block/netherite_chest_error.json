@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/chest/netherite/side",
+    "north": "raid:block/chest/netherite/front_error",
+    "south": "raid:block/chest/netherite/back",
+    "east": "raid:block/chest/netherite/side",
+    "west": "raid:block/chest/netherite/side",
+    "up": "raid:block/chest/netherite/side",
+    "down": "raid:block/chest/netherite/side"
+  }
+}

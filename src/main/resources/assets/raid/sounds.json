@@ -1,0 +1,60 @@
+{
+  "block.cable.break": {
+    "subtitle": "subtitles.block.raid.cable.break",
+    "sounds": [
+      "raid:cable/break1",
+      "raid:cable/break3"
+    ]
+  },
+  "block.cable.step": {
+    "subtitle": "subtitles.block.raid.cable.step",
+    "sounds": [
+      "raid:cable/step1",
+      "raid:cable/step2",
+      "raid:cable/step3"
+    ]
+  },
+  "block.cable.place": {
+    "subtitle": "subtitles.block.raid.cable.place",
+    "sounds": [
+      "raid:cable/place1",
+      "raid:cable/place2",
+      "raid:cable/place3"
+    ]
+  },
+  "block.cable.hit": {
+    "subtitle": "subtitles.block.raid.cable.hit",
+    "sounds": [
+      "raid:cable/hit1",
+      "raid:cable/hit2",
+      "raid:cable/hit3",
+      "raid:cable/hit4"
+    ]
+  },
+  "block.cable.fall": {
+    "subtitle": "subtitles.block.raid.cable.fall",
+    "sounds": [
+      "raid:cable/fall1",
+      "raid:cable/fall2",
+      "raid:cable/fall3"
+    ]
+  },
+  "block.chest.open": {
+    "subtitle": "subtitles.block.raid.chest.open",
+    "sounds": [
+      {
+        "name": "raid:chest/open",
+        "attenuation_distance": 16
+      }
+    ]
+  },
+  "block.chest.close": {
+    "subtitle": "subtitles.block.raid.chest.close",
+    "sounds": [
+      {
+        "name": "raid:chest/close",
+        "attenuation_distance": 16
+      }
+    ]
+  }
+}

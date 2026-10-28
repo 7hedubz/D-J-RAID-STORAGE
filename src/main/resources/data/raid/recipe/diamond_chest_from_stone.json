@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "raid_chest_tier",
+  "ingredients": [
+    "raid:stone_chest",
+    "raid:copper_upgrade",
+    "raid:iron_upgrade",
+    "raid:gold_upgrade",
+    "raid:quartz_upgrade",
+    "raid:amethyst_upgrade",
+    "raid:diamond_upgrade"
+  ],
+  "result": {
+    "id": "raid:diamond_chest",
+    "count": 1
+  }
+}

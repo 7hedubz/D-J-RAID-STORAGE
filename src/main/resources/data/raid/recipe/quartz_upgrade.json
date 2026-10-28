@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RRR",
+    "R#R",
+    "RRR"
+  ],
+  "key": {
+    "R": "minecraft:quartz",
+    "#": "minecraft:redstone"
+  },
+  "result": {
+    "id": "raid:quartz_upgrade",
+    "count": 1
+  }
+}

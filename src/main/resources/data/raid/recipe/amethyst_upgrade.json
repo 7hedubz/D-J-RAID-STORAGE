@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RRR",
+    "R#R",
+    "RRR"
+  ],
+  "key": {
+    "R": "minecraft:amethyst_shard",
+    "#": "minecraft:redstone"
+  },
+  "result": {
+    "id": "raid:amethyst_upgrade",
+    "count": 1
+  }
+}

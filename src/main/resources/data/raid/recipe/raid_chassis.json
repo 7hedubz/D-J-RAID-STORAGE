@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "SIS",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:stone",
+    "I": "minecraft:iron_ingot"
+  },
+  "result": {
+    "id": "raid:raid_chassis",
+    "count": 1
+  }
+}

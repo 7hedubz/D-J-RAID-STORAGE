@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:banners",
+    "minecraft:ominous_banner",
+    "minecraft:decorated_pot",
+    "minecraft:flower_pot"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/chassis/side",
+    "north": "raid:block/chassis/front_off",
+    "south": "raid:block/chassis/back",
+    "east": "raid:block/chassis/side",
+    "west": "raid:block/chassis/side",
+    "up": "raid:block/chassis/side",
+    "down": "raid:block/chassis/side"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:crafting_table",
+    "minecraft:crafter",
+    "minecraft:smithing_table",
+    "minecraft:loom",
+    "minecraft:brewing_stand",
+    "minecraft:cartography_table",
+    "minecraft:grindstone",
+    "minecraft:stonecutter",
+    "minecraft:anvil",
+    "minecraft:chipped_anvil",
+    "minecraft:damaged_anvil",
+    "minecraft:fletching_table",
+    "minecraft:enchanting_table",
+    "minecraft:furnace",
+    "minecraft:blast_furnace",
+    "minecraft:smoker"
+  ]
+}

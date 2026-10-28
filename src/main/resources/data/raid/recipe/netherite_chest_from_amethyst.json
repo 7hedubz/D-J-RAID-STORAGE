@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "raid_chest_tier",
+  "ingredients": [
+    "raid:amethyst_chest",
+    "raid:diamond_upgrade",
+    "raid:netherite_upgrade"
+  ],
+  "result": {
+    "id": "raid:netherite_chest",
+    "count": 1
+  }
+}

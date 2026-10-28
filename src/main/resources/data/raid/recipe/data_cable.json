@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SIS",
+    "CCC",
+    "SIS"
+  ],
+  "key": {
+    "S": "minecraft:string",
+    "I": "minecraft:iron_ingot",
+    "C": "minecraft:copper_ingot"
+  },
+  "result": {
+    "id": "raid:data_cable",
+    "count": 8
+  }
+}

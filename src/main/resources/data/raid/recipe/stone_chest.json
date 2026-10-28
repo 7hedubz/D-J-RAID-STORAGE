@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CCC",
+    "CIC",
+    "CCC"
+  ],
+  "key": {
+    "C": "minecraft:cobblestone",
+    "I": "minecraft:iron_ingot"
+  },
+  "result": {
+    "id": "raid:stone_chest",
+    "count": 1
+  }
+}

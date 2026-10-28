@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#c:crops",
+      "required": false
+    },
+    {
+      "id": "#c:seeds",
+      "required": false
+    },
+    {
+      "id": "#c:foods",
+      "required": false
+    },
+    "#minecraft:villager_plantable_seeds",
+    "minecraft:bamboo",
+    "minecraft:kelp",
+    "minecraft:dried_kelp",
+    "minecraft:cocoa_beans",
+    "minecraft:nether_wart",
+    "minecraft:sugar_cane",
+    "minecraft:cactus",
+    "minecraft:sweet_berries",
+    "minecraft:glow_berries"
+  ]
+}

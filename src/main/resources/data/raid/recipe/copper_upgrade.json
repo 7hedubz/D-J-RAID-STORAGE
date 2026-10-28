@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RRR",
+    "R#R",
+    "RRR"
+  ],
+  "key": {
+    "R": "minecraft:copper_ingot",
+    "#": "minecraft:redstone"
+  },
+  "result": {
+    "id": "raid:copper_upgrade",
+    "count": 1
+  }
+}

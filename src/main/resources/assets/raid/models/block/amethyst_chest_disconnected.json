@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/chest/amethyst/side",
+    "north": "raid:block/chest/amethyst/front_off",
+    "south": "raid:block/chest/amethyst/back",
+    "east": "raid:block/chest/amethyst/side",
+    "west": "raid:block/chest/amethyst/side",
+    "up": "raid:block/chest/amethyst/side",
+    "down": "raid:block/chest/amethyst/side"
+  }
+}
