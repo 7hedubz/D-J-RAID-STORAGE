@@ -1,13 +1,13 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "raid:block/looker/side",
+    "particle": "raid:block/looker/back",
     "north": "raid:block/looker/front_pulse",
-    "south": "raid:block/looker/side",
+    "south": "raid:block/looker/back",
     "east": "raid:block/looker/right_on",
     "west": "raid:block/looker/left",
     "up": "raid:block/looker/top",
-    "down": "raid:block/looker/side",
+    "down": "raid:block/looker/back",
     "front_e": "raid:block/looker/front_pulse_e",
     "right_e": "raid:block/looker/right_on_e"
   },

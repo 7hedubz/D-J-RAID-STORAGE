@@ -195,3 +195,7 @@
 - LOOKER GUI rows no longer overlap: label, then `-` `+` and the number to the right of `+`.
 - Machine front emissives use the same 10-tick frametime as the base textures.
 - LOOKER blink is 0002 again (not a fast 0001/0002 strobe). Error glow stays on the front; the back is blank.
+
+## 0.1.57
+- LOOKER faces remapped from the pack: standby 0001 / blink 0002, detect 0003–0004, pulse 0005–0006, error 0007–0008, top 0009, left 0010, back/bottom 0011 (no emissive), right 0012 / 0013 while powered.
+- Pulse resets the counter, shows 0005–0006 and right 0013, and outputs 15 for **exactly 2 ticks**.

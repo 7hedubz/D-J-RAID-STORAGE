@@ -117,10 +117,7 @@ public class LookerBlock extends BaseEntityBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (state.getValue(POWERED)) {
-            level.setBlock(pos, state.setValue(POWERED, false).setValue(LookerMode.PROPERTY, LookerMode.STANDBY), Block.UPDATE_ALL);
-            updateOutputNeighbors(level, pos, state);
-        }
+        // Pulse length is owned by LookerBlockEntity (exactly 2 ticks).
     }
 
     public static void updateOutputNeighbors(Level level, BlockPos pos, BlockState state) {

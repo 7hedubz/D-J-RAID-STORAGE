@@ -27,11 +27,12 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
     private int blinkIn;
     private int blinkLeft;
     private int detectLeft;
+    private int pulseLeft;
     private BlockState lastWatched;
 
     public LookerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.LOOKER.get(), pos, state);
-        blinkIn = 80 + pos.hashCode() % 21;
+        blinkIn = 80 + Math.floorMod(pos.hashCode(), 21);
     }
 
     public boolean running() {
@@ -70,13 +71,14 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
         if (!running) {
             current = 0;
             seen = 0;
+            pulseLeft = 0;
         }
         player.sendOverlayMessage(Component.translatable(running ? "gui.raid.looker.on" : "gui.raid.looker.off"));
         setChanged();
     }
 
     public void observe() {
-        if (level == null || level.isClientSide() || !running) {
+        if (level == null || level.isClientSide() || !running || pulseLeft > 0) {
             return;
         }
         seen++;
@@ -92,29 +94,44 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
         if (!(level instanceof ServerLevel server)) {
             return;
         }
-        BlockState watched = server.getBlockState(pos.relative(LookerBlock.detectFace(state)));
-        if (entity.lastWatched == null) {
-            entity.lastWatched = watched;
-        } else if (!entity.lastWatched.equals(watched)) {
-            entity.lastWatched = watched;
-            entity.observe();
+        boolean wasPowered = state.getValue(LookerBlock.POWERED);
+
+        if (entity.pulseLeft > 0) {
+            entity.pulseLeft--;
+        } else {
+            BlockState watched = server.getBlockState(pos.relative(LookerBlock.detectFace(state)));
+            if (entity.lastWatched == null) {
+                entity.lastWatched = watched;
+            } else if (!entity.lastWatched.equals(watched)) {
+                entity.lastWatched = watched;
+                entity.observe();
+            }
+            if (entity.running
+                    && entity.current > 0
+                    && entity.threshold > 0
+                    && entity.current >= entity.threshold
+                    && entity.current <= entity.threshold) {
+                entity.current = 0;
+                entity.seen = 0;
+                entity.detectLeft = 0;
+                entity.pulseLeft = 2;
+            }
         }
-        LookerMode mode = LookerMode.STANDBY;
+
+        LookerMode mode;
         boolean blink = false;
-        boolean powered = false;
+        boolean powered = entity.pulseLeft > 0;
         if (entity.current > entity.threshold) {
             mode = LookerMode.ERROR;
-        } else if (entity.running && entity.current >= entity.threshold && entity.threshold > 0 && entity.current > 0) {
-            entity.current = 0;
-            entity.seen = 0;
-            powered = true;
+            powered = false;
+            entity.pulseLeft = 0;
+        } else if (powered) {
             mode = LookerMode.PULSE;
-            server.scheduleTick(pos, state.getBlock(), 2);
-            LookerBlock.updateOutputNeighbors(server, pos, state);
         } else if (entity.detectLeft > 0) {
             entity.detectLeft--;
             mode = LookerMode.DETECT;
         } else {
+            mode = LookerMode.STANDBY;
             if (entity.blinkLeft > 0) {
                 entity.blinkLeft--;
                 blink = true;
@@ -124,19 +141,18 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
                 blink = true;
             }
         }
+
         BlockState next = state
                 .setValue(LookerMode.PROPERTY, mode)
                 .setValue(LookerBlock.BLINK, blink)
-                .setValue(LookerBlock.POWERED, powered || state.getValue(LookerBlock.POWERED) && mode == LookerMode.PULSE);
-        if (powered) {
-            next = next.setValue(LookerBlock.POWERED, true).setValue(LookerMode.PROPERTY, LookerMode.PULSE);
-        }
+                .setValue(LookerBlock.POWERED, powered);
         if (!next.equals(state)) {
             server.setBlock(pos, next, Block.UPDATE_CLIENTS | Block.UPDATE_SKIP_ON_PLACE);
-            if (powered) {
-                LookerBlock.updateOutputNeighbors(server, pos, next);
-            }
         }
+        if (powered != wasPowered) {
+            LookerBlock.updateOutputNeighbors(server, pos, next);
+        }
+        entity.setChanged();
     }
 
     @Override
@@ -147,6 +163,7 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
         output.putInt("threshold", threshold);
         output.putInt("stride", stride);
         output.putInt("seen", seen);
+        output.putInt("pulseLeft", pulseLeft);
     }
 
     @Override
@@ -157,6 +174,7 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
         threshold = input.getIntOr("threshold", 1);
         stride = input.getIntOr("stride", 1);
         seen = input.getIntOr("seen", 0);
+        pulseLeft = input.getIntOr("pulseLeft", 0);
     }
 
     @Override
