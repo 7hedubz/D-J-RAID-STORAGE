@@ -4,8 +4,8 @@
     "particle": "raid:block/hopper/side",
     "north": "raid:block/hopper/front_error",
     "south": "raid:block/hopper/side",
-    "east": "raid:block/hopper/right",
-    "west": "raid:block/hopper/left",
+    "east": "raid:block/hopper/left",
+    "west": "raid:block/hopper/right",
     "up": "raid:block/hopper/side",
     "down": "raid:block/hopper/side",
     "emissive": "raid:block/hopper/front_error_e"

@@ -1,48 +1,93 @@
 {
   "variants": {
-    "facing=north,status=ok": {
+    "facing=north,status=ok,swapped=false": {
       "model": "raid:block/tree_farm_ok"
     },
-    "facing=north,status=disconnected": {
+    "facing=north,status=ok,swapped=true": {
+      "model": "raid:block/tree_farm_ok_swapped"
+    },
+    "facing=north,status=disconnected,swapped=false": {
       "model": "raid:block/tree_farm_disconnected"
     },
-    "facing=north,status=error": {
+    "facing=north,status=disconnected,swapped=true": {
+      "model": "raid:block/tree_farm_disconnected_swapped"
+    },
+    "facing=north,status=error,swapped=false": {
       "model": "raid:block/tree_farm_error"
     },
-    "facing=east,status=ok": {
+    "facing=north,status=error,swapped=true": {
+      "model": "raid:block/tree_farm_error_swapped"
+    },
+    "facing=east,status=ok,swapped=false": {
       "model": "raid:block/tree_farm_ok",
       "y": 90
     },
-    "facing=east,status=disconnected": {
+    "facing=east,status=ok,swapped=true": {
+      "model": "raid:block/tree_farm_ok_swapped",
+      "y": 90
+    },
+    "facing=east,status=disconnected,swapped=false": {
       "model": "raid:block/tree_farm_disconnected",
       "y": 90
     },
-    "facing=east,status=error": {
+    "facing=east,status=disconnected,swapped=true": {
+      "model": "raid:block/tree_farm_disconnected_swapped",
+      "y": 90
+    },
+    "facing=east,status=error,swapped=false": {
       "model": "raid:block/tree_farm_error",
       "y": 90
     },
-    "facing=south,status=ok": {
+    "facing=east,status=error,swapped=true": {
+      "model": "raid:block/tree_farm_error_swapped",
+      "y": 90
+    },
+    "facing=south,status=ok,swapped=false": {
       "model": "raid:block/tree_farm_ok",
       "y": 180
     },
-    "facing=south,status=disconnected": {
+    "facing=south,status=ok,swapped=true": {
+      "model": "raid:block/tree_farm_ok_swapped",
+      "y": 180
+    },
+    "facing=south,status=disconnected,swapped=false": {
       "model": "raid:block/tree_farm_disconnected",
       "y": 180
     },
-    "facing=south,status=error": {
+    "facing=south,status=disconnected,swapped=true": {
+      "model": "raid:block/tree_farm_disconnected_swapped",
+      "y": 180
+    },
+    "facing=south,status=error,swapped=false": {
       "model": "raid:block/tree_farm_error",
       "y": 180
     },
-    "facing=west,status=ok": {
+    "facing=south,status=error,swapped=true": {
+      "model": "raid:block/tree_farm_error_swapped",
+      "y": 180
+    },
+    "facing=west,status=ok,swapped=false": {
       "model": "raid:block/tree_farm_ok",
       "y": 270
     },
-    "facing=west,status=disconnected": {
+    "facing=west,status=ok,swapped=true": {
+      "model": "raid:block/tree_farm_ok_swapped",
+      "y": 270
+    },
+    "facing=west,status=disconnected,swapped=false": {
       "model": "raid:block/tree_farm_disconnected",
       "y": 270
     },
-    "facing=west,status=error": {
+    "facing=west,status=disconnected,swapped=true": {
+      "model": "raid:block/tree_farm_disconnected_swapped",
+      "y": 270
+    },
+    "facing=west,status=error,swapped=false": {
       "model": "raid:block/tree_farm_error",
+      "y": 270
+    },
+    "facing=west,status=error,swapped=true": {
+      "model": "raid:block/tree_farm_error_swapped",
       "y": 270
     }
   }

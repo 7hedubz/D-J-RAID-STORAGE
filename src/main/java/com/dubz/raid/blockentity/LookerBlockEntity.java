@@ -83,16 +83,16 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public void observe() {
-        if (level == null || level.isClientSide() || !running || pulseLeft > 0 || pulseAnim > 0) {
+        if (level == null || level.isClientSide() || !running || pulseLeft > 0) {
             return;
         }
         seen++;
         if (seen >= stride) {
             seen = 0;
             current++;
-            if (threshold > 0 && current == threshold) {
+            if (current >= threshold) {
                 startPulse();
-            } else if (current < threshold) {
+            } else {
                 detectAnim = FRAME_TICKS * 2;
             }
         }
@@ -118,9 +118,12 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
         }
         if (entity.pulseAnim > 0) {
             entity.pulseAnim--;
-        } else if (entity.detectAnim > 0) {
+        }
+        if (entity.detectAnim > 0) {
             entity.detectAnim--;
-        } else {
+        }
+
+        if (entity.running && entity.pulseLeft == 0) {
             BlockState watched = server.getBlockState(pos.relative(LookerBlock.detectFace(state)));
             if (entity.lastWatched == null) {
                 entity.lastWatched = watched;
@@ -128,26 +131,15 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
                 entity.lastWatched = watched;
                 entity.observe();
             }
-            if (entity.running
-                    && entity.pulseAnim == 0
-                    && entity.pulseLeft == 0
-                    && entity.threshold > 0
-                    && entity.current == entity.threshold
-                    && entity.current > 0) {
-                entity.startPulse();
-            }
+        }
+        if (entity.running && entity.pulseLeft == 0 && entity.current >= entity.threshold) {
+            entity.startPulse();
         }
 
         LookerMode mode;
         boolean blink = false;
         boolean powered = entity.pulseLeft > 0;
-        if (entity.current > entity.threshold) {
-            mode = LookerMode.ERROR;
-            powered = false;
-            entity.pulseLeft = 0;
-            entity.pulseAnim = 0;
-            entity.detectAnim = 0;
-        } else if (entity.pulseAnim > FRAME_TICKS) {
+        if (entity.pulseAnim > FRAME_TICKS) {
             mode = LookerMode.PULSE;
         } else if (entity.pulseAnim > 0) {
             mode = LookerMode.PULSE_B;

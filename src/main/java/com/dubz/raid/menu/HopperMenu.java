@@ -22,6 +22,10 @@ public class HopperMenu extends AbstractContainerMenu {
 
     private final RaidHopperBlockEntity hopper;
 
+    public BlockPos pos() {
+        return hopper.getBlockPos();
+    }
+
     public HopperMenu(int id, Inventory inv, FriendlyByteBuf data) {
         this(id, inv, hopperAt(inv, data.readBlockPos()));
     }

@@ -89,6 +89,10 @@ public class TreeFarmMenu extends AbstractContainerMenu {
         return runningFlag != 0 || farm.running();
     }
 
+    public BlockPos pos() {
+        return farm.getBlockPos();
+    }
+
     public int progress() {
         return progress;
     }

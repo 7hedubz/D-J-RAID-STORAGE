@@ -4,8 +4,8 @@
     "particle": "raid:block/collector/side",
     "north": "raid:block/collector/front_off",
     "south": "raid:block/collector/side",
-    "east": "raid:block/collector/right",
-    "west": "raid:block/collector/left",
+    "east": "raid:block/collector/left",
+    "west": "raid:block/collector/right",
     "up": "raid:block/collector/side",
     "down": "raid:block/collector/side",
     "emissive": "raid:block/collector/front_off_e"

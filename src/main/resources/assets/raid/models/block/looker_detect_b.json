@@ -4,8 +4,8 @@
     "particle": "raid:block/looker/back",
     "north": "raid:block/looker/front_detect_b",
     "south": "raid:block/looker/back",
-    "east": "raid:block/looker/right",
-    "west": "raid:block/looker/left",
+    "east": "raid:block/looker/left",
+    "west": "raid:block/looker/right",
     "up": "raid:block/looker/top",
     "down": "raid:block/looker/back",
     "front_e": "raid:block/looker/front_detect_b_e"
@@ -41,7 +41,8 @@
         },
         "up": {
           "texture": "#up",
-          "cullface": "up"
+          "cullface": "up",
+          "rotation": 180
         },
         "down": {
           "texture": "#down",

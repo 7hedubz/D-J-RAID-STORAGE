@@ -1,14 +1,25 @@
 package com.dubz.raid.menu;
 
+import com.dubz.raid.network.ModPayloads;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 public class HopperScreen extends AbstractContainerScreen<HopperMenu> {
     public HopperScreen(HopperMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, HopperMenu.WIDTH, HopperMenu.HEIGHT);
         this.inventoryLabelY = 39;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        addRenderableWidget(Button.builder(Component.translatable("gui.raid.swap_sides"), button ->
+                ClientPacketDistributor.sendToServer(new ModPayloads.FlipSidesPayload())
+        ).bounds(leftPos + 8, topPos + HopperMenu.FILTER_Y, 68, 16).build());
     }
 
     @Override

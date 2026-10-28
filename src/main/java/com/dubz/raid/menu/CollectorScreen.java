@@ -22,6 +22,9 @@ public class CollectorScreen extends AbstractContainerScreen<CollectorMenu> {
         toggle = addRenderableWidget(Button.builder(toggleLabel(), button ->
                 ClientPacketDistributor.sendToServer(new ModPayloads.ToggleCollectorPayload())
         ).bounds(leftPos + CollectorMenu.BUTTON_X, topPos + CollectorMenu.BUTTON_Y, 48, 16).build());
+        addRenderableWidget(Button.builder(Component.translatable("gui.raid.swap_sides"), button ->
+                ClientPacketDistributor.sendToServer(new ModPayloads.FlipSidesPayload())
+        ).bounds(leftPos + 8, topPos + CollectorMenu.BUTTON_Y, 52, 16).build());
     }
 
     @Override

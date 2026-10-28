@@ -41,15 +41,16 @@ public class LookerBlock extends BaseEntityBlock {
                 .setValue(RaidConnect.FACING, Direction.NORTH)
                 .setValue(LookerMode.PROPERTY, LookerMode.STANDBY)
                 .setValue(BLINK, false)
-                .setValue(POWERED, false));
+                .setValue(POWERED, false)
+                .setValue(RaidConnect.SWAPPED, false));
     }
 
     public static Direction detectFace(BlockState state) {
-        return state.getValue(RaidConnect.FACING).getCounterClockWise();
+        return RaidConnect.otherSide(state);
     }
 
     public static Direction outputFace(BlockState state) {
-        return state.getValue(RaidConnect.FACING).getClockWise();
+        return RaidConnect.raidIn(state);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class LookerBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(RaidConnect.FACING, LookerMode.PROPERTY, BLINK, POWERED);
+        builder.add(RaidConnect.FACING, LookerMode.PROPERTY, BLINK, POWERED, RaidConnect.SWAPPED);
     }
 
     @Override

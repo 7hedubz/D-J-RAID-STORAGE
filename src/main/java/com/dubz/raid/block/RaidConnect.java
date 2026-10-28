@@ -18,8 +18,48 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public final class RaidConnect {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final net.minecraft.world.level.block.state.properties.BooleanProperty SWAPPED =
+            net.minecraft.world.level.block.state.properties.BooleanProperty.create("swapped");
 
     private RaidConnect() {
+    }
+
+    public static boolean swapped(BlockState state) {
+        return state.hasProperty(SWAPPED) && state.getValue(SWAPPED);
+    }
+
+    /** Your right when looking at the front. */
+    public static Direction viewerRight(BlockState state) {
+        return facing(state).getCounterClockWise();
+    }
+
+    /** Your left when looking at the front. */
+    public static Direction viewerLeft(BlockState state) {
+        return facing(state).getClockWise();
+    }
+
+    /** RAID-in / LOOKER emit default: viewer right. */
+    public static Direction raidIn(BlockState state) {
+        return swapped(state) ? viewerLeft(state) : viewerRight(state);
+    }
+
+    public static Direction otherSide(BlockState state) {
+        return swapped(state) ? viewerRight(state) : viewerLeft(state);
+    }
+
+    public static void toggleSides(net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (!state.hasProperty(SWAPPED)) {
+            return;
+        }
+        BlockState next = state.setValue(SWAPPED, !state.getValue(SWAPPED));
+        if (state.getBlock() instanceof LookerBlock) {
+            LookerBlock.updateOutputNeighbors(level, pos, state);
+        }
+        level.setBlock(pos, next, Block.UPDATE_ALL);
+        if (next.getBlock() instanceof LookerBlock) {
+            LookerBlock.updateOutputNeighbors(level, pos, next);
+        }
     }
 
     public static boolean isCable(BlockState state) {

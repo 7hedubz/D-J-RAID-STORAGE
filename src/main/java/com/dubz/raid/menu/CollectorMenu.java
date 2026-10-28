@@ -56,6 +56,10 @@ public class CollectorMenu extends AbstractContainerMenu {
         return runningFlag != 0 || collector.running();
     }
 
+    public BlockPos pos() {
+        return collector.getBlockPos();
+    }
+
     public void toggle(Player player) {
         collector.toggle(player);
     }

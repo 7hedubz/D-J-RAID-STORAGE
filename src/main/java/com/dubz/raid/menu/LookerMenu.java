@@ -80,6 +80,10 @@ public class LookerMenu extends AbstractContainerMenu {
         return looker;
     }
 
+    public BlockPos pos() {
+        return looker.getBlockPos();
+    }
+
     public void toggle(Player player) {
         looker.toggle(player);
     }

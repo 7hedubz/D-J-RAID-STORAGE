@@ -30,17 +30,17 @@ public class RaidHopperBlock extends BaseEntityBlock {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(RaidConnect.FACING, Direction.NORTH)
+                .setValue(RaidConnect.SWAPPED, false)
                 .setValue(DisplayStatus.PROPERTY, DisplayStatus.DISCONNECTED));
     }
 
     /** Item output face (left / 0008). */
     public static Direction outputFace(BlockState state) {
-        return state.getValue(RaidConnect.FACING).getCounterClockWise();
+        return RaidConnect.otherSide(state);
     }
 
-    /** RAID cable face (right / 0009). */
     public static Direction cableFace(BlockState state) {
-        return state.getValue(RaidConnect.FACING).getClockWise();
+        return RaidConnect.raidIn(state);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class RaidHopperBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(RaidConnect.FACING, DisplayStatus.PROPERTY);
+        builder.add(RaidConnect.FACING, RaidConnect.SWAPPED, DisplayStatus.PROPERTY);
     }
 
     @Override
@@ -85,8 +85,10 @@ public class RaidHopperBlock extends BaseEntityBlock {
             return;
         }
         NetworkGraph graph = NetworkGraph.get((ServerLevel) level);
-        graph.addHopper(pos, state.getValue(RaidConnect.FACING));
-        if (!oldState.is(this) || oldState.getValue(RaidConnect.FACING) != state.getValue(RaidConnect.FACING)) {
+        graph.addHopper(pos, state.getValue(RaidConnect.FACING), RaidConnect.swapped(state));
+        if (!oldState.is(this)
+                || oldState.getValue(RaidConnect.FACING) != state.getValue(RaidConnect.FACING)
+                || RaidConnect.swapped(oldState) != RaidConnect.swapped(state)) {
             graph.refreshVisuals((ServerLevel) level);
         }
     }

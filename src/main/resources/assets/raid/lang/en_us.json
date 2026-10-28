@@ -15,6 +15,7 @@
   "gui.raid.auto_crafter.off": "AUTO-CRAFTER off",
   "gui.raid.auto_crafter.toggle_on": "On",
   "gui.raid.auto_crafter.toggle_off": "Off",
+  "gui.raid.swap_sides": "Swap Sides",
   "subtitles.block.raid.machine.on": "Machine opens",
   "subtitles.block.raid.machine.off": "Machine closes",
   "block.raid.tree_farm": "TREE-FARM",

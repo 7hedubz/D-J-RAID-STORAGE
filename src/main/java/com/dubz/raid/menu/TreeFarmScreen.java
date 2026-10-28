@@ -23,6 +23,9 @@ public class TreeFarmScreen extends AbstractContainerScreen<TreeFarmMenu> {
         toggle = addRenderableWidget(Button.builder(toggleLabel(), button ->
                 ClientPacketDistributor.sendToServer(new ModPayloads.ToggleTreeFarmPayload())
         ).bounds(leftPos + TreeFarmMenu.BUTTON_X, topPos + TreeFarmMenu.BUTTON_Y, 48, 16).build());
+        addRenderableWidget(Button.builder(Component.translatable("gui.raid.swap_sides"), button ->
+                ClientPacketDistributor.sendToServer(new ModPayloads.FlipSidesPayload())
+        ).bounds(leftPos + 8, topPos + TreeFarmMenu.BUTTON_Y, 72, 16).build());
     }
 
     @Override

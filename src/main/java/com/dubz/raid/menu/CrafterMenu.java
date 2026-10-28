@@ -71,6 +71,10 @@ public class CrafterMenu extends AbstractContainerMenu {
         return crafter;
     }
 
+    public BlockPos pos() {
+        return crafter.getBlockPos();
+    }
+
     public boolean running() {
         return runningFlag != 0 || crafter.running();
     }

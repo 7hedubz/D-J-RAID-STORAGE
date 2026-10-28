@@ -4,8 +4,8 @@
     "particle": "raid:block/auto_crafter/side",
     "north": "raid:block/auto_crafter/front_error",
     "south": "raid:block/auto_crafter/side",
-    "east": "raid:block/auto_crafter/right",
-    "west": "raid:block/auto_crafter/left",
+    "east": "raid:block/auto_crafter/left",
+    "west": "raid:block/auto_crafter/right",
     "up": "raid:block/auto_crafter/top",
     "down": "raid:block/auto_crafter/side",
     "emissive": "raid:block/auto_crafter/front_error_e"

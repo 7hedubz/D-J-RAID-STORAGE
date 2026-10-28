@@ -213,3 +213,8 @@
 ## 0.1.61
 - BetterNether saplings (and tree seeds) work in the Nether TREE-FARM when BetterNether is installed.
 - **End TREE-FARM** appears when BetterEnd is installed: Thallasium ingots around a stonecutter, Quartz CHEST bottom-middle. BetterEnd tree saplings grow their matching logs.
+
+## 0.1.62
+- Left/right are from looking at the front. Default RAID-in (and LOOKER emit) is your **right**; LOOKER watches your **left**. Top LOOKER arrow points at emit.
+- HOPPER, AUTO-CRAFTER, TREE-FARM, Nether TREE-FARM, End TREE-FARM, COLLECTOR, and LOOKER GUIs have **Swap Sides**.
+- LOOKER still counts while 0003–0006 play. Threshold is **>=**.

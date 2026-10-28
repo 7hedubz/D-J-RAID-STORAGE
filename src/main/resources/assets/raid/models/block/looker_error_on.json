@@ -4,8 +4,8 @@
     "particle": "raid:block/looker/back",
     "north": "raid:block/looker/front_error",
     "south": "raid:block/looker/back",
-    "east": "raid:block/looker/right_on",
-    "west": "raid:block/looker/left",
+    "east": "raid:block/looker/left",
+    "west": "raid:block/looker/right_on",
     "up": "raid:block/looker/top",
     "down": "raid:block/looker/back",
     "front_e": "raid:block/looker/front_error_e",
@@ -42,7 +42,8 @@
         },
         "up": {
           "texture": "#up",
-          "cullface": "up"
+          "cullface": "up",
+          "rotation": 180
         },
         "down": {
           "texture": "#down",
@@ -71,9 +72,9 @@
           "texture": "#front_e",
           "cullface": "north"
         },
-        "east": {
+        "west": {
           "texture": "#right_e",
-          "cullface": "east"
+          "cullface": "west"
         }
       }
     }

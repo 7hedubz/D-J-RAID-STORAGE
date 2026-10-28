@@ -4,6 +4,7 @@ import com.dubz.raid.RaidMod;
 import com.dubz.raid.menu.ChestMenu;
 import com.dubz.raid.menu.CollectorMenu;
 import com.dubz.raid.menu.CrafterMenu;
+import com.dubz.raid.menu.HopperMenu;
 import com.dubz.raid.menu.LookerMenu;
 import com.dubz.raid.menu.TreeFarmMenu;
 import com.dubz.raid.storage.DigitizedStorage;
@@ -36,6 +37,7 @@ public final class ModPayloads {
         registrar.playToServer(ToggleTreeFarmPayload.TYPE, ToggleTreeFarmPayload.STREAM_CODEC, ToggleTreeFarmPayload::handle);
         registrar.playToServer(ToggleCollectorPayload.TYPE, ToggleCollectorPayload.STREAM_CODEC, ToggleCollectorPayload::handle);
         registrar.playToServer(ToggleLookerPayload.TYPE, ToggleLookerPayload.STREAM_CODEC, ToggleLookerPayload::handle);
+        registrar.playToServer(FlipSidesPayload.TYPE, FlipSidesPayload.STREAM_CODEC, FlipSidesPayload::handle);
         registrar.playToServer(SetLookerPayload.TYPE, SetLookerPayload.STREAM_CODEC, SetLookerPayload::handle);
         registrar.playToClient(StorageSyncPayload.TYPE, StorageSyncPayload.STREAM_CODEC, StorageSyncPayload::handle);
         registrar.playToClient(AdminBytesPayload.TYPE, AdminBytesPayload.STREAM_CODEC, AdminBytesPayload::handle);
@@ -239,6 +241,36 @@ public final class ModPayloads {
             context.enqueueWork(() -> {
                 if (context.player() instanceof ServerPlayer player && player.containerMenu instanceof LookerMenu menu) {
                     menu.toggle(player);
+                }
+            });
+        }
+    }
+
+    public record FlipSidesPayload() implements CustomPacketPayload {
+        public static final Type<FlipSidesPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, "flip_sides"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, FlipSidesPayload> STREAM_CODEC = StreamCodec.unit(new FlipSidesPayload());
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+
+        public static void handle(FlipSidesPayload payload, IPayloadContext context) {
+            context.enqueueWork(() -> {
+                if (!(context.player() instanceof ServerPlayer player)
+                        || !(player.level() instanceof net.minecraft.server.level.ServerLevel level)) {
+                    return;
+                }
+                BlockPos pos = switch (player.containerMenu) {
+                    case HopperMenu menu -> menu.pos();
+                    case CrafterMenu menu -> menu.pos();
+                    case TreeFarmMenu menu -> menu.pos();
+                    case CollectorMenu menu -> menu.pos();
+                    case LookerMenu menu -> menu.pos();
+                    default -> null;
+                };
+                if (pos != null) {
+                    com.dubz.raid.block.RaidConnect.toggleSides(level, pos);
                 }
             });
         }

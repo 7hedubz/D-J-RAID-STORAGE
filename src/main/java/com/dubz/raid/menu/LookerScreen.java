@@ -22,6 +22,9 @@ public class LookerScreen extends AbstractContainerScreen<LookerMenu> {
         toggle = addRenderableWidget(Button.builder(toggleLabel(), b ->
                 ClientPacketDistributor.sendToServer(new ModPayloads.ToggleLookerPayload())
         ).bounds(leftPos + 8, topPos + 16, 48, 16).build());
+        addRenderableWidget(Button.builder(Component.translatable("gui.raid.swap_sides"), b ->
+                ClientPacketDistributor.sendToServer(new ModPayloads.FlipSidesPayload())
+        ).bounds(leftPos + 60, topPos + 16, 72, 16).build());
         addStepper(8, 46, 0);
         addStepper(8, 78, 1);
         addStepper(8, 110, 2);

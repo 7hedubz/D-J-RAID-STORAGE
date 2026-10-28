@@ -59,31 +59,31 @@ public class NetworkGraph extends SavedData {
     }
 
     public void addCable(BlockPos pos) {
-        put(new Node(pos.immutable(), NodeType.CABLE, ChestTier.STONE, Direction.NORTH));
+        put(new Node(pos.immutable(), NodeType.CABLE, ChestTier.STONE, Direction.NORTH, false));
     }
 
     public void addChassis(BlockPos pos, Direction facing) {
-        put(new Node(pos.immutable(), NodeType.CHASSIS, ChestTier.STONE, facing));
+        put(new Node(pos.immutable(), NodeType.CHASSIS, ChestTier.STONE, facing, false));
     }
 
     public void addChest(BlockPos pos, ChestTier tier, Direction facing) {
-        put(new Node(pos.immutable(), NodeType.CHEST, tier, facing));
+        put(new Node(pos.immutable(), NodeType.CHEST, tier, facing, false));
     }
 
-    public void addHopper(BlockPos pos, Direction facing) {
-        put(new Node(pos.immutable(), NodeType.HOPPER, ChestTier.STONE, facing));
+    public void addHopper(BlockPos pos, Direction facing, boolean swapped) {
+        put(new Node(pos.immutable(), NodeType.HOPPER, ChestTier.STONE, facing, swapped));
     }
 
-    public void addCrafter(BlockPos pos, Direction facing) {
-        put(new Node(pos.immutable(), NodeType.CRAFTER, ChestTier.STONE, facing));
+    public void addCrafter(BlockPos pos, Direction facing, boolean swapped) {
+        put(new Node(pos.immutable(), NodeType.CRAFTER, ChestTier.STONE, facing, swapped));
     }
 
-    public void addTreeFarm(BlockPos pos, Direction facing) {
-        put(new Node(pos.immutable(), NodeType.TREE_FARM, ChestTier.STONE, facing));
+    public void addTreeFarm(BlockPos pos, Direction facing, boolean swapped) {
+        put(new Node(pos.immutable(), NodeType.TREE_FARM, ChestTier.STONE, facing, swapped));
     }
 
-    public void addCollector(BlockPos pos, Direction facing) {
-        put(new Node(pos.immutable(), NodeType.COLLECTOR, ChestTier.STONE, facing));
+    public void addCollector(BlockPos pos, Direction facing, boolean swapped) {
+        put(new Node(pos.immutable(), NodeType.COLLECTOR, ChestTier.STONE, facing, swapped));
     }
 
     public void remove(BlockPos pos) {
@@ -94,7 +94,7 @@ public class NetworkGraph extends SavedData {
 
     private void put(Node node) {
         Node old = nodes.put(node.pos, node);
-        if (old == null || old.type != node.type || old.tier != node.tier || old.facing != node.facing) {
+        if (old == null || old.type != node.type || old.tier != node.tier || old.facing != node.facing || old.swapped != node.swapped) {
             setDirty();
         }
     }
@@ -102,7 +102,7 @@ public class NetworkGraph extends SavedData {
     private static Direction port(Node node) {
         if (node.type == NodeType.HOPPER || node.type == NodeType.CRAFTER
                 || node.type == NodeType.TREE_FARM || node.type == NodeType.COLLECTOR) {
-            return node.facing.getClockWise();
+            return node.swapped ? node.facing.getClockWise() : node.facing.getCounterClockWise();
         }
         return node.facing.getOpposite();
     }
@@ -232,12 +232,13 @@ public class NetworkGraph extends SavedData {
         }
     }
 
-    public record Node(BlockPos pos, NodeType type, ChestTier tier, Direction facing) {
+    public record Node(BlockPos pos, NodeType type, ChestTier tier, Direction facing, boolean swapped) {
         public static final Codec<Node> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 BlockPos.CODEC.fieldOf("pos").forGetter(Node::pos),
                 StringRepresentable.fromEnum(NodeType::values).fieldOf("type").forGetter(Node::type),
                 StringRepresentable.fromEnum(ChestTier::values).fieldOf("tier").forGetter(Node::tier),
-                Direction.CODEC.optionalFieldOf("facing", Direction.NORTH).forGetter(Node::facing)
+                Direction.CODEC.optionalFieldOf("facing", Direction.NORTH).forGetter(Node::facing),
+                Codec.BOOL.optionalFieldOf("swapped", false).forGetter(Node::swapped)
         ).apply(instance, Node::new));
     }
 }

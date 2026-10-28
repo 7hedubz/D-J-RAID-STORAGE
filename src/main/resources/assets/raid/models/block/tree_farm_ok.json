@@ -4,8 +4,8 @@
     "particle": "raid:block/tree_farm/side",
     "north": "raid:block/tree_farm/front_ok",
     "south": "raid:block/tree_farm/side",
-    "east": "raid:block/tree_farm/right",
-    "west": "raid:block/tree_farm/side",
+    "east": "raid:block/tree_farm/side",
+    "west": "raid:block/tree_farm/right",
     "up": "raid:block/tree_farm/side",
     "down": "raid:block/tree_farm/side",
     "emissive": "raid:block/tree_farm/front_ok_e"

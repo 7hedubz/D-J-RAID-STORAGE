@@ -22,6 +22,9 @@ public class CrafterScreen extends AbstractContainerScreen<CrafterMenu> {
         toggle = addRenderableWidget(Button.builder(toggleLabel(), button ->
                 ClientPacketDistributor.sendToServer(new ModPayloads.ToggleCrafterPayload())
         ).bounds(leftPos + CrafterMenu.BUTTON_X, topPos + CrafterMenu.BUTTON_Y, CrafterMenu.BUTTON_W, CrafterMenu.BUTTON_H).build());
+        addRenderableWidget(Button.builder(Component.translatable("gui.raid.swap_sides"), button ->
+                ClientPacketDistributor.sendToServer(new ModPayloads.FlipSidesPayload())
+        ).bounds(leftPos + 8, topPos + CrafterMenu.BUTTON_Y, 72, 16).build());
     }
 
     @Override
