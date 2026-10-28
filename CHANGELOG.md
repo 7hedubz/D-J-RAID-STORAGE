@@ -218,3 +218,6 @@
 - Left/right are from looking at the front. Default RAID-in (and LOOKER emit) is your **right**; LOOKER watches your **left**. Top LOOKER arrow points at emit.
 - HOPPER, AUTO-CRAFTER, TREE-FARM, Nether TREE-FARM, End TREE-FARM, COLLECTOR, and LOOKER GUIs have **Swap Sides**.
 - LOOKER still counts while 0003–0006 play. Threshold is **>=**.
+
+## 0.1.63
+- Nether TREE-FARM default left/right art restored. Swap Sides still flips it.
