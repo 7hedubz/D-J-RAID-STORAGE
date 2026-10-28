@@ -8,7 +8,7 @@
     "west": "raid:block/hopper/left",
     "up": "raid:block/hopper/side",
     "down": "raid:block/hopper/side",
-    "emissive": "raid:block/emissive/front_off"
+    "emissive": "raid:block/hopper/front_off_e"
   },
   "elements": [
     {

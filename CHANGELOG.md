@@ -206,3 +206,6 @@
 
 ## 0.1.59
 - Nether TREE-FARM faces: 0001–0006 front (same as overworld), **0007** bottom, **0008** right, **0009** left, **0010** top, **0011** back.
+
+## 0.1.60
+- Generic emissive overlays sit next to each machine’s textures (`front_ok_e` / `front_off_e` / `front_error_e`), same layout as Chassis and LOOKER. Shared `textures/block/emissive/` dump removed.

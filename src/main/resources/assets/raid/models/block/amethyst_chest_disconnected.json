@@ -8,7 +8,7 @@
     "west": "raid:block/chest/amethyst/side",
     "up": "raid:block/chest/amethyst/side",
     "down": "raid:block/chest/amethyst/side",
-    "emissive": "raid:block/emissive/front_off"
+    "emissive": "raid:block/chest/amethyst/front_off_e"
   },
   "elements": [
     {

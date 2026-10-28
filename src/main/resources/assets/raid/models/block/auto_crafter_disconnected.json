@@ -8,7 +8,7 @@
     "west": "raid:block/auto_crafter/left",
     "up": "raid:block/auto_crafter/top",
     "down": "raid:block/auto_crafter/side",
-    "emissive": "raid:block/emissive/front_off"
+    "emissive": "raid:block/auto_crafter/front_off_e"
   },
   "elements": [
     {

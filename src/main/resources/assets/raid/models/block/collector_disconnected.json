@@ -8,7 +8,7 @@
     "west": "raid:block/collector/left",
     "up": "raid:block/collector/side",
     "down": "raid:block/collector/side",
-    "emissive": "raid:block/emissive/front_off"
+    "emissive": "raid:block/collector/front_off_e"
   },
   "elements": [
     {

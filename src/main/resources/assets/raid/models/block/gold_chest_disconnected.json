@@ -8,7 +8,7 @@
     "west": "raid:block/chest/gold/side",
     "up": "raid:block/chest/gold/side",
     "down": "raid:block/chest/gold/side",
-    "emissive": "raid:block/emissive/front_off"
+    "emissive": "raid:block/chest/gold/front_off_e"
   },
   "elements": [
     {

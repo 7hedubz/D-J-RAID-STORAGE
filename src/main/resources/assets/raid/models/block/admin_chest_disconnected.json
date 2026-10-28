@@ -8,7 +8,7 @@
     "west": "raid:block/chest/netherite/side",
     "up": "raid:block/chest/netherite/side",
     "down": "raid:block/chest/netherite/side",
-    "emissive": "raid:block/emissive/front_off"
+    "emissive": "raid:block/chest/netherite/front_off_e"
   },
   "elements": [
     {

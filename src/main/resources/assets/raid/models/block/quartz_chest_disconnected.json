@@ -8,7 +8,7 @@
     "west": "raid:block/chest/quartz/side",
     "up": "raid:block/chest/quartz/side",
     "down": "raid:block/chest/quartz/side",
-    "emissive": "raid:block/emissive/front_off"
+    "emissive": "raid:block/chest/quartz/front_off_e"
   },
   "elements": [
     {

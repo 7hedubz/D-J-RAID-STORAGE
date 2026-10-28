@@ -8,7 +8,7 @@
     "west": "raid:block/tree_farm/side",
     "up": "raid:block/tree_farm/side",
     "down": "raid:block/tree_farm/side",
-    "emissive": "raid:block/emissive/front_off"
+    "emissive": "raid:block/tree_farm/front_off_e"
   },
   "elements": [
     {
