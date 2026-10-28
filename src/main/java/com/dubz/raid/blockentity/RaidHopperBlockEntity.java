@@ -5,6 +5,7 @@ import com.dubz.raid.block.RaidConnect;
 import com.dubz.raid.block.RaidHopperBlock;
 import com.dubz.raid.menu.HopperMenu;
 import com.dubz.raid.registry.ModBlockEntities;
+import com.dubz.raid.storage.OutputRouter;
 import com.dubz.raid.storage.NetworkGraph;
 import com.dubz.raid.storage.NetworkStatus;
 import net.minecraft.core.BlockPos;
@@ -31,9 +32,7 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jspecify.annotations.Nullable;
 
-import java.util.ArrayDeque;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class RaidHopperBlockEntity extends BlockEntity implements MenuProvider {
     private final SimpleContainer filter = new SimpleContainer(1) {
@@ -48,6 +47,7 @@ public class RaidHopperBlockEntity extends BlockEntity implements MenuProvider {
         }
     };
     private int cooldown;
+    private int rr;
 
     public RaidHopperBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.HOPPER.get(), pos, state);
@@ -111,37 +111,32 @@ public class RaidHopperBlockEntity extends BlockEntity implements MenuProvider {
 
     private boolean pushOne(ServerLevel level, BlockPos pos, BlockState state, ItemStack stack) {
         Direction out = RaidHopperBlock.outputFace(state);
-        BlockPos next = pos.relative(out);
-        BlockState nextState = level.getBlockState(next);
-        if (RaidConnect.isCable(nextState)) {
-            return pushThroughCables(level, next, stack);
+        List<OutputRouter.Dest> dests = OutputRouter.collect(level, pos, out, RaidHopperBlockEntity::looksPushable);
+        if (dests.isEmpty()) {
+            return false;
         }
-        return insertAt(level, next, nextState, out.getOpposite(), stack);
-    }
-
-    private boolean pushThroughCables(ServerLevel level, BlockPos startCable, ItemStack stack) {
-        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
-        Set<BlockPos> seen = new HashSet<>();
-        queue.add(startCable);
-        seen.add(startCable.immutable());
-        while (!queue.isEmpty()) {
-            BlockPos cable = queue.removeFirst();
-            for (Direction dir : Direction.values()) {
-                BlockPos near = cable.relative(dir);
-                if (!level.isLoaded(near) || !seen.add(near.immutable())) {
-                    continue;
-                }
-                BlockState nearState = level.getBlockState(near);
-                if (RaidConnect.isCable(nearState)) {
-                    queue.add(near);
-                    continue;
-                }
-                if (insertAt(level, near, nearState, dir.getOpposite(), stack)) {
-                    return true;
-                }
+        int start = OutputRouter.nextIndex(rr, dests.size());
+        for (int i = 0; i < dests.size(); i++) {
+            OutputRouter.Dest dest = dests.get((start + i) % dests.size());
+            BlockState destState = level.getBlockState(dest.pos());
+            if (insertAt(level, dest.pos(), destState, dest.side(), stack)) {
+                rr = start + i + 1;
+                return true;
             }
         }
         return false;
+    }
+
+    private static boolean looksPushable(BlockState destState) {
+        if (RaidConnect.isCable(destState) || destState.getBlock() instanceof RaidHopperBlock
+                || destState.getBlock() instanceof com.dubz.raid.block.RaidCrafterBlock) {
+            return false;
+        }
+        if (destState.getBlock() instanceof com.dubz.raid.block.RaidChassisBlock
+                || destState.getBlock() instanceof com.dubz.raid.block.RaidChestBlock) {
+            return true;
+        }
+        return RaidConnect.isItemInventory(destState);
     }
 
     private boolean insertAt(ServerLevel level, BlockPos dest, BlockState destState, Direction side, ItemStack stack) {
@@ -193,6 +188,7 @@ public class RaidHopperBlockEntity extends BlockEntity implements MenuProvider {
             output.store("filter", ItemStack.CODEC, stack);
         }
         output.putInt("cooldown", cooldown);
+        output.putInt("rr", rr);
     }
 
     @Override
@@ -200,6 +196,7 @@ public class RaidHopperBlockEntity extends BlockEntity implements MenuProvider {
         super.loadAdditional(input);
         filter.setItem(0, input.read("filter", ItemStack.CODEC).orElse(ItemStack.EMPTY));
         cooldown = input.getIntOr("cooldown", 0);
+        rr = input.getIntOr("rr", 0);
     }
 
     @Override

@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 public class HopperScreen extends AbstractContainerScreen<HopperMenu> {
     public HopperScreen(HopperMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, HopperMenu.WIDTH, HopperMenu.HEIGHT);
-        this.inventoryLabelY = 39;
+        this.inventoryLabelY = 57;
     }
 
     @Override

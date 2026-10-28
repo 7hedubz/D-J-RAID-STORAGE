@@ -1,11 +1,14 @@
 package com.dubz.raid.blockentity;
 
 import com.dubz.raid.block.DataCableBlock;
+import com.dubz.raid.block.RaidChassisBlock;
+import com.dubz.raid.block.RaidChestBlock;
 import com.dubz.raid.block.RaidConnect;
 import com.dubz.raid.block.RaidCrafterBlock;
 import com.dubz.raid.block.RaidHopperBlock;
 import com.dubz.raid.registry.ModBlockEntities;
 import com.dubz.raid.storage.DeviceVisuals;
+import com.dubz.raid.storage.OutputRouter;
 import com.dubz.raid.storage.NetworkGraph;
 import com.dubz.raid.storage.NetworkStatus;
 import com.dubz.raid.storage.RaidMath;
@@ -41,12 +44,9 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jspecify.annotations.Nullable;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider {
     private final NonNullList<ItemStack> pattern = NonNullList.withSize(9, ItemStack.EMPTY);
@@ -54,6 +54,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
     private int cooldown;
     private int stockMask;
     private boolean recipeInvalid;
+    private int rr;
 
     public RaidCrafterBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.AUTO_CRAFTER.get(), pos, state);
@@ -242,82 +243,32 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
     }
 
     private boolean hasValidOutput(ServerLevel level, BlockPos pos, BlockState state) {
-        Direction out = RaidCrafterBlock.outputFace(state);
-        BlockPos next = pos.relative(out);
-        BlockState nextState = level.getBlockState(next);
-        if (nextState.getBlock() instanceof DataCableBlock) {
-            return cableLeadsToInventory(level, next);
-        }
-        return canInsertAt(level, next, nextState, out.getOpposite());
+        return !OutputRouter.collect(level, pos, RaidCrafterBlock.outputFace(state), RaidCrafterBlockEntity::looksPushable).isEmpty();
     }
 
-    private boolean cableLeadsToInventory(ServerLevel level, BlockPos startCable) {
-        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
-        Set<BlockPos> seen = new HashSet<>();
-        queue.add(startCable);
-        seen.add(startCable.immutable());
-        while (!queue.isEmpty()) {
-            BlockPos cable = queue.removeFirst();
-            for (Direction dir : Direction.values()) {
-                BlockPos near = cable.relative(dir);
-                if (!level.isLoaded(near) || !seen.add(near.immutable())) {
-                    continue;
-                }
-                BlockState nearState = level.getBlockState(near);
-                if (nearState.getBlock() instanceof DataCableBlock) {
-                    queue.add(near);
-                    continue;
-                }
-                if (canInsertAt(level, near, nearState, dir.getOpposite())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean canInsertAt(ServerLevel level, BlockPos dest, BlockState destState, Direction side) {
+    private static boolean looksPushable(BlockState destState) {
         if (destState.getBlock() instanceof DataCableBlock
                 || destState.getBlock() instanceof RaidHopperBlock
-                || destState.getBlock() instanceof RaidCrafterBlock) {
+                || destState.getBlock() instanceof RaidCrafterBlock
+                || destState.getBlock() instanceof RaidChassisBlock
+                || destState.getBlock() instanceof RaidChestBlock) {
             return false;
         }
-        if (!RaidConnect.acceptsInsertOnFace(destState, side)) {
-            return false;
-        }
-        return level.getCapability(Capabilities.Item.BLOCK, dest, destState, level.getBlockEntity(dest), side) != null;
+        return RaidConnect.isItemInventory(destState);
     }
 
     private boolean pushResult(ServerLevel level, BlockPos pos, BlockState state, ItemStack stack) {
-        Direction out = RaidCrafterBlock.outputFace(state);
-        BlockPos next = pos.relative(out);
-        BlockState nextState = level.getBlockState(next);
-        if (nextState.getBlock() instanceof DataCableBlock) {
-            return pushThroughCables(level, next, stack);
+        List<OutputRouter.Dest> dests = OutputRouter.collect(level, pos, RaidCrafterBlock.outputFace(state), RaidCrafterBlockEntity::looksPushable);
+        if (dests.isEmpty()) {
+            return false;
         }
-        return insertAt(level, next, nextState, out.getOpposite(), stack);
-    }
-
-    private boolean pushThroughCables(ServerLevel level, BlockPos startCable, ItemStack stack) {
-        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
-        Set<BlockPos> seen = new HashSet<>();
-        queue.add(startCable);
-        seen.add(startCable.immutable());
-        while (!queue.isEmpty()) {
-            BlockPos cable = queue.removeFirst();
-            for (Direction dir : Direction.values()) {
-                BlockPos near = cable.relative(dir);
-                if (!level.isLoaded(near) || !seen.add(near.immutable())) {
-                    continue;
-                }
-                BlockState nearState = level.getBlockState(near);
-                if (nearState.getBlock() instanceof DataCableBlock) {
-                    queue.add(near);
-                    continue;
-                }
-                if (insertAt(level, near, nearState, dir.getOpposite(), stack)) {
-                    return true;
-                }
+        int start = OutputRouter.nextIndex(rr, dests.size());
+        for (int i = 0; i < dests.size(); i++) {
+            OutputRouter.Dest dest = dests.get((start + i) % dests.size());
+            BlockState destState = level.getBlockState(dest.pos());
+            if (insertAt(level, dest.pos(), destState, dest.side(), stack)) {
+                rr = start + i + 1;
+                return true;
             }
         }
         return false;
@@ -326,7 +277,9 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
     private boolean insertAt(ServerLevel level, BlockPos dest, BlockState destState, Direction side, ItemStack stack) {
         if (destState.getBlock() instanceof DataCableBlock
                 || destState.getBlock() instanceof RaidHopperBlock
-                || destState.getBlock() instanceof RaidCrafterBlock) {
+                || destState.getBlock() instanceof RaidCrafterBlock
+                || destState.getBlock() instanceof RaidChassisBlock
+                || destState.getBlock() instanceof RaidChestBlock) {
             return false;
         }
         if (!RaidConnect.acceptsInsertOnFace(destState, side)) {
@@ -415,6 +368,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
         output.putInt("cooldown", cooldown);
         output.putInt("stockMask", stockMask);
         output.putBoolean("recipeInvalid", recipeInvalid);
+        output.putInt("rr", rr);
     }
 
     @Override
@@ -427,6 +381,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
         cooldown = input.getIntOr("cooldown", 0);
         stockMask = input.getIntOr("stockMask", 0);
         recipeInvalid = input.getBooleanOr("recipeInvalid", false);
+        rr = input.getIntOr("rr", 0);
     }
 
     @Override

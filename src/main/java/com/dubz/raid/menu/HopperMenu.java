@@ -14,12 +14,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class HopperMenu extends AbstractContainerMenu {
     public static final int WIDTH = 176;
-    public static final int HEIGHT = 133;
+    public static final int HEIGHT = 151;
     public static final int FILTER_X = 80;
-    public static final int FILTER_Y = 20;
+    public static final int FILTER_Y = 38;
     public static final int INV_X = 8;
-    public static final int INV_Y = 51;
-    public static final int HOTBAR_Y = 109;
+    public static final int INV_Y = 69;
+    public static final int HOTBAR_Y = 127;
 
     private final RaidHopperBlockEntity hopper;
     private int swappedFlag;

@@ -14,18 +14,18 @@ import net.minecraft.world.item.ItemStack;
 
 public class TreeFarmMenu extends AbstractContainerMenu {
     public static final int WIDTH = 176;
-    public static final int HEIGHT = 166;
+    public static final int HEIGHT = 184;
     public static final int SLOT_X = 80;
-    public static final int SLOT_Y = 20;
+    public static final int SLOT_Y = 38;
     public static final int BAR_X = 8;
-    public static final int BAR_Y = 42;
+    public static final int BAR_Y = 60;
     public static final int BAR_W = 160;
     public static final int BAR_H = 12;
     public static final int BUTTON_X = 8;
-    public static final int BUTTON_Y = 18;
+    public static final int BUTTON_Y = 36;
     public static final int INV_X = 8;
-    public static final int INV_Y = 84;
-    public static final int HOTBAR_Y = 142;
+    public static final int INV_Y = 102;
+    public static final int HOTBAR_Y = 160;
 
     private final TreeFarmBlockEntity farm;
     private int runningFlag;

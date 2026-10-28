@@ -14,7 +14,7 @@ public class TreeFarmScreen extends AbstractContainerScreen<TreeFarmMenu> {
 
     public TreeFarmScreen(TreeFarmMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, TreeFarmMenu.WIDTH, TreeFarmMenu.HEIGHT);
-        this.inventoryLabelY = 72;
+        this.inventoryLabelY = 90;
     }
 
     @Override
