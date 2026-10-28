@@ -9,7 +9,6 @@
     "up": "raid:block/looker/top",
     "down": "raid:block/looker/side",
     "front_e": "raid:block/looker/front_blink_e",
-    "side_e": "raid:block/looker/side_e",
     "right_e": "raid:block/looker/right_on_e"
   },
   "elements": [
@@ -71,14 +70,6 @@
         "north": {
           "texture": "#front_e",
           "cullface": "north"
-        },
-        "south": {
-          "texture": "#side_e",
-          "cullface": "south"
-        },
-        "down": {
-          "texture": "#side_e",
-          "cullface": "down"
         },
         "east": {
           "texture": "#right_e",

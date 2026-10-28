@@ -190,3 +190,8 @@
 - CHEST capacity bar and item list refresh while the terminal is open.
 - **Nether TREE-FARM** for crimson/warped fungi.
 - Emerald HOPPER textures. Emissive overlays on Chassis, LOOKER, and other multi-state fronts.
+
+## 0.1.56
+- LOOKER GUI rows no longer overlap: label, then `-` `+` and the number to the right of `+`.
+- Machine front emissives use the same 10-tick frametime as the base textures.
+- LOOKER blink is 0002 again (not a fast 0001/0002 strobe). Error glow stays on the front; the back is blank.
