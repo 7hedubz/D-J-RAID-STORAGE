@@ -231,3 +231,6 @@
 - Nether TREE-FARM Swap Sides also flips the top and back (LOOKER-style 180°).
 - HOPPER and TREE-FARM GUIs grown upward so Swap Sides is not on the filter/sapling.
 - AUTO-CRAFTER will not dump into a RAID array. HOPPER and AUTO-CRAFTER output round-robin to every valid inventory on the output graph.
+
+## 0.1.66
+- AUTO-CRAFTER outputs to RAID arrays again, including its own, still round-robin with other valid inventories.

@@ -249,10 +249,12 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
     private static boolean looksPushable(BlockState destState) {
         if (destState.getBlock() instanceof DataCableBlock
                 || destState.getBlock() instanceof RaidHopperBlock
-                || destState.getBlock() instanceof RaidCrafterBlock
-                || destState.getBlock() instanceof RaidChassisBlock
-                || destState.getBlock() instanceof RaidChestBlock) {
+                || destState.getBlock() instanceof RaidCrafterBlock) {
             return false;
+        }
+        if (destState.getBlock() instanceof RaidChassisBlock
+                || destState.getBlock() instanceof RaidChestBlock) {
+            return true;
         }
         return RaidConnect.isItemInventory(destState);
     }
@@ -277,10 +279,26 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
     private boolean insertAt(ServerLevel level, BlockPos dest, BlockState destState, Direction side, ItemStack stack) {
         if (destState.getBlock() instanceof DataCableBlock
                 || destState.getBlock() instanceof RaidHopperBlock
-                || destState.getBlock() instanceof RaidCrafterBlock
-                || destState.getBlock() instanceof RaidChassisBlock
-                || destState.getBlock() instanceof RaidChestBlock) {
+                || destState.getBlock() instanceof RaidCrafterBlock) {
             return false;
+        }
+        if (destState.getBlock() instanceof RaidChassisBlock
+                || destState.getBlock() instanceof RaidChestBlock) {
+            ResourceHandler<ItemResource> raid = com.dubz.raid.storage.CableItemHandler.create(
+                    level, dest, destState, level.getBlockEntity(dest), side);
+            if (raid == null) {
+                return false;
+            }
+            ItemResource resource = ItemResource.of(stack);
+            try (Transaction transaction = Transaction.openRoot()) {
+                int inserted = raid.insert(resource, stack.getCount(), transaction);
+                if (inserted <= 0) {
+                    return false;
+                }
+                transaction.commit();
+                stack.shrink(inserted);
+                return stack.isEmpty();
+            }
         }
         if (!RaidConnect.acceptsInsertOnFace(destState, side)) {
             return false;
