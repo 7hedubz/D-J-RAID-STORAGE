@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "raid:amethyst_chest",
+    "minecraft:crafter"
+  ],
+  "result": {
+    "id": "raid:auto_crafter",
+    "count": 1
+  }
+}

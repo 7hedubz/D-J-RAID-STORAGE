@@ -98,6 +98,9 @@ public final class CableItemHandler implements ResourceHandler<ItemResource> {
         }
         NetworkGraph.Lookup lookup = NetworkGraph.get(server).lookupCable(pos);
         if (lookup.status() != NetworkStatus.OK || lookup.chassisPos() == null || lookup.capacity() <= 0) {
+            lookup = NetworkGraph.get(server).lookupDevice(pos);
+        }
+        if (lookup.status() != NetworkStatus.OK || lookup.chassisPos() == null || lookup.capacity() <= 0) {
             return null;
         }
         if (!(server.getBlockEntity(lookup.chassisPos()) instanceof RaidChassisBlockEntity chassis)) {

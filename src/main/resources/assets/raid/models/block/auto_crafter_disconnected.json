@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/auto_crafter/side",
+    "north": "raid:block/auto_crafter/front_off",
+    "south": "raid:block/auto_crafter/side",
+    "east": "raid:block/auto_crafter/right",
+    "west": "raid:block/auto_crafter/left",
+    "up": "raid:block/auto_crafter/top",
+    "down": "raid:block/auto_crafter/side"
+  }
+}

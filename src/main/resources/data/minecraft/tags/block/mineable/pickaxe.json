@@ -4,6 +4,7 @@
     "raid:raid_chassis",
     "raid:data_cable",
     "raid:hopper",
+    "raid:auto_crafter",
     "raid:stone_chest",
     "raid:copper_chest",
     "raid:iron_chest",

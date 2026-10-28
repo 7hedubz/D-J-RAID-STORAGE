@@ -123,6 +123,11 @@ public class DigitizedStorage {
         return fit;
     }
 
+    public long countOf(ItemStack template) {
+        int match = indexOf(template);
+        return match < 0 ? 0 : entries.get(match).count;
+    }
+
     public ItemStack extract(ItemStack template, long amount) {
         if (template.isEmpty() || amount <= 0) {
             return ItemStack.EMPTY;

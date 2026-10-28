@@ -28,7 +28,8 @@ public final class RaidConnect {
     public static boolean isDevice(BlockState state) {
         return state.getBlock() instanceof RaidChestBlock
                 || state.getBlock() instanceof RaidChassisBlock
-                || state.getBlock() instanceof RaidHopperBlock;
+                || state.getBlock() instanceof RaidHopperBlock
+                || state.getBlock() instanceof RaidCrafterBlock;
     }
 
     public static Direction facing(BlockState state) {
@@ -42,6 +43,9 @@ public final class RaidConnect {
     public static Direction devicePort(BlockState state) {
         if (state.getBlock() instanceof RaidHopperBlock) {
             return RaidHopperBlock.cableFace(state);
+        }
+        if (state.getBlock() instanceof RaidCrafterBlock) {
+            return RaidCrafterBlock.cableFace(state);
         }
         return facing(state).getOpposite();
     }
@@ -67,6 +71,11 @@ public final class RaidConnect {
             Direction hopperFace = dirFromCable.getOpposite();
             return hopperFace == RaidHopperBlock.cableFace(neighbor)
                     || hopperFace == RaidHopperBlock.outputFace(neighbor);
+        }
+        if (neighbor.getBlock() instanceof RaidCrafterBlock) {
+            Direction crafterFace = dirFromCable.getOpposite();
+            return crafterFace == RaidCrafterBlock.cableFace(neighbor)
+                    || crafterFace == RaidCrafterBlock.outputFace(neighbor);
         }
         if (isDevice(neighbor)) {
             return devicePort(neighbor) == dirFromCable.getOpposite();

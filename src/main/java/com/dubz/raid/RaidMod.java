@@ -41,5 +41,17 @@ public class RaidMod {
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create, ModBlocks.DATA_CABLE.get());
+        event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create, ModBlocks.RAID_CHASSIS.get());
+        event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create, ModBlocks.HOPPER.get());
+        event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create,
+                ModBlocks.STONE_CHEST.get(),
+                ModBlocks.COPPER_CHEST.get(),
+                ModBlocks.IRON_CHEST.get(),
+                ModBlocks.GOLD_CHEST.get(),
+                ModBlocks.QUARTZ_CHEST.get(),
+                ModBlocks.AMETHYST_CHEST.get(),
+                ModBlocks.DIAMOND_CHEST.get(),
+                ModBlocks.NETHERITE_CHEST.get(),
+                ModBlocks.ADMIN_CHEST.get());
     }
 }

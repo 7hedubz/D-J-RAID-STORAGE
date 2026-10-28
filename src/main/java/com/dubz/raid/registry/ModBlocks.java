@@ -4,9 +4,11 @@ import com.dubz.raid.RaidMod;
 import com.dubz.raid.block.DataCableBlock;
 import com.dubz.raid.block.RaidChassisBlock;
 import com.dubz.raid.block.RaidChestBlock;
+import com.dubz.raid.block.RaidCrafterBlock;
 import com.dubz.raid.block.RaidHopperBlock;
 import com.dubz.raid.item.RaidChassisItem;
 import com.dubz.raid.item.RaidChestItem;
+import com.dubz.raid.item.RaidCrafterItem;
 import com.dubz.raid.item.RaidHopperItem;
 import com.dubz.raid.storage.ChestTier;
 import net.minecraft.world.item.BlockItem;
@@ -33,6 +35,9 @@ public class ModBlocks {
 
     public static final DeferredBlock<RaidHopperBlock> HOPPER = BLOCKS.registerBlock("hopper",
             props -> new RaidHopperBlock(props.mapColor(MapColor.STONE).strength(1.0f).sound(SoundType.METAL).pushReaction(PushReaction.IMMOVEABLE)));
+
+    public static final DeferredBlock<RaidCrafterBlock> AUTO_CRAFTER = BLOCKS.registerBlock("auto_crafter",
+            props -> new RaidCrafterBlock(props.mapColor(MapColor.COLOR_PURPLE).strength(1.0f).sound(SoundType.AMETHYST).pushReaction(PushReaction.IMMOVEABLE)));
 
     public static final DeferredBlock<RaidChestBlock> STONE_CHEST = chest("stone_chest", ChestTier.STONE, MapColor.STONE, SoundType.STONE, 12.0f);
     public static final DeferredBlock<RaidChestBlock> COPPER_CHEST = chest("copper_chest", ChestTier.COPPER, MapColor.COLOR_ORANGE, SoundType.COPPER, 12.0f);
@@ -65,6 +70,7 @@ public class ModBlocks {
 
     public static void register(IEventBus bus) {
         ModItems.ITEMS.registerItem("hopper", props -> new RaidHopperItem(HOPPER.get(), props.useBlockDescriptionPrefix()));
+        ModItems.ITEMS.registerItem("auto_crafter", props -> new RaidCrafterItem(AUTO_CRAFTER.get(), props.useBlockDescriptionPrefix()));
         BLOCKS.register(bus);
     }
 }

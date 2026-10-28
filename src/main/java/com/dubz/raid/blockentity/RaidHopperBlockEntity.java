@@ -145,8 +145,26 @@ public class RaidHopperBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean insertAt(ServerLevel level, BlockPos dest, BlockState destState, Direction side, ItemStack stack) {
-        if (RaidConnect.isCable(destState) || destState.getBlock() instanceof RaidHopperBlock) {
+        if (RaidConnect.isCable(destState) || destState.getBlock() instanceof RaidHopperBlock
+                || destState.getBlock() instanceof com.dubz.raid.block.RaidCrafterBlock) {
             return false;
+        }
+        if (destState.getBlock() instanceof com.dubz.raid.block.RaidChassisBlock
+                || destState.getBlock() instanceof com.dubz.raid.block.RaidChestBlock) {
+            ResourceHandler<ItemResource> raid = com.dubz.raid.storage.CableItemHandler.create(
+                    level, dest, destState, level.getBlockEntity(dest), side);
+            if (raid == null) {
+                return false;
+            }
+            ItemResource resource = ItemResource.of(stack);
+            try (Transaction transaction = Transaction.openRoot()) {
+                int inserted = raid.insert(resource, 1, transaction);
+                if (inserted != 1) {
+                    return false;
+                }
+                transaction.commit();
+                return true;
+            }
         }
         if (!RaidConnect.acceptsInsertOnFace(destState, side)) {
             return false;

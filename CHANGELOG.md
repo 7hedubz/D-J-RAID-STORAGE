@@ -163,3 +163,10 @@
 ## 0.1.50
 - CHEST open/close keep 16-block falloff and use variable-range events so Sound Physics Remastered can muffle through walls again.
 - README is a short pointer; docs live on the GitHub wiki.
+
+## 0.1.51
+- **AUTO-CRAFTER**: Automated Universal Terminal for Outputting Crafted Resources Automatically, Fulfilling Technological Engineering Requests.
+- Top 3×3 remembers a recipe. Right-click a cell to clear it. Click the side to toggle crafting. Invalid recipes show the error face.
+- Pulls ingredients from RAID (cable on the right). Pushes the result out the left. Ingredients only enter RAID via hoppers.
+- Recipe: shapeless Amethyst CHEST + vanilla Crafter.
+- Hoppers can insert into RAID (cables, Chassis, CHESTs, and HOPPERs).

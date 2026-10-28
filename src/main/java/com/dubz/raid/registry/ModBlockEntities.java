@@ -2,6 +2,7 @@ package com.dubz.raid.registry;
 
 import com.dubz.raid.RaidMod;
 import com.dubz.raid.blockentity.RaidChassisBlockEntity;
+import com.dubz.raid.blockentity.RaidCrafterBlockEntity;
 import com.dubz.raid.blockentity.RaidHopperBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,6 +25,12 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("hopper", () -> new BlockEntityType<>(
                     RaidHopperBlockEntity::new,
                     ModBlocks.HOPPER.get()
+            ));
+
+    public static final Supplier<BlockEntityType<RaidCrafterBlockEntity>> AUTO_CRAFTER =
+            BLOCK_ENTITIES.register("auto_crafter", () -> new BlockEntityType<>(
+                    RaidCrafterBlockEntity::new,
+                    ModBlocks.AUTO_CRAFTER.get()
             ));
 
     public static void register(IEventBus bus) {

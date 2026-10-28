@@ -74,6 +74,10 @@ public class NetworkGraph extends SavedData {
         put(new Node(pos.immutable(), NodeType.HOPPER, ChestTier.STONE, facing));
     }
 
+    public void addCrafter(BlockPos pos, Direction facing) {
+        put(new Node(pos.immutable(), NodeType.CRAFTER, ChestTier.STONE, facing));
+    }
+
     public void remove(BlockPos pos) {
         if (nodes.remove(pos.immutable()) != null) {
             setDirty();
@@ -88,7 +92,7 @@ public class NetworkGraph extends SavedData {
     }
 
     private static Direction port(Node node) {
-        if (node.type == NodeType.HOPPER) {
+        if (node.type == NodeType.HOPPER || node.type == NodeType.CRAFTER) {
             return node.facing.getClockWise();
         }
         return node.facing.getOpposite();
@@ -176,13 +180,20 @@ public class NetworkGraph extends SavedData {
             }
             BlockState state = level.getBlockState(node.pos);
             DisplayStatus display = DisplayStatus.from(lookupDevice(node.pos).status());
+            if (node.type == NodeType.CRAFTER
+                    && level.getBlockEntity(node.pos) instanceof com.dubz.raid.blockentity.RaidCrafterBlockEntity crafter
+                    && crafter.recipeInvalid()
+                    && display == DisplayStatus.OK) {
+                display = DisplayStatus.ERROR;
+            }
             if (node.type == NodeType.CHEST && state.getBlock() instanceof RaidChestBlock
                     && state.hasProperty(DisplayStatus.PROPERTY)
                     && state.getValue(DisplayStatus.PROPERTY) != display) {
                 level.setBlock(node.pos, state.setValue(DisplayStatus.PROPERTY, display),
                         Block.UPDATE_CLIENTS | Block.UPDATE_SKIP_ON_PLACE);
             } else if ((node.type == NodeType.CHASSIS && state.getBlock() instanceof RaidChassisBlock
-                    || node.type == NodeType.HOPPER && state.getBlock() instanceof com.dubz.raid.block.RaidHopperBlock)
+                    || node.type == NodeType.HOPPER && state.getBlock() instanceof com.dubz.raid.block.RaidHopperBlock
+                    || node.type == NodeType.CRAFTER && state.getBlock() instanceof com.dubz.raid.block.RaidCrafterBlock)
                     && state.hasProperty(DisplayStatus.PROPERTY)
                     && state.getValue(DisplayStatus.PROPERTY) != display) {
                 level.setBlock(node.pos, state.setValue(DisplayStatus.PROPERTY, display),
@@ -202,7 +213,7 @@ public class NetworkGraph extends SavedData {
     }
 
     public enum NodeType implements StringRepresentable {
-        CABLE, CHEST, CHASSIS, HOPPER;
+        CABLE, CHEST, CHASSIS, HOPPER, CRAFTER;
 
         @Override
         public String getSerializedName() {
