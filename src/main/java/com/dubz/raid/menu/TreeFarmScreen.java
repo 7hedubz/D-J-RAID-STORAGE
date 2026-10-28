@@ -63,7 +63,6 @@ public class TreeFarmScreen extends AbstractContainerScreen<TreeFarmMenu> {
         if (toggle != null) {
             toggle.setMessage(toggleLabel());
         }
-        SideSwapGui.drawLabel(graphics, font, leftPos, topPos, imageWidth, menu.swapped());
     }
 
     private Component toggleLabel() {
