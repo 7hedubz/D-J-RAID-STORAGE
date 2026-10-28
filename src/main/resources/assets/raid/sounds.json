@@ -63,6 +63,8 @@
   "block.crafter.off": { "subtitle": "subtitles.block.raid.machine.off", "sounds": [{ "name": "raid:crafter/off", "attenuation_distance": 16 }] },
   "block.tree_farm.on": { "subtitle": "subtitles.block.raid.machine.on", "sounds": [{ "name": "raid:tree_farm/on", "attenuation_distance": 16 }] },
   "block.tree_farm.off": { "subtitle": "subtitles.block.raid.machine.off", "sounds": [{ "name": "raid:tree_farm/off", "attenuation_distance": 16 }] },
+  "block.nether_tree_farm.on": { "subtitle": "subtitles.block.raid.machine.on", "sounds": [{ "name": "raid:nether_tree_farm/on", "attenuation_distance": 16 }] },
+  "block.nether_tree_farm.off": { "subtitle": "subtitles.block.raid.machine.off", "sounds": [{ "name": "raid:nether_tree_farm/off", "attenuation_distance": 16 }] },
   "block.collector.on": { "subtitle": "subtitles.block.raid.machine.on", "sounds": [{ "name": "raid:collector/on", "attenuation_distance": 16 }] },
   "block.collector.off": { "subtitle": "subtitles.block.raid.machine.off", "sounds": [{ "name": "raid:collector/off", "attenuation_distance": 16 }] },
   "block.looker.on": { "subtitle": "subtitles.block.raid.machine.on", "sounds": [{ "name": "raid:looker/on", "attenuation_distance": 16 }] },

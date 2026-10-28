@@ -25,6 +25,8 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> CRAFTER_OFF = event("block.crafter.off");
     public static final DeferredHolder<SoundEvent, SoundEvent> TREE_FARM_ON = event("block.tree_farm.on");
     public static final DeferredHolder<SoundEvent, SoundEvent> TREE_FARM_OFF = event("block.tree_farm.off");
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_TREE_FARM_ON = event("block.nether_tree_farm.on");
+    public static final DeferredHolder<SoundEvent, SoundEvent> NETHER_TREE_FARM_OFF = event("block.nether_tree_farm.off");
     public static final DeferredHolder<SoundEvent, SoundEvent> COLLECTOR_ON = event("block.collector.on");
     public static final DeferredHolder<SoundEvent, SoundEvent> COLLECTOR_OFF = event("block.collector.off");
     public static final DeferredHolder<SoundEvent, SoundEvent> LOOKER_ON = event("block.looker.on");

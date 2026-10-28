@@ -19,6 +19,8 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
 
 public class LookerBlockEntity extends BlockEntity implements MenuProvider {
+    public static final int FRAME_TICKS = 5;
+
     private boolean running;
     private int current;
     private int threshold = 1;
@@ -26,7 +28,8 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
     private int seen;
     private int blinkIn;
     private int blinkLeft;
-    private int detectLeft;
+    private int detectAnim;
+    private int pulseAnim;
     private int pulseLeft;
     private BlockState lastWatched;
 
@@ -72,22 +75,36 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
             current = 0;
             seen = 0;
             pulseLeft = 0;
+            pulseAnim = 0;
+            detectAnim = 0;
         }
         player.sendOverlayMessage(Component.translatable(running ? "gui.raid.looker.on" : "gui.raid.looker.off"));
         setChanged();
     }
 
     public void observe() {
-        if (level == null || level.isClientSide() || !running || pulseLeft > 0) {
+        if (level == null || level.isClientSide() || !running || pulseLeft > 0 || pulseAnim > 0) {
             return;
         }
         seen++;
         if (seen >= stride) {
             seen = 0;
             current++;
-            detectLeft = 10;
+            if (threshold > 0 && current == threshold) {
+                startPulse();
+            } else if (current < threshold) {
+                detectAnim = FRAME_TICKS * 2;
+            }
         }
         setChanged();
+    }
+
+    private void startPulse() {
+        current = 0;
+        seen = 0;
+        detectAnim = 0;
+        pulseLeft = 2;
+        pulseAnim = FRAME_TICKS * 2;
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, LookerBlockEntity entity) {
@@ -98,6 +115,11 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
 
         if (entity.pulseLeft > 0) {
             entity.pulseLeft--;
+        }
+        if (entity.pulseAnim > 0) {
+            entity.pulseAnim--;
+        } else if (entity.detectAnim > 0) {
+            entity.detectAnim--;
         } else {
             BlockState watched = server.getBlockState(pos.relative(LookerBlock.detectFace(state)));
             if (entity.lastWatched == null) {
@@ -107,14 +129,12 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
                 entity.observe();
             }
             if (entity.running
-                    && entity.current > 0
+                    && entity.pulseAnim == 0
+                    && entity.pulseLeft == 0
                     && entity.threshold > 0
-                    && entity.current >= entity.threshold
-                    && entity.current <= entity.threshold) {
-                entity.current = 0;
-                entity.seen = 0;
-                entity.detectLeft = 0;
-                entity.pulseLeft = 2;
+                    && entity.current == entity.threshold
+                    && entity.current > 0) {
+                entity.startPulse();
             }
         }
 
@@ -125,11 +145,16 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
             mode = LookerMode.ERROR;
             powered = false;
             entity.pulseLeft = 0;
-        } else if (powered) {
+            entity.pulseAnim = 0;
+            entity.detectAnim = 0;
+        } else if (entity.pulseAnim > FRAME_TICKS) {
             mode = LookerMode.PULSE;
-        } else if (entity.detectLeft > 0) {
-            entity.detectLeft--;
+        } else if (entity.pulseAnim > 0) {
+            mode = LookerMode.PULSE_B;
+        } else if (entity.detectAnim > FRAME_TICKS) {
             mode = LookerMode.DETECT;
+        } else if (entity.detectAnim > 0) {
+            mode = LookerMode.DETECT_B;
         } else {
             mode = LookerMode.STANDBY;
             if (entity.blinkLeft > 0) {
@@ -164,6 +189,8 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
         output.putInt("stride", stride);
         output.putInt("seen", seen);
         output.putInt("pulseLeft", pulseLeft);
+        output.putInt("pulseAnim", pulseAnim);
+        output.putInt("detectAnim", detectAnim);
     }
 
     @Override
@@ -175,6 +202,8 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
         stride = input.getIntOr("stride", 1);
         seen = input.getIntOr("seen", 0);
         pulseLeft = input.getIntOr("pulseLeft", 0);
+        pulseAnim = input.getIntOr("pulseAnim", 0);
+        detectAnim = input.getIntOr("detectAnim", 0);
     }
 
     @Override

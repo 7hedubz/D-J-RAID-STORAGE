@@ -120,7 +120,7 @@ public class TreeFarmBlock extends BaseEntityBlock {
 
     private void open(Level level, BlockPos pos, Player player) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof TreeFarmBlockEntity farm) {
-            MachineSounds.play(level, pos, ModSounds.TREE_FARM_ON);
+            MachineSounds.play(level, pos, farm.nether() ? ModSounds.NETHER_TREE_FARM_ON : ModSounds.TREE_FARM_ON);
             player.openMenu(farm, pos);
         }
     }

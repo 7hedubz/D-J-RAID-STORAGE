@@ -199,3 +199,7 @@
 ## 0.1.57
 - LOOKER faces remapped from the pack: standby 0001 / blink 0002, detect 0003–0004, pulse 0005–0006, error 0007–0008, top 0009, left 0010, back/bottom 0011 (no emissive), right 0012 / 0013 while powered.
 - Pulse resets the counter, shows 0005–0006 and right 0013, and outputs 15 for **exactly 2 ticks**.
+
+## 0.1.58
+- LOOKER detect plays **0003** for 5 ticks then **0004** for 5 ticks, then standby. Threshold skips detect and plays **0005** then **0006** (quarter second each). Redstone is still 2 ticks with right **0013**.
+- Nether TREE-FARM uses its own textures and GUI open/close sounds.
