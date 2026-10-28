@@ -13,6 +13,8 @@
   "gui.raid.auto_crafter.no_recipe": "No valid crafting recipe.",
   "gui.raid.auto_crafter.on": "AUTO-CRAFTER on",
   "gui.raid.auto_crafter.off": "AUTO-CRAFTER off",
+  "gui.raid.auto_crafter.toggle_on": "On",
+  "gui.raid.auto_crafter.toggle_off": "Off",
   "block.raid.stone_chest": "Stone CHEST",
   "block.raid.copper_chest": "Copper CHEST",
   "block.raid.iron_chest": "Iron CHEST",

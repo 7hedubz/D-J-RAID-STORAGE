@@ -136,38 +136,20 @@ public class RaidCrafterBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!(level.getBlockEntity(pos) instanceof RaidCrafterBlockEntity crafter)) {
-            return InteractionResult.SUCCESS;
-        }
-        int slot = slotFromHit(state, hitResult);
-        if (slot >= 0) {
-            if (!level.isClientSide()) {
-                crafter.clearSlot(slot);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        if (!level.isClientSide()) {
-            crafter.toggle(player);
-        }
+        open(level, pos, player);
         return InteractionResult.SUCCESS;
     }
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                           Player player, net.minecraft.world.InteractionHand hand, BlockHitResult hitResult) {
-        if (!(level.getBlockEntity(pos) instanceof RaidCrafterBlockEntity crafter)) {
-            return InteractionResult.SUCCESS;
-        }
-        int slot = slotFromHit(state, hitResult);
-        if (slot >= 0) {
-            if (!level.isClientSide() && !stack.isEmpty()) {
-                crafter.setSlot(slot, stack);
-            }
-            return InteractionResult.SUCCESS;
-        }
-        if (!level.isClientSide()) {
-            crafter.toggle(player);
-        }
+        open(level, pos, player);
         return InteractionResult.SUCCESS;
+    }
+
+    private void open(Level level, BlockPos pos, Player player) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof RaidCrafterBlockEntity crafter) {
+            player.openMenu(crafter, pos);
+        }
     }
 }

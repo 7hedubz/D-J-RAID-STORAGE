@@ -2,6 +2,7 @@ package com.dubz.raid.registry;
 
 import com.dubz.raid.RaidMod;
 import com.dubz.raid.menu.ChestMenu;
+import com.dubz.raid.menu.CrafterMenu;
 import com.dubz.raid.menu.HopperMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
@@ -18,6 +19,9 @@ public class ModMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<HopperMenu>> HOPPER =
             MENUS.register("hopper", () -> IMenuTypeExtension.create(HopperMenu::new));
+
+    public static final DeferredHolder<MenuType<?>, MenuType<CrafterMenu>> AUTO_CRAFTER =
+            MENUS.register("auto_crafter", () -> IMenuTypeExtension.create(CrafterMenu::new));
 
     public static void register(IEventBus bus) {
         MENUS.register(bus);

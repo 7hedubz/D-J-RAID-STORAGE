@@ -170,3 +170,6 @@
 - Pulls ingredients from RAID (cable on the right). Pushes the result out the left. Ingredients only enter RAID via hoppers.
 - Recipe: shapeless Amethyst CHEST + vanilla Crafter.
 - Hoppers can insert into RAID (cables, Chassis, CHESTs, and HOPPERs).
+
+## 0.1.52
+- Right-click the AUTO-CRAFTER to open a crafting menu. An On/Off button toggles auto-crafting.

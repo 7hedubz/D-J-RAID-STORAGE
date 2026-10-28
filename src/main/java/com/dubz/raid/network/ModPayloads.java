@@ -2,6 +2,7 @@ package com.dubz.raid.network;
 
 import com.dubz.raid.RaidMod;
 import com.dubz.raid.menu.ChestMenu;
+import com.dubz.raid.menu.CrafterMenu;
 import com.dubz.raid.storage.DigitizedStorage;
 import com.dubz.raid.storage.NetworkStatus;
 import com.dubz.raid.storage.RaidSettings;
@@ -28,6 +29,7 @@ public final class ModPayloads {
         PayloadRegistrar registrar = event.registrar("2");
         registrar.playToServer(ExtractPayload.TYPE, ExtractPayload.STREAM_CODEC, ExtractPayload::handle);
         registrar.playToServer(InsertCarriedPayload.TYPE, InsertCarriedPayload.STREAM_CODEC, InsertCarriedPayload::handle);
+        registrar.playToServer(ToggleCrafterPayload.TYPE, ToggleCrafterPayload.STREAM_CODEC, ToggleCrafterPayload::handle);
         registrar.playToClient(StorageSyncPayload.TYPE, StorageSyncPayload.STREAM_CODEC, StorageSyncPayload::handle);
         registrar.playToClient(AdminBytesPayload.TYPE, AdminBytesPayload.STREAM_CODEC, AdminBytesPayload::handle);
     }
@@ -159,6 +161,25 @@ public final class ModPayloads {
 
         public static void handle(AdminBytesPayload payload, IPayloadContext context) {
             context.enqueueWork(() -> RaidSettings.applyClient(payload.bytes));
+        }
+    }
+
+    public record ToggleCrafterPayload() implements CustomPacketPayload {
+        public static final Type<ToggleCrafterPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, "toggle_crafter"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, ToggleCrafterPayload> STREAM_CODEC = StreamCodec.unit(new ToggleCrafterPayload());
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+
+        public static void handle(ToggleCrafterPayload payload, IPayloadContext context) {
+            context.enqueueWork(() -> {
+                if (context.player() instanceof ServerPlayer player
+                        && player.containerMenu instanceof CrafterMenu menu) {
+                    menu.toggle(player);
+                }
+            });
         }
     }
 }

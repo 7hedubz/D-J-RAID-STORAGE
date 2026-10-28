@@ -18,8 +18,11 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.Containers;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -44,7 +47,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class RaidCrafterBlockEntity extends BlockEntity {
+public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider {
     private final NonNullList<ItemStack> pattern = NonNullList.withSize(9, ItemStack.EMPTY);
     private boolean running;
     private int cooldown;
@@ -300,6 +303,19 @@ public class RaidCrafterBlockEntity extends BlockEntity {
         return server.recipeAccess().getRecipeFor(RecipeType.CRAFTING, input, server);
     }
 
+    public ItemStack previewResult() {
+        if (!(level instanceof ServerLevel server)) {
+            return ItemStack.EMPTY;
+        }
+        return currentRecipe(server).map(holder -> {
+            List<ItemStack> grid = new ArrayList<>(9);
+            for (ItemStack ghost : pattern) {
+                grid.add(ghost.isEmpty() ? ItemStack.EMPTY : ghost.copy());
+            }
+            return holder.value().assemble(CraftingInput.of(3, 3, grid));
+        }).orElse(ItemStack.EMPTY);
+    }
+
     private boolean hasPattern() {
         for (ItemStack stack : pattern) {
             if (!stack.isEmpty()) {
@@ -350,6 +366,16 @@ public class RaidCrafterBlockEntity extends BlockEntity {
         cooldown = input.getIntOr("cooldown", 0);
         stockMask = input.getIntOr("stockMask", 0);
         recipeInvalid = input.getBooleanOr("recipeInvalid", false);
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.raid.auto_crafter");
+    }
+
+    @Override
+    public @Nullable AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new com.dubz.raid.menu.CrafterMenu(id, inventory, this);
     }
 
     @Override

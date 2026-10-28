@@ -2,6 +2,7 @@ package com.dubz.raid;
 
 import com.dubz.raid.client.RaidCrafterRenderer;
 import com.dubz.raid.menu.ChestScreen;
+import com.dubz.raid.menu.CrafterScreen;
 import com.dubz.raid.menu.HopperScreen;
 import com.dubz.raid.registry.ModBlockEntities;
 import com.dubz.raid.registry.ModMenus;
@@ -23,6 +24,7 @@ public class RaidModClient {
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(ModMenus.CHEST.get(), ChestScreen::new);
         event.register(ModMenus.HOPPER.get(), HopperScreen::new);
+        event.register(ModMenus.AUTO_CRAFTER.get(), CrafterScreen::new);
     }
 
     @SubscribeEvent
