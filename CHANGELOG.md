@@ -203,3 +203,6 @@
 ## 0.1.58
 - LOOKER detect plays **0003** for 5 ticks then **0004** for 5 ticks, then standby. Threshold skips detect and plays **0005** then **0006** (quarter second each). Redstone is still 2 ticks with right **0013**.
 - Nether TREE-FARM uses its own textures and GUI open/close sounds.
+
+## 0.1.59
+- Nether TREE-FARM faces: 0001–0006 front (same as overworld), **0007** bottom, **0008** right, **0009** left, **0010** top, **0011** back.
