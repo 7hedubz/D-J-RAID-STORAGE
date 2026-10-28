@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/looker/side",
+    "north": "raid:block/looker/front_detect",
+    "south": "raid:block/looker/side",
+    "east": "raid:block/looker/right",
+    "west": "raid:block/looker/left",
+    "up": "raid:block/looker/top",
+    "down": "raid:block/looker/side"
+  }
+}

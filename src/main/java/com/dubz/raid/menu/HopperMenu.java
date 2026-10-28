@@ -79,4 +79,12 @@ public class HopperMenu extends AbstractContainerMenu {
     public boolean stillValid(Player player) {
         return Container.stillValidBlockEntity(hopper, player);
     }
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        if (!player.level().isClientSide()) {
+            com.dubz.raid.registry.MachineSounds.play(player.level(), hopper.getBlockPos(), com.dubz.raid.registry.ModSounds.HOPPER_OFF);
+        }
+    }
 }

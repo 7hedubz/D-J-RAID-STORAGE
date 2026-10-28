@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "raid:quartz_chest",
+    "minecraft:stonecutter"
+  ],
+  "result": { "id": "raid:tree_farm", "count": 1 }
+}

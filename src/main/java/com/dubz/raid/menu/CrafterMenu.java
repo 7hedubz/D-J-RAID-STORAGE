@@ -119,6 +119,14 @@ public class CrafterMenu extends AbstractContainerMenu {
         return Container.stillValidBlockEntity(crafter, player);
     }
 
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        if (!player.level().isClientSide()) {
+            com.dubz.raid.registry.MachineSounds.play(player.level(), crafter.getBlockPos(), com.dubz.raid.registry.ModSounds.CRAFTER_OFF);
+        }
+    }
+
     private class PatternSlot extends Slot {
         private final int patternIndex;
 

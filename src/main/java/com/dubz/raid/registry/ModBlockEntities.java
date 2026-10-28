@@ -2,7 +2,10 @@ package com.dubz.raid.registry;
 
 import com.dubz.raid.RaidMod;
 import com.dubz.raid.blockentity.RaidChassisBlockEntity;
+import com.dubz.raid.blockentity.CollectorBlockEntity;
+import com.dubz.raid.blockentity.LookerBlockEntity;
 import com.dubz.raid.blockentity.RaidCrafterBlockEntity;
+import com.dubz.raid.blockentity.TreeFarmBlockEntity;
 import com.dubz.raid.blockentity.RaidHopperBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -31,6 +34,24 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("auto_crafter", () -> new BlockEntityType<>(
                     RaidCrafterBlockEntity::new,
                     ModBlocks.AUTO_CRAFTER.get()
+            ));
+
+    public static final Supplier<BlockEntityType<TreeFarmBlockEntity>> TREE_FARM =
+            BLOCK_ENTITIES.register("tree_farm", () -> new BlockEntityType<>(
+                    TreeFarmBlockEntity::new,
+                    ModBlocks.TREE_FARM.get()
+            ));
+
+    public static final Supplier<BlockEntityType<CollectorBlockEntity>> COLLECTOR =
+            BLOCK_ENTITIES.register("collector", () -> new BlockEntityType<>(
+                    CollectorBlockEntity::new,
+                    ModBlocks.COLLECTOR.get()
+            ));
+
+    public static final Supplier<BlockEntityType<LookerBlockEntity>> LOOKER =
+            BLOCK_ENTITIES.register("looker", () -> new BlockEntityType<>(
+                    LookerBlockEntity::new,
+                    ModBlocks.LOOKER.get()
             ));
 
     public static void register(IEventBus bus) {

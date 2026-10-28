@@ -2,7 +2,10 @@ package com.dubz.raid.network;
 
 import com.dubz.raid.RaidMod;
 import com.dubz.raid.menu.ChestMenu;
+import com.dubz.raid.menu.CollectorMenu;
 import com.dubz.raid.menu.CrafterMenu;
+import com.dubz.raid.menu.LookerMenu;
+import com.dubz.raid.menu.TreeFarmMenu;
 import com.dubz.raid.storage.DigitizedStorage;
 import com.dubz.raid.storage.NetworkStatus;
 import com.dubz.raid.storage.RaidSettings;
@@ -30,6 +33,10 @@ public final class ModPayloads {
         registrar.playToServer(ExtractPayload.TYPE, ExtractPayload.STREAM_CODEC, ExtractPayload::handle);
         registrar.playToServer(InsertCarriedPayload.TYPE, InsertCarriedPayload.STREAM_CODEC, InsertCarriedPayload::handle);
         registrar.playToServer(ToggleCrafterPayload.TYPE, ToggleCrafterPayload.STREAM_CODEC, ToggleCrafterPayload::handle);
+        registrar.playToServer(ToggleTreeFarmPayload.TYPE, ToggleTreeFarmPayload.STREAM_CODEC, ToggleTreeFarmPayload::handle);
+        registrar.playToServer(ToggleCollectorPayload.TYPE, ToggleCollectorPayload.STREAM_CODEC, ToggleCollectorPayload::handle);
+        registrar.playToServer(ToggleLookerPayload.TYPE, ToggleLookerPayload.STREAM_CODEC, ToggleLookerPayload::handle);
+        registrar.playToServer(SetLookerPayload.TYPE, SetLookerPayload.STREAM_CODEC, SetLookerPayload::handle);
         registrar.playToClient(StorageSyncPayload.TYPE, StorageSyncPayload.STREAM_CODEC, StorageSyncPayload::handle);
         registrar.playToClient(AdminBytesPayload.TYPE, AdminBytesPayload.STREAM_CODEC, AdminBytesPayload::handle);
     }
@@ -178,6 +185,85 @@ public final class ModPayloads {
                 if (context.player() instanceof ServerPlayer player
                         && player.containerMenu instanceof CrafterMenu menu) {
                     menu.toggle(player);
+                }
+            });
+        }
+    }
+
+    public record ToggleTreeFarmPayload() implements CustomPacketPayload {
+        public static final Type<ToggleTreeFarmPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, "toggle_tree_farm"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, ToggleTreeFarmPayload> STREAM_CODEC = StreamCodec.unit(new ToggleTreeFarmPayload());
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+
+        public static void handle(ToggleTreeFarmPayload payload, IPayloadContext context) {
+            context.enqueueWork(() -> {
+                if (context.player() instanceof ServerPlayer player && player.containerMenu instanceof TreeFarmMenu menu) {
+                    menu.toggle(player);
+                }
+            });
+        }
+    }
+
+    public record ToggleCollectorPayload() implements CustomPacketPayload {
+        public static final Type<ToggleCollectorPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, "toggle_collector"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, ToggleCollectorPayload> STREAM_CODEC = StreamCodec.unit(new ToggleCollectorPayload());
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+
+        public static void handle(ToggleCollectorPayload payload, IPayloadContext context) {
+            context.enqueueWork(() -> {
+                if (context.player() instanceof ServerPlayer player && player.containerMenu instanceof CollectorMenu menu) {
+                    menu.toggle(player);
+                }
+            });
+        }
+    }
+
+    public record ToggleLookerPayload() implements CustomPacketPayload {
+        public static final Type<ToggleLookerPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, "toggle_looker"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, ToggleLookerPayload> STREAM_CODEC = StreamCodec.unit(new ToggleLookerPayload());
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+
+        public static void handle(ToggleLookerPayload payload, IPayloadContext context) {
+            context.enqueueWork(() -> {
+                if (context.player() instanceof ServerPlayer player && player.containerMenu instanceof LookerMenu menu) {
+                    menu.toggle(player);
+                }
+            });
+        }
+    }
+
+    public record SetLookerPayload(int current, int threshold, int stride) implements CustomPacketPayload {
+        public static final Type<SetLookerPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, "set_looker"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, SetLookerPayload> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.VAR_INT, SetLookerPayload::current,
+                ByteBufCodecs.VAR_INT, SetLookerPayload::threshold,
+                ByteBufCodecs.VAR_INT, SetLookerPayload::stride,
+                SetLookerPayload::new
+        );
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+
+        public static void handle(SetLookerPayload payload, IPayloadContext context) {
+            context.enqueueWork(() -> {
+                if (context.player() instanceof ServerPlayer player && player.containerMenu instanceof LookerMenu menu) {
+                    menu.looker().setCurrent(payload.current);
+                    menu.looker().setThreshold(payload.threshold);
+                    menu.looker().setStride(payload.stride);
                 }
             });
         }

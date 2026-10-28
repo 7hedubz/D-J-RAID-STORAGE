@@ -1,6 +1,8 @@
 package com.dubz.raid.block;
 
 import com.dubz.raid.blockentity.RaidHopperBlockEntity;
+import com.dubz.raid.registry.MachineSounds;
+import com.dubz.raid.registry.ModSounds;
 import com.dubz.raid.storage.DisplayStatus;
 import com.dubz.raid.storage.NetworkGraph;
 import net.minecraft.core.BlockPos;
@@ -112,6 +114,7 @@ public class RaidHopperBlock extends BaseEntityBlock {
 
     private void open(Level level, BlockPos pos, Player player) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof RaidHopperBlockEntity hopper) {
+            MachineSounds.play(level, pos, ModSounds.HOPPER_ON);
             player.openMenu(hopper, pos);
         }
     }

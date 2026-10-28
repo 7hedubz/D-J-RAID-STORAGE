@@ -19,6 +19,16 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> CABLE_FALL = event("block.cable.fall");
     public static final DeferredHolder<SoundEvent, SoundEvent> CHEST_OPEN = event("block.chest.open");
     public static final DeferredHolder<SoundEvent, SoundEvent> CHEST_CLOSE = event("block.chest.close");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HOPPER_ON = event("block.hopper.on");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HOPPER_OFF = event("block.hopper.off");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CRAFTER_ON = event("block.crafter.on");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CRAFTER_OFF = event("block.crafter.off");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TREE_FARM_ON = event("block.tree_farm.on");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TREE_FARM_OFF = event("block.tree_farm.off");
+    public static final DeferredHolder<SoundEvent, SoundEvent> COLLECTOR_ON = event("block.collector.on");
+    public static final DeferredHolder<SoundEvent, SoundEvent> COLLECTOR_OFF = event("block.collector.off");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LOOKER_ON = event("block.looker.on");
+    public static final DeferredHolder<SoundEvent, SoundEvent> LOOKER_OFF = event("block.looker.off");
 
     private static DeferredHolder<SoundEvent, SoundEvent> event(String path) {
         return SOUNDS.register(path, () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, path)));

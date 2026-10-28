@@ -176,3 +176,9 @@
 
 ## 0.1.53
 - AUTO-CRAFTER grid items sit upright in the squares and turn to face the nearest player within 3 blocks.
+
+## 0.1.54
+- Cable footsteps caption is **Footsteps**.
+- AUTO-CRAFTER error face when on with no RAID or a full array. Recipe is polished granite around a crafter, Quartz CHEST bottom-middle.
+- Machine GUIs play on/off SFX when opened and closed (HOPPER, AUTO-CRAFTER, TREE-FARM, COLLECTOR, LOOKER).
+- **TREE-FARM**, **COLLECTOR**, and **LOOKER** added.

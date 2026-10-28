@@ -4,7 +4,11 @@ import com.dubz.raid.RaidMod;
 import com.dubz.raid.block.DataCableBlock;
 import com.dubz.raid.block.RaidChassisBlock;
 import com.dubz.raid.block.RaidChestBlock;
+import com.dubz.raid.block.CollectorBlock;
+import com.dubz.raid.block.LookerBlock;
 import com.dubz.raid.block.RaidCrafterBlock;
+import com.dubz.raid.block.TreeFarmBlock;
+import com.dubz.raid.item.MachineItem;
 import com.dubz.raid.block.RaidHopperBlock;
 import com.dubz.raid.item.RaidChassisItem;
 import com.dubz.raid.item.RaidChestItem;
@@ -39,6 +43,15 @@ public class ModBlocks {
     public static final DeferredBlock<RaidCrafterBlock> AUTO_CRAFTER = BLOCKS.registerBlock("auto_crafter",
             props -> new RaidCrafterBlock(props.mapColor(MapColor.COLOR_PURPLE).strength(1.0f).sound(SoundType.AMETHYST).pushReaction(PushReaction.IMMOVEABLE)));
 
+    public static final DeferredBlock<TreeFarmBlock> TREE_FARM = BLOCKS.registerBlock("tree_farm",
+            props -> new TreeFarmBlock(props.mapColor(MapColor.WOOD).strength(1.0f).sound(SoundType.WOOD).pushReaction(PushReaction.IMMOVEABLE)));
+
+    public static final DeferredBlock<CollectorBlock> COLLECTOR = BLOCKS.registerBlock("collector",
+            props -> new CollectorBlock(props.mapColor(MapColor.METAL).strength(1.0f).sound(SoundType.METAL).pushReaction(PushReaction.IMMOVEABLE)));
+
+    public static final DeferredBlock<LookerBlock> LOOKER = BLOCKS.registerBlock("looker",
+            props -> new LookerBlock(props.mapColor(MapColor.COLOR_GREEN).strength(1.0f).sound(SoundType.WOOD).pushReaction(PushReaction.IMMOVEABLE)));
+
     public static final DeferredBlock<RaidChestBlock> STONE_CHEST = chest("stone_chest", ChestTier.STONE, MapColor.STONE, SoundType.STONE, 12.0f);
     public static final DeferredBlock<RaidChestBlock> COPPER_CHEST = chest("copper_chest", ChestTier.COPPER, MapColor.COLOR_ORANGE, SoundType.COPPER, 12.0f);
     public static final DeferredBlock<RaidChestBlock> IRON_CHEST = chest("iron_chest", ChestTier.IRON, MapColor.METAL, SoundType.IRON, 12.0f);
@@ -71,6 +84,12 @@ public class ModBlocks {
     public static void register(IEventBus bus) {
         ModItems.ITEMS.registerItem("hopper", props -> new RaidHopperItem(HOPPER.get(), props.useBlockDescriptionPrefix()));
         ModItems.ITEMS.registerItem("auto_crafter", props -> new RaidCrafterItem(AUTO_CRAFTER.get(), props.useBlockDescriptionPrefix()));
+        ModItems.ITEMS.registerItem("tree_farm", props -> new MachineItem(TREE_FARM.get(), props.useBlockDescriptionPrefix(),
+                "block.raid.tree_farm.subtitle", "block.raid.tree_farm.tooltip"));
+        ModItems.ITEMS.registerItem("collector", props -> new MachineItem(COLLECTOR.get(), props.useBlockDescriptionPrefix(),
+                "block.raid.collector.subtitle", "block.raid.collector.tooltip"));
+        ModItems.ITEMS.registerItem("looker", props -> new MachineItem(LOOKER.get(), props.useBlockDescriptionPrefix(),
+                "block.raid.looker.subtitle", "block.raid.looker.tooltip"));
         BLOCKS.register(bus);
     }
 }

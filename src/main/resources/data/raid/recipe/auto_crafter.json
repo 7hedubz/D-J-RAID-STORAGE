@@ -1,10 +1,16 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "ingredients": [
-    "raid:amethyst_chest",
-    "minecraft:crafter"
+  "pattern": [
+    "GGG",
+    "GCG",
+    "GQG"
   ],
+  "key": {
+    "G": "minecraft:polished_granite",
+    "C": "minecraft:crafter",
+    "Q": "raid:quartz_chest"
+  },
   "result": {
     "id": "raid:auto_crafter",
     "count": 1

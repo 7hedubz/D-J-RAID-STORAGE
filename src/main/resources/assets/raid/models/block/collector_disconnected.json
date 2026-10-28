@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "raid:block/collector/side",
+    "north": "raid:block/collector/front_off",
+    "south": "raid:block/collector/side",
+    "east": "raid:block/collector/right",
+    "west": "raid:block/collector/left",
+    "up": "raid:block/collector/side",
+    "down": "raid:block/collector/side"
+  }
+}

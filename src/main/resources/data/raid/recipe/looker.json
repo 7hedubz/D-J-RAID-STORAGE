@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "BBB",
+    "BOB",
+    "BQB"
+  ],
+  "key": {
+    "B": "minecraft:bamboo",
+    "O": "minecraft:observer",
+    "Q": "raid:quartz_chest"
+  },
+  "result": { "id": "raid:looker", "count": 1 }
+}

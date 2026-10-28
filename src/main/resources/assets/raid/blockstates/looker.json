@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=north,mode=standby,blink=true,powered=true": {
+      "model": "raid:block/looker_blink_on"
+    },
+    "facing=north,mode=standby,blink=true,powered=false": {
+      "model": "raid:block/looker_blink"
+    },
+    "facing=north,mode=standby,blink=false,powered=true": {
+      "model": "raid:block/looker_standby_on"
+    },
+    "facing=north,mode=standby,blink=false,powered=false": {
+      "model": "raid:block/looker_standby"
+    },
+    "facing=north,mode=detect,blink=true,powered=true": {
+      "model": "raid:block/looker_detect_on"
+    },
+    "facing=north,mode=detect,blink=true,powered=false": {
+      "model": "raid:block/looker_detect"
+    },
+    "facing=north,mode=detect,blink=false,powered=true": {
+      "model": "raid:block/looker_detect_on"
+    },
+    "facing=north,mode=detect,blink=false,powered=false": {
+      "model": "raid:block/looker_detect"
+    },
+    "facing=north,mode=pulse,blink=true,powered=true": {
+      "model": "raid:block/looker_pulse_on"
+    },
+    "facing=north,mode=pulse,blink=true,powered=false": {
+      "model": "raid:block/looker_pulse"
+    },
+    "facing=north,mode=pulse,blink=false,powered=true": {
+      "model": "raid:block/looker_pulse_on"
+    },
+    "facing=north,mode=pulse,blink=false,powered=false": {
+      "model": "raid:block/looker_pulse"
+    },
+    "facing=north,mode=error,blink=true,powered=true": {
+      "model": "raid:block/looker_error_on"
+    },
+    "facing=north,mode=error,blink=true,powered=false": {
+      "model": "raid:block/looker_error"
+    },
+    "facing=north,mode=error,blink=false,powered=true": {
+      "model": "raid:block/looker_error_on"
+    },
+    "facing=north,mode=error,blink=false,powered=false": {
+      "model": "raid:block/looker_error"
+    },
+    "facing=east,mode=standby,blink=true,powered=true": {
+      "model": "raid:block/looker_blink_on",
+      "y": 90
+    },
+    "facing=east,mode=standby,blink=true,powered=false": {
+      "model": "raid:block/looker_blink",
+      "y": 90
+    },
+    "facing=east,mode=standby,blink=false,powered=true": {
+      "model": "raid:block/looker_standby_on",
+      "y": 90
+    },
+    "facing=east,mode=standby,blink=false,powered=false": {
+      "model": "raid:block/looker_standby",
+      "y": 90
+    },
+    "facing=east,mode=detect,blink=true,powered=true": {
+      "model": "raid:block/looker_detect_on",
+      "y": 90
+    },
+    "facing=east,mode=detect,blink=true,powered=false": {
+      "model": "raid:block/looker_detect",
+      "y": 90
+    },
+    "facing=east,mode=detect,blink=false,powered=true": {
+      "model": "raid:block/looker_detect_on",
+      "y": 90
+    },
+    "facing=east,mode=detect,blink=false,powered=false": {
+      "model": "raid:block/looker_detect",
+      "y": 90
+    },
+    "facing=east,mode=pulse,blink=true,powered=true": {
+      "model": "raid:block/looker_pulse_on",
+      "y": 90
+    },
+    "facing=east,mode=pulse,blink=true,powered=false": {
+      "model": "raid:block/looker_pulse",
+      "y": 90
+    },
+    "facing=east,mode=pulse,blink=false,powered=true": {
+      "model": "raid:block/looker_pulse_on",
+      "y": 90
+    },
+    "facing=east,mode=pulse,blink=false,powered=false": {
+      "model": "raid:block/looker_pulse",
+      "y": 90
+    },
+    "facing=east,mode=error,blink=true,powered=true": {
+      "model": "raid:block/looker_error_on",
+      "y": 90
+    },
+    "facing=east,mode=error,blink=true,powered=false": {
+      "model": "raid:block/looker_error",
+      "y": 90
+    },
+    "facing=east,mode=error,blink=false,powered=true": {
+      "model": "raid:block/looker_error_on",
+      "y": 90
+    },
+    "facing=east,mode=error,blink=false,powered=false": {
+      "model": "raid:block/looker_error",
+      "y": 90
+    },
+    "facing=south,mode=standby,blink=true,powered=true": {
+      "model": "raid:block/looker_blink_on",
+      "y": 180
+    },
+    "facing=south,mode=standby,blink=true,powered=false": {
+      "model": "raid:block/looker_blink",
+      "y": 180
+    },
+    "facing=south,mode=standby,blink=false,powered=true": {
+      "model": "raid:block/looker_standby_on",
+      "y": 180
+    },
+    "facing=south,mode=standby,blink=false,powered=false": {
+      "model": "raid:block/looker_standby",
+      "y": 180
+    },
+    "facing=south,mode=detect,blink=true,powered=true": {
+      "model": "raid:block/looker_detect_on",
+      "y": 180
+    },
+    "facing=south,mode=detect,blink=true,powered=false": {
+      "model": "raid:block/looker_detect",
+      "y": 180
+    },
+    "facing=south,mode=detect,blink=false,powered=true": {
+      "model": "raid:block/looker_detect_on",
+      "y": 180
+    },
+    "facing=south,mode=detect,blink=false,powered=false": {
+      "model": "raid:block/looker_detect",
+      "y": 180
+    },
+    "facing=south,mode=pulse,blink=true,powered=true": {
+      "model": "raid:block/looker_pulse_on",
+      "y": 180
+    },
+    "facing=south,mode=pulse,blink=true,powered=false": {
+      "model": "raid:block/looker_pulse",
+      "y": 180
+    },
+    "facing=south,mode=pulse,blink=false,powered=true": {
+      "model": "raid:block/looker_pulse_on",
+      "y": 180
+    },
+    "facing=south,mode=pulse,blink=false,powered=false": {
+      "model": "raid:block/looker_pulse",
+      "y": 180
+    },
+    "facing=south,mode=error,blink=true,powered=true": {
+      "model": "raid:block/looker_error_on",
+      "y": 180
+    },
+    "facing=south,mode=error,blink=true,powered=false": {
+      "model": "raid:block/looker_error",
+      "y": 180
+    },
+    "facing=south,mode=error,blink=false,powered=true": {
+      "model": "raid:block/looker_error_on",
+      "y": 180
+    },
+    "facing=south,mode=error,blink=false,powered=false": {
+      "model": "raid:block/looker_error",
+      "y": 180
+    },
+    "facing=west,mode=standby,blink=true,powered=true": {
+      "model": "raid:block/looker_blink_on",
+      "y": 270
+    },
+    "facing=west,mode=standby,blink=true,powered=false": {
+      "model": "raid:block/looker_blink",
+      "y": 270
+    },
+    "facing=west,mode=standby,blink=false,powered=true": {
+      "model": "raid:block/looker_standby_on",
+      "y": 270
+    },
+    "facing=west,mode=standby,blink=false,powered=false": {
+      "model": "raid:block/looker_standby",
+      "y": 270
+    },
+    "facing=west,mode=detect,blink=true,powered=true": {
+      "model": "raid:block/looker_detect_on",
+      "y": 270
+    },
+    "facing=west,mode=detect,blink=true,powered=false": {
+      "model": "raid:block/looker_detect",
+      "y": 270
+    },
+    "facing=west,mode=detect,blink=false,powered=true": {
+      "model": "raid:block/looker_detect_on",
+      "y": 270
+    },
+    "facing=west,mode=detect,blink=false,powered=false": {
+      "model": "raid:block/looker_detect",
+      "y": 270
+    },
+    "facing=west,mode=pulse,blink=true,powered=true": {
+      "model": "raid:block/looker_pulse_on",
+      "y": 270
+    },
+    "facing=west,mode=pulse,blink=true,powered=false": {
+      "model": "raid:block/looker_pulse",
+      "y": 270
+    },
+    "facing=west,mode=pulse,blink=false,powered=true": {
+      "model": "raid:block/looker_pulse_on",
+      "y": 270
+    },
+    "facing=west,mode=pulse,blink=false,powered=false": {
+      "model": "raid:block/looker_pulse",
+      "y": 270
+    },
+    "facing=west,mode=error,blink=true,powered=true": {
+      "model": "raid:block/looker_error_on",
+      "y": 270
+    },
+    "facing=west,mode=error,blink=true,powered=false": {
+      "model": "raid:block/looker_error",
+      "y": 270
+    },
+    "facing=west,mode=error,blink=false,powered=true": {
+      "model": "raid:block/looker_error_on",
+      "y": 270
+    },
+    "facing=west,mode=error,blink=false,powered=false": {
+      "model": "raid:block/looker_error",
+      "y": 270
+    }
+  }
+}

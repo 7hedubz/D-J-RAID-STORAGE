@@ -20,6 +20,9 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.DATA_CABLE.get());
                 output.accept(ModBlocks.HOPPER.get());
                 output.accept(ModBlocks.AUTO_CRAFTER.get());
+                output.accept(ModBlocks.TREE_FARM.get());
+                output.accept(ModBlocks.COLLECTOR.get());
+                output.accept(ModBlocks.LOOKER.get());
                 output.accept(ModBlocks.STONE_CHEST.get());
                 output.accept(ModBlocks.COPPER_CHEST.get());
                 output.accept(ModBlocks.IRON_CHEST.get());

@@ -1,6 +1,8 @@
 package com.dubz.raid.block;
 
 import com.dubz.raid.blockentity.RaidCrafterBlockEntity;
+import com.dubz.raid.registry.MachineSounds;
+import com.dubz.raid.registry.ModSounds;
 import com.dubz.raid.storage.DisplayStatus;
 import com.dubz.raid.storage.NetworkGraph;
 import net.minecraft.core.BlockPos;
@@ -149,6 +151,7 @@ public class RaidCrafterBlock extends BaseEntityBlock {
 
     private void open(Level level, BlockPos pos, Player player) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof RaidCrafterBlockEntity crafter) {
+            MachineSounds.play(level, pos, ModSounds.CRAFTER_ON);
             player.openMenu(crafter, pos);
         }
     }

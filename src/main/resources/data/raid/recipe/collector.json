@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "raid:iron_chest",
+    "minecraft:cauldron"
+  ],
+  "result": { "id": "raid:collector", "count": 1 }
+}

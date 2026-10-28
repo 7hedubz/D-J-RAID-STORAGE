@@ -2,6 +2,7 @@ package com.dubz.raid.block;
 
 import com.dubz.raid.storage.DisplayStatus;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.BarrelBlock;
 import net.minecraft.world.level.block.Block;
@@ -29,7 +30,9 @@ public final class RaidConnect {
         return state.getBlock() instanceof RaidChestBlock
                 || state.getBlock() instanceof RaidChassisBlock
                 || state.getBlock() instanceof RaidHopperBlock
-                || state.getBlock() instanceof RaidCrafterBlock;
+                || state.getBlock() instanceof RaidCrafterBlock
+                || state.getBlock() instanceof TreeFarmBlock
+                || state.getBlock() instanceof CollectorBlock;
     }
 
     public static Direction facing(BlockState state) {
@@ -46,6 +49,12 @@ public final class RaidConnect {
         }
         if (state.getBlock() instanceof RaidCrafterBlock) {
             return RaidCrafterBlock.cableFace(state);
+        }
+        if (state.getBlock() instanceof TreeFarmBlock) {
+            return TreeFarmBlock.cableFace(state);
+        }
+        if (state.getBlock() instanceof CollectorBlock) {
+            return CollectorBlock.cableFace(state);
         }
         return facing(state).getOpposite();
     }
@@ -76,6 +85,13 @@ public final class RaidConnect {
             Direction crafterFace = dirFromCable.getOpposite();
             return crafterFace == RaidCrafterBlock.cableFace(neighbor)
                     || crafterFace == RaidCrafterBlock.outputFace(neighbor);
+        }
+        if (neighbor.getBlock() instanceof CollectorBlock) {
+            Direction face = dirFromCable.getOpposite();
+            return face == CollectorBlock.cableFace(neighbor) || face == CollectorBlock.cauldronFace(neighbor);
+        }
+        if (neighbor.getBlock() instanceof AbstractCauldronBlock) {
+            return dirFromCable.getAxis().isHorizontal();
         }
         if (isDevice(neighbor)) {
             return devicePort(neighbor) == dirFromCable.getOpposite();

@@ -5,6 +5,7 @@ import com.dubz.raid.block.RaidConnect;
 import com.dubz.raid.block.RaidCrafterBlock;
 import com.dubz.raid.block.RaidHopperBlock;
 import com.dubz.raid.registry.ModBlockEntities;
+import com.dubz.raid.storage.DeviceVisuals;
 import com.dubz.raid.storage.NetworkGraph;
 import com.dubz.raid.storage.NetworkStatus;
 import com.dubz.raid.storage.RaidMath;
@@ -104,11 +105,24 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
             return;
         }
         entity.cooldown--;
+        if (level instanceof ServerLevel server) {
+            entity.updateFace(server, pos);
+        }
         if (entity.cooldown > 0) {
             return;
         }
         entity.cooldown = HopperBlockEntity.MOVE_ITEM_SPEED;
         entity.tryCraft((ServerLevel) level, pos, state);
+    }
+
+    private void updateFace(ServerLevel level, BlockPos pos) {
+        refreshRecipeFlag();
+        NetworkGraph.Lookup lookup = NetworkGraph.get(level).lookupDevice(pos);
+        RaidChassisBlockEntity chassis = lookup.chassisPos() != null
+                && level.getBlockEntity(lookup.chassisPos()) instanceof RaidChassisBlockEntity found ? found : null;
+        ItemStack preview = previewResult();
+        boolean full = DeviceVisuals.full(lookup, chassis, RaidMath.bytesFor(preview, Math.max(1, preview.getCount())));
+        DeviceVisuals.apply(level, pos, DeviceVisuals.status(running, lookup, recipeInvalid || (running && full)));
     }
 
     private void tryCraft(ServerLevel level, BlockPos pos, BlockState state) {

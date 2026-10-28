@@ -2,8 +2,11 @@ package com.dubz.raid;
 
 import com.dubz.raid.client.RaidCrafterRenderer;
 import com.dubz.raid.menu.ChestScreen;
+import com.dubz.raid.menu.CollectorScreen;
 import com.dubz.raid.menu.CrafterScreen;
 import com.dubz.raid.menu.HopperScreen;
+import com.dubz.raid.menu.LookerScreen;
+import com.dubz.raid.menu.TreeFarmScreen;
 import com.dubz.raid.registry.ModBlockEntities;
 import com.dubz.raid.registry.ModMenus;
 import net.neoforged.api.distmarker.Dist;
@@ -25,6 +28,9 @@ public class RaidModClient {
         event.register(ModMenus.CHEST.get(), ChestScreen::new);
         event.register(ModMenus.HOPPER.get(), HopperScreen::new);
         event.register(ModMenus.AUTO_CRAFTER.get(), CrafterScreen::new);
+        event.register(ModMenus.TREE_FARM.get(), TreeFarmScreen::new);
+        event.register(ModMenus.COLLECTOR.get(), CollectorScreen::new);
+        event.register(ModMenus.LOOKER.get(), LookerScreen::new);
     }
 
     @SubscribeEvent
