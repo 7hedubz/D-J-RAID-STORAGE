@@ -243,7 +243,8 @@ public class ChestScreen extends AbstractContainerScreen<ChestMenu> {
                         ItemStack stack = entry.stack.copy();
                         stack.setCount(1);
                         graphics.item(stack, x, y);
-                        graphics.itemDecorations(font, stack, x, y, formatCount(entry.count));
+                        graphics.itemDecorations(font, stack, x, y);
+                        drawCount(graphics, formatCount(entry.count), x, y);
                         if (hovered != null && ItemStack.isSameItemSameComponents(entry.stack, hovered.stack)) {
                             graphics.fill(x, y, x + 16, y + 16, 0x80FFFFFF);
                         }
@@ -372,13 +373,32 @@ public class ChestScreen extends AbstractContainerScreen<ChestMenu> {
         return true;
     }
 
+    private void drawCount(GuiGraphicsExtractor graphics, String text, int x, int y) {
+        float scale = 0.6F;
+        graphics.pose().pushMatrix();
+        graphics.pose().translate(x + 16, y + 16);
+        graphics.pose().scale(scale, scale);
+        graphics.text(font, text, -font.width(text), -8, 0xFFFFFFFF, true);
+        graphics.pose().popMatrix();
+    }
+
     private static String formatCount(long count) {
         if (count < 1000) {
             return Long.toString(count);
         }
         if (count < 1_000_000) {
-            return (count / 1000) + "k";
+            long whole = count / 1000;
+            long tenth = (count % 1000) / 100;
+            if (whole >= 100 || tenth == 0) {
+                return whole + "k";
+            }
+            return whole + "." + tenth + "k";
         }
-        return (count / 1_000_000) + "M";
+        long whole = count / 1_000_000;
+        long tenth = (count % 1_000_000) / 100_000;
+        if (whole >= 100 || tenth == 0) {
+            return whole + "M";
+        }
+        return whole + "." + tenth + "M";
     }
 }

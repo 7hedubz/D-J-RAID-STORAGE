@@ -156,3 +156,6 @@
 - Diamond/emerald/lapis/amethyst/quartz blocks are **Gems**.
 - Partially off-screen terminal rows stay visible (clipped).
 - CHEST open/close use linear falloff out to 16 blocks.
+
+## 0.1.49
+- Terminal item counts are smaller and use k/M so large numbers do not run into the next slot.

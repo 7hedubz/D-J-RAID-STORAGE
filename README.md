@@ -2,15 +2,6 @@
 
 NeoForge **26.3** (NeoForge `26.3.0.95`) mod.
 
-## Run
-
-```bash
-cd /home/dubz/Documents/minecraft_storage_addon
-./gradlew runClient
-```
-
-Jar: `build/libs/raid-<mod_version>.jar` (currently `raid-0.1.48.jar`). Bump `mod_version` in `gradle.properties` on every change, then `./gradlew build`. Prism must get that new jar. Patch notes: `CHANGELOG.md`.
-
 ## What it does
 
 - **RAID Chassis** holds all digitized items (shared by every player on that array).
