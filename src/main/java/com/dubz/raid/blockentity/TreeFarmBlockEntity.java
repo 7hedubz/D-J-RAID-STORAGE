@@ -35,6 +35,8 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
     public static final int CYCLE = 1200;
     public static final TagKey<Item> SAPLINGS = TagKey.create(
             net.minecraft.core.registries.Registries.ITEM, Identifier.fromNamespaceAndPath("raid", "tree_farm_saplings"));
+    public static final TagKey<Item> NETHER_SAPLINGS = TagKey.create(
+            net.minecraft.core.registries.Registries.ITEM, Identifier.fromNamespaceAndPath("raid", "nether_tree_farm_saplings"));
 
     private final SimpleContainer sapling = new SimpleContainer(1) {
         @Override
@@ -49,7 +51,7 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
 
         @Override
         public boolean canPlaceItem(int slot, ItemStack stack) {
-            return stack.typeHolder().is(SAPLINGS);
+            return stack.typeHolder().is(TreeFarmBlockEntity.this.saplingTag());
         }
     };
     private boolean running;
@@ -57,6 +59,14 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
 
     public TreeFarmBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TREE_FARM.get(), pos, state);
+    }
+
+    public TagKey<Item> saplingTag() {
+        return nether() ? NETHER_SAPLINGS : SAPLINGS;
+    }
+
+    public boolean nether() {
+        return getBlockState().getBlock() instanceof com.dubz.raid.block.TreeFarmBlock farm && farm.nether();
     }
 
     public Container sapling() {
@@ -122,7 +132,10 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
             case "mangrove_propagule" -> "mangrove_log";
             case "cherry_sapling" -> "cherry_log";
             case "pale_oak_sapling" -> "pale_oak_log";
-            default -> null;
+            case "poplar_sapling" -> "poplar_log";
+            case "crimson_fungus" -> "crimson_stem";
+            case "warped_fungus" -> "warped_stem";
+            default -> path.endsWith("_sapling") ? path.substring(0, path.length() - "_sapling".length()) + "_log" : null;
         };
         if (log == null) {
             return ItemStack.EMPTY;
@@ -158,7 +171,7 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("block.raid.tree_farm");
+        return Component.translatable(getBlockState().getBlock().getDescriptionId());
     }
 
     @Override

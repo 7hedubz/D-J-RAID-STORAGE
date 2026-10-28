@@ -46,7 +46,7 @@ public class TreeFarmMenu extends AbstractContainerMenu {
 
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.typeHolder().is(TreeFarmBlockEntity.SAPLINGS);
+                return stack.typeHolder().is(farm.saplingTag());
             }
         });
         for (int row = 0; row < 3; row++) {

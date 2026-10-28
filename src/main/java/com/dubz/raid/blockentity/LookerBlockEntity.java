@@ -27,6 +27,7 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
     private int blinkIn;
     private int blinkLeft;
     private int detectLeft;
+    private BlockState lastWatched;
 
     public LookerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.LOOKER.get(), pos, state);
@@ -90,6 +91,13 @@ public class LookerBlockEntity extends BlockEntity implements MenuProvider {
     public static void serverTick(Level level, BlockPos pos, BlockState state, LookerBlockEntity entity) {
         if (!(level instanceof ServerLevel server)) {
             return;
+        }
+        BlockState watched = server.getBlockState(pos.relative(LookerBlock.detectFace(state)));
+        if (entity.lastWatched == null) {
+            entity.lastWatched = watched;
+        } else if (!entity.lastWatched.equals(watched)) {
+            entity.lastWatched = watched;
+            entity.observe();
         }
         LookerMode mode = LookerMode.STANDBY;
         boolean blink = false;

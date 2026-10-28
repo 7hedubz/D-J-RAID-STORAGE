@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "W C",
+    "WSC",
+    "NQN"
+  ],
+  "key": {
+    "W": "minecraft:warped_stem",
+    "C": "minecraft:crimson_stem",
+    "S": "minecraft:stonecutter",
+    "N": "minecraft:nether_brick",
+    "Q": "raid:quartz_chest"
+  },
+  "result": {
+    "id": "raid:nether_tree_farm",
+    "count": 1
+  }
+}

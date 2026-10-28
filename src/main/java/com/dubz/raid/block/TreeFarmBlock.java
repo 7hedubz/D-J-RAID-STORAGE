@@ -27,11 +27,22 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
 public class TreeFarmBlock extends BaseEntityBlock {
+    private final boolean nether;
+
     public TreeFarmBlock(Properties properties) {
+        this(properties, false);
+    }
+
+    public TreeFarmBlock(Properties properties, boolean nether) {
         super(properties);
+        this.nether = nether;
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(RaidConnect.FACING, Direction.NORTH)
                 .setValue(DisplayStatus.PROPERTY, DisplayStatus.DISCONNECTED));
+    }
+
+    public boolean nether() {
+        return nether;
     }
 
     public static Direction cableFace(BlockState state) {

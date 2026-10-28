@@ -30,7 +30,7 @@ public final class RaidMath {
 
     /**
      * First item of a digitized stack is 16 bytes; every extra item is 1 byte.
-     * Tools and weapons cost 16 bytes each instead.
+     * Anything that only stacks to 1 (tools, armor, filled buckets, etc.) costs 16 bytes each.
      */
     public static long bytesForCount(long count) {
         return bytesFor(ItemStack.EMPTY, count);
@@ -40,7 +40,7 @@ public final class RaidMath {
         if (count <= 0) {
             return 0;
         }
-        if (!stack.isEmpty() && stack.typeHolder().is(TOOLS_AND_WEAPONS)) {
+        if (!stack.isEmpty() && (stack.getMaxStackSize() <= 1 || stack.typeHolder().is(TOOLS_AND_WEAPONS))) {
             return count * 16;
         }
         return count + 15;

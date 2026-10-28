@@ -223,13 +223,7 @@ public class ChestMenu extends AbstractContainerMenu {
         super.broadcastChanges();
         if (level instanceof ServerLevel serverLevel && player instanceof ServerPlayer serverPlayer) {
             RaidChassisBlockEntity chassis = resolveChassis(serverLevel);
-            int revision = chassis == null ? -1 : chassis.revision();
-            if (revision != lastRevision
-                    || used != lastSyncedUsed
-                    || capacity != lastSyncedCapacity
-                    || status != lastSyncedStatus) {
-                sendSync(serverPlayer, chassis);
-            }
+            sendSync(serverPlayer, chassis);
         }
     }
 

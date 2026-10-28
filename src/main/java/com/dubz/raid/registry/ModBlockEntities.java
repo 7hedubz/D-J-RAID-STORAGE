@@ -39,7 +39,8 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<TreeFarmBlockEntity>> TREE_FARM =
             BLOCK_ENTITIES.register("tree_farm", () -> new BlockEntityType<>(
                     TreeFarmBlockEntity::new,
-                    ModBlocks.TREE_FARM.get()
+                    ModBlocks.TREE_FARM.get(),
+                    ModBlocks.NETHER_TREE_FARM.get()
             ));
 
     public static final Supplier<BlockEntityType<CollectorBlockEntity>> COLLECTOR =

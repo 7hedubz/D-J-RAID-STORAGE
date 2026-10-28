@@ -182,3 +182,11 @@
 - AUTO-CRAFTER error face when on with no RAID or a full array. Recipe is polished granite around a crafter, Quartz CHEST bottom-middle.
 - Machine GUIs play on/off SFX when opened and closed (HOPPER, AUTO-CRAFTER, TREE-FARM, COLLECTOR, LOOKER).
 - **TREE-FARM**, **COLLECTOR**, and **LOOKER** added.
+
+## 0.1.55
+- LOOKER watches **left** only and pulses redstone **right** only. GUI labels are Current Count / Count Threshold / Updates per Increment, with the number to the right of `+`.
+- TREE-FARM accepts poplar saplings.
+- Unstackable items (filled buckets, tools, armor, anything with max stack 1) cost **16 bytes each**.
+- CHEST capacity bar and item list refresh while the terminal is open.
+- **Nether TREE-FARM** for crimson/warped fungi.
+- Emerald HOPPER textures. Emissive overlays on Chassis, LOOKER, and other multi-state fronts.

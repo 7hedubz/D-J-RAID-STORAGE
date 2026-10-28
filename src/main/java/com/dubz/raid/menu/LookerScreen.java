@@ -13,7 +13,7 @@ public class LookerScreen extends AbstractContainerScreen<LookerMenu> {
 
     public LookerScreen(LookerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, LookerMenu.WIDTH, LookerMenu.HEIGHT);
-        this.inventoryLabelY = 72;
+        this.inventoryLabelY = 110;
     }
 
     @Override
@@ -22,16 +22,16 @@ public class LookerScreen extends AbstractContainerScreen<LookerMenu> {
         toggle = addRenderableWidget(Button.builder(toggleLabel(), b ->
                 ClientPacketDistributor.sendToServer(new ModPayloads.ToggleLookerPayload())
         ).bounds(leftPos + 8, topPos + 16, 48, 16).build());
-        addStepper(70, 16, 0);
-        addStepper(70, 34, 1);
-        addStepper(70, 52, 2);
+        addStepper(8, 44, 0);
+        addStepper(8, 66, 1);
+        addStepper(8, 88, 2);
     }
 
     private void addStepper(int x, int y, int field) {
         addRenderableWidget(Button.builder(Component.literal("-"), b -> send(field, -1))
                 .bounds(leftPos + x, topPos + y, 16, 16).build());
         addRenderableWidget(Button.builder(Component.literal("+"), b -> send(field, 1))
-                .bounds(leftPos + x + 70, topPos + y, 16, 16).build());
+                .bounds(leftPos + x + 18, topPos + y, 16, 16).build());
     }
 
     private void send(int field, int delta) {
@@ -52,12 +52,12 @@ public class LookerScreen extends AbstractContainerScreen<LookerMenu> {
         int y0 = topPos;
         graphics.fill(x0, y0, x0 + imageWidth, y0 + imageHeight, 0xFF1A1A1A);
         graphics.fill(x0 + 1, y0 + 1, x0 + imageWidth - 1, y0 + imageHeight - 1, 0xFF2F2F2F);
-        graphics.text(font, Component.translatable("gui.raid.looker.current"), leftPos + 90, topPos + 20, 0xFFFFFFFF, false);
-        graphics.text(font, String.valueOf(menu.current()), leftPos + 108, topPos + 20, 0xFFFFFF00, false);
-        graphics.text(font, Component.translatable("gui.raid.looker.threshold"), leftPos + 90, topPos + 38, 0xFFFFFFFF, false);
-        graphics.text(font, String.valueOf(menu.threshold()), leftPos + 108, topPos + 38, 0xFFFFFF00, false);
-        graphics.text(font, Component.translatable("gui.raid.looker.stride"), leftPos + 90, topPos + 56, 0xFFFFFFFF, false);
-        graphics.text(font, String.valueOf(menu.stride()), leftPos + 108, topPos + 56, 0xFFFFFF00, false);
+        graphics.text(font, Component.translatable("gui.raid.looker.current"), leftPos + 8, topPos + 35, 0xFFAAAAAA, false);
+        graphics.text(font, String.valueOf(menu.current()), leftPos + 46, topPos + 48, 0xFFFFFF00, false);
+        graphics.text(font, Component.translatable("gui.raid.looker.threshold"), leftPos + 8, topPos + 57, 0xFFAAAAAA, false);
+        graphics.text(font, String.valueOf(menu.threshold()), leftPos + 46, topPos + 70, 0xFFFFFF00, false);
+        graphics.text(font, Component.translatable("gui.raid.looker.stride"), leftPos + 8, topPos + 79, 0xFFAAAAAA, false);
+        graphics.text(font, String.valueOf(menu.stride()), leftPos + 46, topPos + 92, 0xFFFFFF00, false);
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 well(graphics, leftPos + LookerMenu.INV_X + col * 18, topPos + LookerMenu.INV_Y + row * 18);

@@ -14,10 +14,10 @@ import net.minecraft.world.item.ItemStack;
 
 public class LookerMenu extends AbstractContainerMenu {
     public static final int WIDTH = 176;
-    public static final int HEIGHT = 166;
+    public static final int HEIGHT = 204;
     public static final int INV_X = 8;
-    public static final int INV_Y = 84;
-    public static final int HOTBAR_Y = 142;
+    public static final int INV_Y = 122;
+    public static final int HOTBAR_Y = 180;
 
     private final LookerBlockEntity looker;
     private int runningFlag;

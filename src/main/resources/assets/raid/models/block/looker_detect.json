@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/block",
   "textures": {
     "particle": "raid:block/looker/side",
     "north": "raid:block/looker/front_detect",
@@ -7,6 +7,79 @@
     "east": "raid:block/looker/right",
     "west": "raid:block/looker/left",
     "up": "raid:block/looker/top",
-    "down": "raid:block/looker/side"
-  }
+    "down": "raid:block/looker/side",
+    "front_e": "raid:block/looker/front_detect_e",
+    "side_e": "raid:block/looker/side_e"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "light_emission": 15,
+      "neoforge_data": {
+        "light_emission": 15,
+        "ambient_occlusion": false
+      },
+      "faces": {
+        "north": {
+          "texture": "#front_e",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#side_e",
+          "cullface": "south"
+        },
+        "down": {
+          "texture": "#side_e",
+          "cullface": "down"
+        }
+      }
+    }
+  ]
 }

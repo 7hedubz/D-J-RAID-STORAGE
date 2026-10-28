@@ -26,6 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.ExperimentalRedstoneUtils;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
@@ -88,15 +90,14 @@ public class LookerBlock extends BaseEntityBlock {
     @Override
     protected BlockState updateShape(BlockState state, net.minecraft.world.level.LevelReader level, net.minecraft.world.level.ScheduledTickAccess ticks,
                                      BlockPos pos, Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
-        if (directionToNeighbour == detectFace(state) && level.getBlockEntity(pos) instanceof LookerBlockEntity looker) {
-            looker.observe();
-        }
         return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
     }
 
     @Override
     protected int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-        return state.getValue(POWERED) && direction == outputFace(state) ? 15 : 0;
+        // Same contract as ObserverBlock: the querying neighbour sits on the output
+        // face and asks with the opposite direction (the watch/detect face).
+        return state.getValue(POWERED) && direction == detectFace(state) ? 15 : 0;
     }
 
     @Override
@@ -110,6 +111,11 @@ public class LookerBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected boolean shouldRedstoneWireConnectTo(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
+        return direction == detectFace(state);
+    }
+
+    @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getValue(POWERED)) {
             level.setBlock(pos, state.setValue(POWERED, false).setValue(LookerMode.PROPERTY, LookerMode.STANDBY), Block.UPDATE_ALL);
@@ -120,8 +126,9 @@ public class LookerBlock extends BaseEntityBlock {
     public static void updateOutputNeighbors(Level level, BlockPos pos, BlockState state) {
         Direction out = outputFace(state);
         BlockPos target = pos.relative(out);
-        level.updateNeighborsAt(target, state.getBlock());
-        level.updateNeighborsAt(pos, state.getBlock());
+        Orientation orientation = ExperimentalRedstoneUtils.initialOrientation(level, out, null);
+        level.neighborChanged(target, state.getBlock(), orientation);
+        level.updateNeighborsAtExceptFromFacing(target, state.getBlock(), out.getOpposite(), orientation);
     }
 
     @Override
