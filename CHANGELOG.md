@@ -234,3 +234,6 @@
 
 ## 0.1.66
 - AUTO-CRAFTER outputs to RAID arrays again, including its own, still round-robin with other valid inventories.
+
+## 0.1.67
+- Nether TREE-FARM Swap Sides flips front and back longways (pink/teal swap, red stays on the bottom). Top is still 180°. The screen LED mirrors with the front.

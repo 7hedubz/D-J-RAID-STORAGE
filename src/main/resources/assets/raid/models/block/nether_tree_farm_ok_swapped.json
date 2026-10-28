@@ -25,12 +25,23 @@
       "faces": {
         "north": {
           "texture": "#north",
-          "cullface": "north"
+          "cullface": "north",
+          "uv": [
+            16,
+            0,
+            0,
+            16
+          ]
         },
         "south": {
           "texture": "#south",
           "cullface": "south",
-          "rotation": 180
+          "uv": [
+            16,
+            0,
+            0,
+            16
+          ]
         },
         "east": {
           "texture": "#east",
@@ -70,7 +81,13 @@
       "faces": {
         "north": {
           "texture": "#emissive",
-          "cullface": "north"
+          "cullface": "north",
+          "uv": [
+            16,
+            0,
+            0,
+            16
+          ]
         }
       }
     }
