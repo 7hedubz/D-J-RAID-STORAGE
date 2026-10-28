@@ -8,6 +8,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
@@ -21,9 +22,14 @@ public class HopperMenu extends AbstractContainerMenu {
     public static final int HOTBAR_Y = 109;
 
     private final RaidHopperBlockEntity hopper;
+    private int swappedFlag;
 
     public BlockPos pos() {
         return hopper.getBlockPos();
+    }
+
+    public boolean swapped() {
+        return swappedFlag != 0 || com.dubz.raid.block.RaidConnect.swapped(hopper.getBlockState());
     }
 
     public HopperMenu(int id, Inventory inv, FriendlyByteBuf data) {
@@ -47,6 +53,17 @@ public class HopperMenu extends AbstractContainerMenu {
         for (int col = 0; col < 9; col++) {
             addSlot(new Slot(inv, col, INV_X + col * 18, HOTBAR_Y));
         }
+        addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                return com.dubz.raid.block.RaidConnect.swapped(hopper.getBlockState()) ? 1 : 0;
+            }
+
+            @Override
+            public void set(int value) {
+                swappedFlag = value;
+            }
+        });
     }
 
     private static RaidHopperBlockEntity hopperAt(Inventory inv, BlockPos pos) {

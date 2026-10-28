@@ -100,7 +100,10 @@ public class NetworkGraph extends SavedData {
     }
 
     private static Direction port(Node node) {
-        if (node.type == NodeType.HOPPER || node.type == NodeType.CRAFTER
+        if (node.type == NodeType.HOPPER) {
+            return node.swapped ? node.facing.getCounterClockWise() : node.facing.getClockWise();
+        }
+        if (node.type == NodeType.CRAFTER
                 || node.type == NodeType.TREE_FARM || node.type == NodeType.COLLECTOR) {
             return node.swapped ? node.facing.getClockWise() : node.facing.getCounterClockWise();
         }

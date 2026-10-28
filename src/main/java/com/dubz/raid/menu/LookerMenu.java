@@ -24,6 +24,7 @@ public class LookerMenu extends AbstractContainerMenu {
     private int current;
     private int threshold;
     private int stride;
+    private int swappedFlag;
 
     public LookerMenu(int id, Inventory inv, FriendlyByteBuf data) {
         this(id, inv, at(inv, data.readBlockPos()));
@@ -44,6 +45,7 @@ public class LookerMenu extends AbstractContainerMenu {
         addDataSlot(bind(looker::current, v -> current = v));
         addDataSlot(bind(looker::threshold, v -> threshold = v));
         addDataSlot(bind(looker::stride, v -> stride = v));
+        addDataSlot(bind(() -> com.dubz.raid.block.RaidConnect.swapped(looker.getBlockState()) ? 1 : 0, v -> swappedFlag = v));
     }
 
     private static DataSlot bind(java.util.function.IntSupplier get, java.util.function.IntConsumer set) {
@@ -78,6 +80,10 @@ public class LookerMenu extends AbstractContainerMenu {
 
     public LookerBlockEntity looker() {
         return looker;
+    }
+
+    public boolean swapped() {
+        return swappedFlag != 0 || com.dubz.raid.block.RaidConnect.swapped(looker.getBlockState());
     }
 
     public BlockPos pos() {

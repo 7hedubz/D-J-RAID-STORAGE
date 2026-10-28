@@ -221,3 +221,8 @@
 
 ## 0.1.63
 - Nether TREE-FARM default left/right art restored. Swap Sides still flips it.
+
+## 0.1.64
+- Swap Sides sits in the far top-right on every machine GUI, with **In - Out** / **Out - In** under it.
+- HOPPER RAID-in / item-out mechanics swapped; textures unchanged.
+- AUTO-CRAFTER default left/right swapped. No output attached → error and it will not craft (result is not stuffed back into RAID).

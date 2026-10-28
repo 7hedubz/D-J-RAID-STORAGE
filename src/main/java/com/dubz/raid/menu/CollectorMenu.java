@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 public class CollectorMenu extends AbstractContainerMenu {
     public static final int WIDTH = 176;
     public static final int HEIGHT = 166;
-    public static final int BUTTON_X = 64;
+    public static final int BUTTON_X = 8;
     public static final int BUTTON_Y = 20;
     public static final int INV_X = 8;
     public static final int INV_Y = 84;
@@ -23,6 +23,7 @@ public class CollectorMenu extends AbstractContainerMenu {
 
     private final CollectorBlockEntity collector;
     private int runningFlag;
+    private int swappedFlag;
 
     public CollectorMenu(int id, Inventory inv, FriendlyByteBuf data) {
         this(id, inv, at(inv, data.readBlockPos()));
@@ -50,10 +51,25 @@ public class CollectorMenu extends AbstractContainerMenu {
                 runningFlag = value;
             }
         });
+        addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                return com.dubz.raid.block.RaidConnect.swapped(collector.getBlockState()) ? 1 : 0;
+            }
+
+            @Override
+            public void set(int value) {
+                swappedFlag = value;
+            }
+        });
     }
 
     public boolean running() {
         return runningFlag != 0 || collector.running();
+    }
+
+    public boolean swapped() {
+        return swappedFlag != 0 || com.dubz.raid.block.RaidConnect.swapped(collector.getBlockState());
     }
 
     public BlockPos pos() {

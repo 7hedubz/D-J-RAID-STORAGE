@@ -24,7 +24,7 @@ public class CollectorScreen extends AbstractContainerScreen<CollectorMenu> {
         ).bounds(leftPos + CollectorMenu.BUTTON_X, topPos + CollectorMenu.BUTTON_Y, 48, 16).build());
         addRenderableWidget(Button.builder(Component.translatable("gui.raid.swap_sides"), button ->
                 ClientPacketDistributor.sendToServer(new ModPayloads.FlipSidesPayload())
-        ).bounds(leftPos + 8, topPos + CollectorMenu.BUTTON_Y, 52, 16).build());
+        ).bounds(leftPos + SideSwapGui.x(imageWidth), topPos + SideSwapGui.Y, SideSwapGui.W, SideSwapGui.H).build());
     }
 
     @Override
@@ -44,6 +44,7 @@ public class CollectorScreen extends AbstractContainerScreen<CollectorMenu> {
         if (toggle != null) {
             toggle.setMessage(toggleLabel());
         }
+        SideSwapGui.drawLabel(graphics, font, leftPos, topPos, imageWidth, menu.swapped());
     }
 
     private Component toggleLabel() {

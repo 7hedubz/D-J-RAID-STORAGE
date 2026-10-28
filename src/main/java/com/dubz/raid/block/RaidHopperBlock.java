@@ -36,11 +36,11 @@ public class RaidHopperBlock extends BaseEntityBlock {
 
     /** Item output face (left / 0008). */
     public static Direction outputFace(BlockState state) {
-        return RaidConnect.otherSide(state);
+        return RaidConnect.raidIn(state);
     }
 
     public static Direction cableFace(BlockState state) {
-        return RaidConnect.raidIn(state);
+        return RaidConnect.otherSide(state);
     }
 
     @Override

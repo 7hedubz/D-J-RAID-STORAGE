@@ -21,7 +21,7 @@ public class TreeFarmMenu extends AbstractContainerMenu {
     public static final int BAR_Y = 42;
     public static final int BAR_W = 160;
     public static final int BAR_H = 12;
-    public static final int BUTTON_X = 116;
+    public static final int BUTTON_X = 8;
     public static final int BUTTON_Y = 18;
     public static final int INV_X = 8;
     public static final int INV_Y = 84;
@@ -30,6 +30,7 @@ public class TreeFarmMenu extends AbstractContainerMenu {
     private final TreeFarmBlockEntity farm;
     private int runningFlag;
     private int progress;
+    private int swappedFlag;
 
     public TreeFarmMenu(int id, Inventory inv, FriendlyByteBuf data) {
         this(id, inv, farmAt(inv, data.readBlockPos()));
@@ -79,6 +80,17 @@ public class TreeFarmMenu extends AbstractContainerMenu {
                 progress = value;
             }
         });
+        addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                return com.dubz.raid.block.RaidConnect.swapped(farm.getBlockState()) ? 1 : 0;
+            }
+
+            @Override
+            public void set(int value) {
+                swappedFlag = value;
+            }
+        });
     }
 
     public TreeFarmBlockEntity farm() {
@@ -87,6 +99,10 @@ public class TreeFarmMenu extends AbstractContainerMenu {
 
     public boolean running() {
         return runningFlag != 0 || farm.running();
+    }
+
+    public boolean swapped() {
+        return swappedFlag != 0 || com.dubz.raid.block.RaidConnect.swapped(farm.getBlockState());
     }
 
     public BlockPos pos() {

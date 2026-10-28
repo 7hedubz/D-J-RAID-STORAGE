@@ -31,6 +31,7 @@ public class CrafterMenu extends AbstractContainerMenu {
 
     private final RaidCrafterBlockEntity crafter;
     private int runningFlag;
+    private int swappedFlag;
 
     public CrafterMenu(int id, Inventory inv, FriendlyByteBuf data) {
         this(id, inv, crafterAt(inv, data.readBlockPos()));
@@ -65,10 +66,25 @@ public class CrafterMenu extends AbstractContainerMenu {
                 runningFlag = value;
             }
         });
+        addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                return com.dubz.raid.block.RaidConnect.swapped(crafter.getBlockState()) ? 1 : 0;
+            }
+
+            @Override
+            public void set(int value) {
+                swappedFlag = value;
+            }
+        });
     }
 
     public RaidCrafterBlockEntity crafter() {
         return crafter;
+    }
+
+    public boolean swapped() {
+        return swappedFlag != 0 || com.dubz.raid.block.RaidConnect.swapped(crafter.getBlockState());
     }
 
     public BlockPos pos() {

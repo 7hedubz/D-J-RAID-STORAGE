@@ -19,7 +19,7 @@ public class HopperScreen extends AbstractContainerScreen<HopperMenu> {
         super.init();
         addRenderableWidget(Button.builder(Component.translatable("gui.raid.swap_sides"), button ->
                 ClientPacketDistributor.sendToServer(new ModPayloads.FlipSidesPayload())
-        ).bounds(leftPos + 8, topPos + HopperMenu.FILTER_Y, 68, 16).build());
+        ).bounds(leftPos + SideSwapGui.x(imageWidth), topPos + SideSwapGui.Y, SideSwapGui.W, SideSwapGui.H).build());
     }
 
     @Override
@@ -46,5 +46,6 @@ public class HopperScreen extends AbstractContainerScreen<HopperMenu> {
             graphics.fill(x - 1, y - 1, x + 17, y + 17, 0xFF000000);
             graphics.fill(x, y, x + 16, y + 16, 0xFF141414);
         }
+        SideSwapGui.drawLabel(graphics, font, leftPos, topPos, imageWidth, !menu.swapped());
     }
 }

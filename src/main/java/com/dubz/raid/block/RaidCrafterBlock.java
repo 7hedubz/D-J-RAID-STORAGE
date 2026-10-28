@@ -33,7 +33,7 @@ public class RaidCrafterBlock extends BaseEntityBlock {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(RaidConnect.FACING, Direction.NORTH)
-                .setValue(RaidConnect.SWAPPED, false)
+                .setValue(RaidConnect.SWAPPED, true)
                 .setValue(DisplayStatus.PROPERTY, DisplayStatus.DISCONNECTED));
     }
 

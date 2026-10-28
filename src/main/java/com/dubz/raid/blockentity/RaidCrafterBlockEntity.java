@@ -122,7 +122,8 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
                 && level.getBlockEntity(lookup.chassisPos()) instanceof RaidChassisBlockEntity found ? found : null;
         ItemStack preview = previewResult();
         boolean full = DeviceVisuals.full(lookup, chassis, RaidMath.bytesFor(preview, Math.max(1, preview.getCount())));
-        DeviceVisuals.apply(level, pos, DeviceVisuals.status(running, lookup, recipeInvalid || (running && full)));
+        boolean noOutput = running && !hasValidOutput(level, pos, level.getBlockState(pos));
+        DeviceVisuals.apply(level, pos, DeviceVisuals.status(running, lookup, recipeInvalid || (running && full) || noOutput));
     }
 
     private void tryCraft(ServerLevel level, BlockPos pos, BlockState state) {
@@ -143,6 +144,9 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
             bump();
         }
         if (!running || recipeInvalid) {
+            return;
+        }
+        if (!hasValidOutput(level, pos, state)) {
             return;
         }
         if (lookup.status() != NetworkStatus.OK || lookup.chassisPos() == null
@@ -192,11 +196,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
             }
         }
         if (!pushResult(level, pos, state, result)) {
-            long back = chassis.insert(result, lookup.capacity());
-            result.shrink((int) back);
-            if (!result.isEmpty()) {
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), result);
-            }
+            refund(chassis, lookup.capacity(), taken);
         }
     }
 
@@ -239,6 +239,53 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
                 Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), stack);
             }
         }
+    }
+
+    private boolean hasValidOutput(ServerLevel level, BlockPos pos, BlockState state) {
+        Direction out = RaidCrafterBlock.outputFace(state);
+        BlockPos next = pos.relative(out);
+        BlockState nextState = level.getBlockState(next);
+        if (nextState.getBlock() instanceof DataCableBlock) {
+            return cableLeadsToInventory(level, next);
+        }
+        return canInsertAt(level, next, nextState, out.getOpposite());
+    }
+
+    private boolean cableLeadsToInventory(ServerLevel level, BlockPos startCable) {
+        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
+        Set<BlockPos> seen = new HashSet<>();
+        queue.add(startCable);
+        seen.add(startCable.immutable());
+        while (!queue.isEmpty()) {
+            BlockPos cable = queue.removeFirst();
+            for (Direction dir : Direction.values()) {
+                BlockPos near = cable.relative(dir);
+                if (!level.isLoaded(near) || !seen.add(near.immutable())) {
+                    continue;
+                }
+                BlockState nearState = level.getBlockState(near);
+                if (nearState.getBlock() instanceof DataCableBlock) {
+                    queue.add(near);
+                    continue;
+                }
+                if (canInsertAt(level, near, nearState, dir.getOpposite())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean canInsertAt(ServerLevel level, BlockPos dest, BlockState destState, Direction side) {
+        if (destState.getBlock() instanceof DataCableBlock
+                || destState.getBlock() instanceof RaidHopperBlock
+                || destState.getBlock() instanceof RaidCrafterBlock) {
+            return false;
+        }
+        if (!RaidConnect.acceptsInsertOnFace(destState, side)) {
+            return false;
+        }
+        return level.getCapability(Capabilities.Item.BLOCK, dest, destState, level.getBlockEntity(dest), side) != null;
     }
 
     private boolean pushResult(ServerLevel level, BlockPos pos, BlockState state, ItemStack stack) {
