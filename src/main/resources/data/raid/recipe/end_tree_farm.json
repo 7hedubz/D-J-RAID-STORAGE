@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "betterend"
+    }
+  ],
+  "pattern": [
+    "TTT",
+    "TST",
+    "TQT"
+  ],
+  "key": {
+    "T": "betterend:thallasium_ingot",
+    "S": "minecraft:stonecutter",
+    "Q": "raid:quartz_chest"
+  },
+  "result": {
+    "id": "raid:end_tree_farm",
+    "count": 1
+  }
+}

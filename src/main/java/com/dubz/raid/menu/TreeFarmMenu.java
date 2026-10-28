@@ -136,9 +136,7 @@ public class TreeFarmMenu extends AbstractContainerMenu {
     public void removed(Player player) {
         super.removed(player);
         if (!player.level().isClientSide()) {
-            com.dubz.raid.registry.MachineSounds.play(player.level(), farm.getBlockPos(),
-                    farm.nether() ? com.dubz.raid.registry.ModSounds.NETHER_TREE_FARM_OFF
-                            : com.dubz.raid.registry.ModSounds.TREE_FARM_OFF);
+            com.dubz.raid.registry.MachineSounds.play(player.level(), farm.getBlockPos(), farm.guiSound(false));
         }
     }
 }

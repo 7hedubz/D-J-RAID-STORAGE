@@ -49,6 +49,9 @@ public class ModBlocks {
     public static final DeferredBlock<TreeFarmBlock> NETHER_TREE_FARM = BLOCKS.registerBlock("nether_tree_farm",
             props -> new TreeFarmBlock(props.mapColor(MapColor.NETHER).strength(1.0f).sound(SoundType.STEM).pushReaction(PushReaction.IMMOVEABLE), true));
 
+    public static final DeferredBlock<TreeFarmBlock> END_TREE_FARM = BLOCKS.registerBlock("end_tree_farm",
+            props -> new TreeFarmBlock(props.mapColor(MapColor.COLOR_PURPLE).strength(1.0f).sound(SoundType.AMETHYST).pushReaction(PushReaction.IMMOVEABLE), TreeFarmBlock.Kind.END));
+
     public static final DeferredBlock<CollectorBlock> COLLECTOR = BLOCKS.registerBlock("collector",
             props -> new CollectorBlock(props.mapColor(MapColor.METAL).strength(1.0f).sound(SoundType.METAL).pushReaction(PushReaction.IMMOVEABLE)));
 
@@ -91,6 +94,8 @@ public class ModBlocks {
                 "block.raid.tree_farm.subtitle", "block.raid.tree_farm.tooltip"));
         ModItems.ITEMS.registerItem("nether_tree_farm", props -> new MachineItem(NETHER_TREE_FARM.get(), props.useBlockDescriptionPrefix(),
                 "block.raid.nether_tree_farm.subtitle", "block.raid.nether_tree_farm.tooltip"));
+        ModItems.ITEMS.registerItem("end_tree_farm", props -> new MachineItem(END_TREE_FARM.get(), props.useBlockDescriptionPrefix(),
+                "block.raid.end_tree_farm.subtitle", "block.raid.end_tree_farm.tooltip"));
         ModItems.ITEMS.registerItem("collector", props -> new MachineItem(COLLECTOR.get(), props.useBlockDescriptionPrefix(),
                 "block.raid.collector.subtitle", "block.raid.collector.tooltip"));
         ModItems.ITEMS.registerItem("looker", props -> new MachineItem(LOOKER.get(), props.useBlockDescriptionPrefix(),

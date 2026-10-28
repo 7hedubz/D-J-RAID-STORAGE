@@ -209,3 +209,7 @@
 
 ## 0.1.60
 - Generic emissive overlays sit next to each machine’s textures (`front_ok_e` / `front_off_e` / `front_error_e`), same layout as Chassis and LOOKER. Shared `textures/block/emissive/` dump removed.
+
+## 0.1.61
+- BetterNether saplings (and tree seeds) work in the Nether TREE-FARM when BetterNether is installed.
+- **End TREE-FARM** appears when BetterEnd is installed: Thallasium ingots around a stonecutter, Quartz CHEST bottom-middle. BetterEnd tree saplings grow their matching logs.

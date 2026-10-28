@@ -2,7 +2,6 @@ package com.dubz.raid.block;
 
 import com.dubz.raid.blockentity.TreeFarmBlockEntity;
 import com.dubz.raid.registry.MachineSounds;
-import com.dubz.raid.registry.ModSounds;
 import com.dubz.raid.storage.DisplayStatus;
 import com.dubz.raid.storage.NetworkGraph;
 import net.minecraft.core.BlockPos;
@@ -27,22 +26,36 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
 public class TreeFarmBlock extends BaseEntityBlock {
-    private final boolean nether;
+    public enum Kind { OVERWORLD, NETHER, END }
+
+    private final Kind kind;
 
     public TreeFarmBlock(Properties properties) {
-        this(properties, false);
+        this(properties, Kind.OVERWORLD);
     }
 
     public TreeFarmBlock(Properties properties, boolean nether) {
+        this(properties, nether ? Kind.NETHER : Kind.OVERWORLD);
+    }
+
+    public TreeFarmBlock(Properties properties, Kind kind) {
         super(properties);
-        this.nether = nether;
+        this.kind = kind;
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(RaidConnect.FACING, Direction.NORTH)
                 .setValue(DisplayStatus.PROPERTY, DisplayStatus.DISCONNECTED));
     }
 
+    public Kind kind() {
+        return kind;
+    }
+
     public boolean nether() {
-        return nether;
+        return kind == Kind.NETHER;
+    }
+
+    public boolean end() {
+        return kind == Kind.END;
     }
 
     public static Direction cableFace(BlockState state) {
@@ -120,7 +133,7 @@ public class TreeFarmBlock extends BaseEntityBlock {
 
     private void open(Level level, BlockPos pos, Player player) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof TreeFarmBlockEntity farm) {
-            MachineSounds.play(level, pos, farm.nether() ? ModSounds.NETHER_TREE_FARM_ON : ModSounds.TREE_FARM_ON);
+            MachineSounds.play(level, pos, farm.guiSound(true));
             player.openMenu(farm, pos);
         }
     }

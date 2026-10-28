@@ -1,6 +1,38 @@
 {
   "values": [
     "minecraft:crimson_fungus",
-    "minecraft:warped_fungus"
+    "minecraft:warped_fungus",
+    {
+      "id": "betternether:anchor_tree_sapling",
+      "required": false
+    },
+    {
+      "id": "betternether:gloomwood_sapling",
+      "required": false
+    },
+    {
+      "id": "betternether:mushroom_fir_sapling",
+      "required": false
+    },
+    {
+      "id": "betternether:nether_sakura_sapling",
+      "required": false
+    },
+    {
+      "id": "betternether:rubeus_sapling",
+      "required": false
+    },
+    {
+      "id": "betternether:willow_sapling",
+      "required": false
+    },
+    {
+      "id": "betternether:stalagnate_seed",
+      "required": false
+    },
+    {
+      "id": "betternether:wart_seed",
+      "required": false
+    }
   ]
 }

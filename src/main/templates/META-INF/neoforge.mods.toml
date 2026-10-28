@@ -85,3 +85,17 @@ Digital storage without all that energy stuff
 # stop your mod loading on the server for example.
 #[features.${mod_id}]
 #openGLVersion="[3.2,)"
+
+[[dependencies.${mod_id}]]
+    modId="betterend"
+    type="optional"
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="betternether"
+    type="optional"
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"

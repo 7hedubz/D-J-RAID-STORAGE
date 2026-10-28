@@ -1,0 +1,44 @@
+{
+  "values": [
+    {
+      "id": "betterend:dragon_tree_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:helix_tree_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:lacugrove_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:lucernia_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:mossy_glowshroom_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:pythadendron_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:tenanea_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:umbrella_tree_sapling",
+      "required": false
+    },
+    {
+      "id": "betterend:end_lotus_seed",
+      "required": false
+    },
+    {
+      "id": "betterend:small_jellyshroom",
+      "required": false
+    }
+  ]
+}

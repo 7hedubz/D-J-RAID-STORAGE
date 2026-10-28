@@ -37,6 +37,8 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
             net.minecraft.core.registries.Registries.ITEM, Identifier.fromNamespaceAndPath("raid", "tree_farm_saplings"));
     public static final TagKey<Item> NETHER_SAPLINGS = TagKey.create(
             net.minecraft.core.registries.Registries.ITEM, Identifier.fromNamespaceAndPath("raid", "nether_tree_farm_saplings"));
+    public static final TagKey<Item> END_SAPLINGS = TagKey.create(
+            net.minecraft.core.registries.Registries.ITEM, Identifier.fromNamespaceAndPath("raid", "end_tree_farm_saplings"));
 
     private final SimpleContainer sapling = new SimpleContainer(1) {
         @Override
@@ -62,11 +64,35 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public TagKey<Item> saplingTag() {
-        return nether() ? NETHER_SAPLINGS : SAPLINGS;
+        return switch (kind()) {
+            case NETHER -> NETHER_SAPLINGS;
+            case END -> END_SAPLINGS;
+            default -> SAPLINGS;
+        };
+    }
+
+    public com.dubz.raid.block.TreeFarmBlock.Kind kind() {
+        return getBlockState().getBlock() instanceof com.dubz.raid.block.TreeFarmBlock farm
+                ? farm.kind() : com.dubz.raid.block.TreeFarmBlock.Kind.OVERWORLD;
     }
 
     public boolean nether() {
-        return getBlockState().getBlock() instanceof com.dubz.raid.block.TreeFarmBlock farm && farm.nether();
+        return kind() == com.dubz.raid.block.TreeFarmBlock.Kind.NETHER;
+    }
+
+    public boolean end() {
+        return kind() == com.dubz.raid.block.TreeFarmBlock.Kind.END;
+    }
+
+    public net.neoforged.neoforge.registries.DeferredHolder<net.minecraft.sounds.SoundEvent, net.minecraft.sounds.SoundEvent> guiSound(boolean open) {
+        return switch (kind()) {
+            case NETHER -> open ? com.dubz.raid.registry.ModSounds.NETHER_TREE_FARM_ON
+                    : com.dubz.raid.registry.ModSounds.NETHER_TREE_FARM_OFF;
+            case END -> open ? com.dubz.raid.registry.ModSounds.END_TREE_FARM_ON
+                    : com.dubz.raid.registry.ModSounds.END_TREE_FARM_OFF;
+            default -> open ? com.dubz.raid.registry.ModSounds.TREE_FARM_ON
+                    : com.dubz.raid.registry.ModSounds.TREE_FARM_OFF;
+        };
     }
 
     public Container sapling() {
@@ -121,7 +147,8 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
         if (sapling.isEmpty()) {
             return ItemStack.EMPTY;
         }
-        String path = BuiltInRegistries.ITEM.getKey(sapling.getItem()).getPath();
+        Identifier key = BuiltInRegistries.ITEM.getKey(sapling.getItem());
+        String path = key.getPath();
         String log = switch (path) {
             case "oak_sapling" -> "oak_log";
             case "spruce_sapling" -> "spruce_log";
@@ -135,12 +162,24 @@ public class TreeFarmBlockEntity extends BlockEntity implements MenuProvider {
             case "poplar_sapling" -> "poplar_log";
             case "crimson_fungus" -> "crimson_stem";
             case "warped_fungus" -> "warped_stem";
-            default -> path.endsWith("_sapling") ? path.substring(0, path.length() - "_sapling".length()) + "_log" : null;
+            case "small_jellyshroom" -> "jellyshroom_log";
+            case "end_lotus_seed" -> "end_lotus_log";
+            case "stalagnate_seed" -> "stalagnate_log";
+            case "wart_seed" -> "wart_log";
+            default -> path.endsWith("_sapling")
+                    ? path.substring(0, path.length() - "_sapling".length()) + "_log"
+                    : path.endsWith("_seed")
+                    ? path.substring(0, path.length() - "_seed".length()) + "_log"
+                    : null;
         };
         if (log == null) {
             return ItemStack.EMPTY;
         }
-        return new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("minecraft", log)));
+        Item item = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(key.getNamespace(), log));
+        if (item == net.minecraft.world.item.Items.AIR) {
+            item = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(key.getNamespace(), log.replace("_log", "_stem")));
+        }
+        return item == net.minecraft.world.item.Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
     }
 
     @Override
