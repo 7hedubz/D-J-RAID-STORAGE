@@ -150,3 +150,9 @@
 - CHEST open/close use 16-block attenuation (volume unchanged).
 - Flower pots, decorated pots, and potted plants are **Decoration**.
 - Iron/gold/copper/netherite blocks are **Ingots**.
+
+## 0.1.48
+- CHEST/Chassis byte counts are italic.
+- Diamond/emerald/lapis/amethyst/quartz blocks are **Gems**.
+- Partially off-screen terminal rows stay visible (clipped).
+- CHEST open/close use linear falloff out to 16 blocks.

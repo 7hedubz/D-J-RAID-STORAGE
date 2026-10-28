@@ -131,7 +131,7 @@ public final class RaidItemGroups {
         if (isFarmingOrFood(stack)) {
             return FARMING_AND_FOOD;
         }
-        if (tagged(stack, GEMS)) {
+        if (tagged(stack, GEMS) || isGemStorageBlock(stack)) {
             return GEMS_CAT;
         }
         if (tagged(stack, ORES) || tagged(stack, VANILLA_ORES) || tagged(stack, RAW_MATERIALS)) {
@@ -192,6 +192,13 @@ public final class RaidItemGroups {
     private static boolean isPot(ItemStack stack) {
         String path = itemPath(stack);
         return path.equals("flower_pot") || path.equals("decorated_pot") || path.startsWith("potted_");
+    }
+
+    private static boolean isGemStorageBlock(ItemStack stack) {
+        return switch (itemPath(stack)) {
+            case "diamond_block", "emerald_block", "lapis_block", "amethyst_block", "quartz_block" -> true;
+            default -> false;
+        };
     }
 
     private static boolean isIngotStorageBlock(ItemStack stack) {

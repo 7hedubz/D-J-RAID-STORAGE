@@ -17,11 +17,15 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> CABLE_PLACE = event("block.cable.place");
     public static final DeferredHolder<SoundEvent, SoundEvent> CABLE_HIT = event("block.cable.hit");
     public static final DeferredHolder<SoundEvent, SoundEvent> CABLE_FALL = event("block.cable.fall");
-    public static final DeferredHolder<SoundEvent, SoundEvent> CHEST_OPEN = event("block.chest.open");
-    public static final DeferredHolder<SoundEvent, SoundEvent> CHEST_CLOSE = event("block.chest.close");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CHEST_OPEN = chestEvent("block.chest.open");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CHEST_CLOSE = chestEvent("block.chest.close");
 
     private static DeferredHolder<SoundEvent, SoundEvent> event(String path) {
         return SOUNDS.register(path, () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, path)));
+    }
+
+    private static DeferredHolder<SoundEvent, SoundEvent> chestEvent(String path) {
+        return SOUNDS.register(path, () -> SoundEvent.createFixedRangeEvent(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, path), 16.0F));
     }
 
     public static SoundType cable() {

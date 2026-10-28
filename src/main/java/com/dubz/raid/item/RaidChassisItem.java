@@ -22,7 +22,7 @@ public class RaidChassisItem extends BlockItem {
         tooltip.accept(RaidLore.line("block.raid.raid_chassis.desc"));
         DigitizedStorage storage = stack.get(ModDataComponents.STORAGE.get());
         if (storage != null && !storage.isEmpty()) {
-            tooltip.accept(RaidLore.line(
+            tooltip.accept(RaidLore.bytes(
                     "block.raid.raid_chassis.stored",
                     RaidMath.formatBytes(storage.usedBytes()),
                     storage.entries().size()

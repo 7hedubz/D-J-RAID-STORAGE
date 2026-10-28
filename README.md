@@ -9,7 +9,7 @@ cd /home/dubz/Documents/minecraft_storage_addon
 ./gradlew runClient
 ```
 
-Jar: `build/libs/raid-<mod_version>.jar` (currently `raid-0.1.47.jar`). Bump `mod_version` in `gradle.properties` on every change, then `./gradlew build`. Prism must get that new jar. Patch notes: `CHANGELOG.md`.
+Jar: `build/libs/raid-<mod_version>.jar` (currently `raid-0.1.48.jar`). Bump `mod_version` in `gradle.properties` on every change, then `./gradlew build`. Prism must get that new jar. Patch notes: `CHANGELOG.md`.
 
 ## What it does
 
@@ -48,5 +48,9 @@ Capacity: largest connected CHEST is full bytes; every extra CHEST adds **half o
 - Breaking or replacing a Chassis keeps digitized items on the dropped block (shulker-style). Place it again to restore the array; if connected CHEST capacity is too small, it stays **locked** until you extract or add drives.
 - Destroying or replacing CHESTs recalculates capacity the same way. Over capacity → locked (extract only).
 - Storage is per Chassis, not world-global. Multiplayer-shared on that array.
+
+## Credits
+
+The code for this mod was written with heavy AI assistance. All artwork and sound design are human-made.
 
 Mojang mappings license: https://github.com/NeoForged/NeoForm/blob/main/Mojang.md

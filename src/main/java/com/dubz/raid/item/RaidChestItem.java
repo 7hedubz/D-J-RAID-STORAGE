@@ -22,9 +22,9 @@ public class RaidChestItem extends BlockItem {
         tooltip.accept(RaidLore.line("block.raid.chest.subtitle"));
         if (getBlock() instanceof RaidChestBlock chest) {
             if (chest.tier() == ChestTier.ADMIN) {
-                tooltip.accept(RaidLore.literal(RaidMath.formatAdminCommand(chest.tier().bytes())));
+                tooltip.accept(RaidLore.bytesLiteral(RaidMath.formatAdminCommand(chest.tier().bytes())));
             } else {
-                tooltip.accept(RaidLore.line("block.raid.chest.capacity", RaidMath.formatBytes(chest.tier().bytes())));
+                tooltip.accept(RaidLore.bytes("block.raid.chest.capacity", RaidMath.formatBytes(chest.tier().bytes())));
             }
         }
         super.appendHoverText(stack, context, display, tooltip, flag);

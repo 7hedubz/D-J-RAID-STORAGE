@@ -13,7 +13,15 @@ public final class RaidLore {
         return Component.translatable(key, args).withStyle(Style.EMPTY.withColor(COLOR));
     }
 
+    public static Component bytes(String key, Object... args) {
+        return Component.translatable(key, args).withStyle(Style.EMPTY.withColor(COLOR).withItalic(true));
+    }
+
     public static Component literal(String text) {
         return Component.literal(text).withStyle(Style.EMPTY.withColor(COLOR));
+    }
+
+    public static Component bytesLiteral(String text) {
+        return Component.literal(text).withStyle(Style.EMPTY.withColor(COLOR).withItalic(true));
     }
 }

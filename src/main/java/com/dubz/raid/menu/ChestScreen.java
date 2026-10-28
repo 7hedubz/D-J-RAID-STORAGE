@@ -149,7 +149,7 @@ public class ChestScreen extends AbstractContainerScreen<ChestMenu> {
         }
         int textX = barX + (barW - font.width(bytes)) / 2;
         int textY = barY + (barH - 8) / 2;
-        graphics.text(font, bytes, textX, textY, textColor, true);
+        graphics.text(font, Component.literal(bytes).withStyle(style -> style.withItalic(true)), textX, textY, textColor, true);
     }
 
     private int contentHeight(List<RaidItemGroups.Row> rows) {
@@ -224,20 +224,18 @@ public class ChestScreen extends AbstractContainerScreen<ChestMenu> {
         DigitizedStorage.Entry hovered = hoveredEntry(mouseX, mouseY);
         int gridTop = topPos + ChestGuiLayout.GRID_Y;
         int gridBottom = gridTop + ChestGuiLayout.GRID_H;
+        int gridLeft = leftPos + ChestGuiLayout.GRID_X - 1;
+        int gridRight = leftPos + ChestGuiLayout.GRID_X + ChestGuiLayout.BAR_W + 1;
+        graphics.enableScissor(gridLeft, gridTop, gridRight, gridBottom);
         int y = gridTop - scroll;
         for (RaidItemGroups.Row row : rows) {
             int height = row.height();
             int rowBottom = y + height;
             if (rowBottom > gridTop && y < gridBottom) {
                 if (row.isHeader()) {
-                    int barY = Math.max(y, gridTop);
-                    int barBottom = Math.min(rowBottom, gridBottom);
-                    graphics.fill(leftPos + ChestGuiLayout.GRID_X - 1, barY,
-                            leftPos + ChestGuiLayout.GRID_X + ChestGuiLayout.BAR_W + 1, barBottom, 0xFF1A1520);
-                    if (y >= gridTop && rowBottom <= gridBottom) {
-                        graphics.text(font, row.header(), leftPos + ChestGuiLayout.GRID_X, y + 2, 0xFFFFC070, false);
-                    }
-                } else if (y >= gridTop && rowBottom <= gridBottom) {
+                    graphics.fill(gridLeft, y, gridRight, rowBottom, 0xFF1A1520);
+                    graphics.text(font, row.header(), leftPos + ChestGuiLayout.GRID_X, y + 2, 0xFFFFC070, false);
+                } else {
                     for (int col = 0; col < row.items().size(); col++) {
                         int x = leftPos + ChestGuiLayout.GRID_X + col * 18;
                         drawSlotWell(graphics, x, y);
@@ -254,6 +252,7 @@ public class ChestScreen extends AbstractContainerScreen<ChestMenu> {
             }
             y += height;
         }
+        graphics.disableScissor();
     }
 
     private DigitizedStorage.Entry hoveredEntry(int mouseX, int mouseY) {
