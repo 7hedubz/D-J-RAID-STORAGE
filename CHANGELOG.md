@@ -159,3 +159,7 @@
 
 ## 0.1.49
 - Terminal item counts are smaller and use k/M so large numbers do not run into the next slot.
+
+## 0.1.50
+- CHEST open/close keep 16-block falloff and use variable-range events so Sound Physics Remastered can muffle through walls again.
+- README is a short pointer; docs live on the GitHub wiki.
