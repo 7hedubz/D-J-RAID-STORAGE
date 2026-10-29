@@ -240,3 +240,6 @@
 
 ## 0.1.68
 - TREE-FARM (all variants) no longer shows the In - Out label under Swap Sides.
+
+## 0.1.69
+- TREE-FARM GUIs (all variants) widened so the title does not overlap Swap Sides.

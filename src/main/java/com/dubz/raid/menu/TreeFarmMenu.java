@@ -13,17 +13,17 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
 public class TreeFarmMenu extends AbstractContainerMenu {
-    public static final int WIDTH = 176;
+    public static final int WIDTH = 220;
     public static final int HEIGHT = 184;
-    public static final int SLOT_X = 80;
+    public static final int SLOT_X = 102;
     public static final int SLOT_Y = 38;
     public static final int BAR_X = 8;
     public static final int BAR_Y = 60;
-    public static final int BAR_W = 160;
+    public static final int BAR_W = 204;
     public static final int BAR_H = 12;
     public static final int BUTTON_X = 8;
     public static final int BUTTON_Y = 36;
-    public static final int INV_X = 8;
+    public static final int INV_X = 29;
     public static final int INV_Y = 102;
     public static final int HOTBAR_Y = 160;
 
