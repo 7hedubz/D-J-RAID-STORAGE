@@ -243,3 +243,6 @@
 
 ## 0.1.69
 - TREE-FARM GUIs (all variants) widened so the title does not overlap Swap Sides.
+
+## 0.1.70
+- Replaced all machine and cable SFX from the updated sounds pack. Cable break now also uses break2.

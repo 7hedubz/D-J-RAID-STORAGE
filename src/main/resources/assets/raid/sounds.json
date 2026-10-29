@@ -3,6 +3,7 @@
     "subtitle": "subtitles.block.raid.cable.break",
     "sounds": [
       "raid:cable/break1",
+      "raid:cable/break2",
       "raid:cable/break3"
     ]
   },
