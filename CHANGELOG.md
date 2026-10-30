@@ -251,3 +251,6 @@
 - TREE-FARM recipe is now logs + bone block + stonecutter + diorite + Quartz CHEST. End TREE-FARM uses thallasium, bone block, stonecutter, phantom membrane, Quartz CHEST. Nether TREE-FARM top-middle is a bone block.
 - CHEST search matches item tags as well as names. Stone (and other building-tab blocks) group under Building, not Natural.
 - New overworld and End TREE-FARM textures. Nether TREE-FARM Swap Sides no longer flips front/back/top; left/right use 0008/0008B and 0009/0009B.
+
+## 0.1.72
+- End TREE-FARM faces: left 0008, right 0010, back 0008, bottom 0009, top 0007. Swap Sides only swaps left/right.
