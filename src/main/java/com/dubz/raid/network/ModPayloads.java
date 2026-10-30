@@ -30,7 +30,7 @@ public final class ModPayloads {
     }
 
     public static void register(RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar("2");
+        PayloadRegistrar registrar = event.registrar("3");
         registrar.playToServer(ExtractPayload.TYPE, ExtractPayload.STREAM_CODEC, ExtractPayload::handle);
         registrar.playToServer(InsertCarriedPayload.TYPE, InsertCarriedPayload.STREAM_CODEC, InsertCarriedPayload::handle);
         registrar.playToServer(ToggleCrafterPayload.TYPE, ToggleCrafterPayload.STREAM_CODEC, ToggleCrafterPayload::handle);
@@ -97,7 +97,8 @@ public final class ModPayloads {
             long used,
             long capacity,
             List<ItemStack> items,
-            List<Long> counts
+            List<Long> counts,
+            List<Long> localCounts
     ) implements CustomPacketPayload {
         public static final Type<StorageSyncPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, "storage_sync"));
         public static final StreamCodec<RegistryFriendlyByteBuf, StorageSyncPayload> STREAM_CODEC = StreamCodec.of(
@@ -118,6 +119,7 @@ public final class ModPayloads {
             for (int i = 0; i < payload.items.size(); i++) {
                 ItemStack.STREAM_CODEC.encode(buf, payload.items.get(i));
                 buf.writeVarLong(payload.counts.get(i));
+                buf.writeVarLong(payload.localCounts.get(i));
             }
         }
 
@@ -128,23 +130,27 @@ public final class ModPayloads {
             int size = buf.readVarInt();
             List<ItemStack> items = new ArrayList<>(size);
             List<Long> counts = new ArrayList<>(size);
+            List<Long> localCounts = new ArrayList<>(size);
             for (int i = 0; i < size; i++) {
                 items.add(ItemStack.STREAM_CODEC.decode(buf));
                 counts.add(buf.readVarLong());
+                localCounts.add(buf.readVarLong());
             }
-            return new StorageSyncPayload(status, used, capacity, items, counts);
+            return new StorageSyncPayload(status, used, capacity, items, counts, localCounts);
         }
 
         public static StorageSyncPayload from(NetworkStatus status, long used, long capacity, DigitizedStorage storage) {
             List<ItemStack> items = new ArrayList<>();
             List<Long> counts = new ArrayList<>();
+            List<Long> localCounts = new ArrayList<>();
             if (storage != null) {
                 for (DigitizedStorage.Entry entry : storage.entries()) {
                     items.add(entry.stack.copy());
                     counts.add(entry.count);
+                    localCounts.add(entry.localCount);
                 }
             }
-            return new StorageSyncPayload(status, used, capacity, items, counts);
+            return new StorageSyncPayload(status, used, capacity, items, counts, localCounts);
         }
 
         public static void handle(StorageSyncPayload payload, IPayloadContext context) {

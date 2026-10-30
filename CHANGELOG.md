@@ -264,3 +264,6 @@
 
 ## 0.1.75
 - ID Cable reads the twin array even if that chunk is in another dimension. CHEST capacity bar is local used/local cap (empty local still shows empty while listing remote items). Portal particles while both ends are on valid arrays. Destroying one of the pair TNT-explodes the other immediately, or when its chunk loads.
+
+## 0.1.76
+- CHEST item counts: combined total top-right, local array count bottom-right.

@@ -244,7 +244,8 @@ public class ChestScreen extends AbstractContainerScreen<ChestMenu> {
                         stack.setCount(1);
                         graphics.item(stack, x, y);
                         graphics.itemDecorations(font, stack, x, y);
-                        drawCount(graphics, formatCount(entry.count), x, y);
+                        drawCount(graphics, formatCount(entry.count), x, y, true);
+                        drawCount(graphics, formatCount(entry.localCount), x, y, false);
                         if (hovered != null && ItemStack.isSameItemSameComponents(entry.stack, hovered.stack)) {
                             graphics.fill(x, y, x + 16, y + 16, 0x80FFFFFF);
                         }
@@ -373,12 +374,16 @@ public class ChestScreen extends AbstractContainerScreen<ChestMenu> {
         return true;
     }
 
-    private void drawCount(GuiGraphicsExtractor graphics, String text, int x, int y) {
+    private void drawCount(GuiGraphicsExtractor graphics, String text, int x, int y, boolean topRight) {
         float scale = 0.6F;
         graphics.pose().pushMatrix();
-        graphics.pose().translate(x + 16, y + 16);
+        if (topRight) {
+            graphics.pose().translate(x + 16, y + 1);
+        } else {
+            graphics.pose().translate(x + 16, y + 16);
+        }
         graphics.pose().scale(scale, scale);
-        graphics.text(font, text, -font.width(text), -8, 0xFFFFFFFF, true);
+        graphics.text(font, text, -font.width(text), topRight ? 0 : -8, 0xFFFFFFFF, true);
         graphics.pose().popMatrix();
     }
 

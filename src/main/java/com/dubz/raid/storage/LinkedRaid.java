@@ -51,17 +51,21 @@ public final class LinkedRaid {
     public static DigitizedStorage mergedContents(ServerLevel level, BlockPos localChassis) {
         List<DigitizedStorage.Entry> merged = new ArrayList<>();
         for (RaidChassisBlockEntity chassis : pullOrder(level, localChassis)) {
+            boolean local = chassis.getBlockPos().equals(localChassis) && chassis.getLevel() == level;
             for (DigitizedStorage.Entry entry : chassis.storage().entries()) {
                 boolean found = false;
                 for (DigitizedStorage.Entry existing : merged) {
                     if (ItemStack.isSameItemSameComponents(existing.stack, entry.stack)) {
                         existing.count += entry.count;
+                        if (local) {
+                            existing.localCount += entry.count;
+                        }
                         found = true;
                         break;
                     }
                 }
                 if (!found) {
-                    merged.add(new DigitizedStorage.Entry(entry.stack, entry.count));
+                    merged.add(new DigitizedStorage.Entry(entry.stack, entry.count, local ? entry.count : 0));
                 }
             }
         }

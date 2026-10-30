@@ -181,11 +181,17 @@ public class DigitizedStorage {
 
         public final ItemStack stack;
         public long count;
+        public long localCount;
 
         public Entry(ItemStack stack, long count) {
+            this(stack, count, 0);
+        }
+
+        public Entry(ItemStack stack, long count, long localCount) {
             this.stack = stack.copy();
             this.stack.setCount(1);
             this.count = count;
+            this.localCount = localCount;
         }
     }
 }

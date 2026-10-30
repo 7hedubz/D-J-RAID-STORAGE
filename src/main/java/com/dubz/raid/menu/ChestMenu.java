@@ -126,7 +126,10 @@ public class ChestMenu extends AbstractContainerMenu {
         this.capacity = payload.capacity();
         this.clientEntries.clear();
         for (int i = 0; i < payload.items().size(); i++) {
-            this.clientEntries.add(new DigitizedStorage.Entry(payload.items().get(i), payload.counts().get(i)));
+            this.clientEntries.add(new DigitizedStorage.Entry(
+                    payload.items().get(i),
+                    payload.counts().get(i),
+                    i < payload.localCounts().size() ? payload.localCounts().get(i) : 0));
         }
     }
 
