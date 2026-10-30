@@ -276,3 +276,6 @@
 
 ## 0.1.79
 - CHEST combined (top-right) count only shows when the array has an ID Cable link.
+
+## 0.1.80
+- AUTO-CRAFTER textures from RAID_crafter_00. Front 0001–0006. Viewer-left 0010, viewer-right 0009, top 0008, back/bottom 0007. Swap Sides still swaps left/right only.
