@@ -261,3 +261,6 @@
 ## 0.1.74
 - CHEST search also matches group names (Building, Redstone, etc.).
 - Overworld TREE-FARM sides: 0007 left/right/back, 0008 top, 0009 bottom. Swap Sides still swaps left/right.
+
+## 0.1.75
+- ID Cable reads the twin array even if that chunk is in another dimension. CHEST capacity bar is local used/local cap (empty local still shows empty while listing remote items). Portal particles while both ends are on valid arrays. Destroying one of the pair TNT-explodes the other immediately, or when its chunk loads.

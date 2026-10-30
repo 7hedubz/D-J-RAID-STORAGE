@@ -88,18 +88,24 @@ public final class LinkedRaid {
                 }
                 for (IdLinks.Endpoint end : IdLinks.get(server).endsOf(pairId)) {
                     ServerLevel dim = server.getLevel(end.dim());
-                    if (dim == null || !dim.isLoaded(end.pos())) {
+                    if (dim == null) {
                         continue;
                     }
+                    ensureChunk(dim, end.pos());
                     NetworkGraph.Lookup lookup = NetworkGraph.get(dim).lookupCable(end.pos());
                     if (lookup.status() != NetworkStatus.OK || lookup.chassisPos() == null) {
                         continue;
                     }
+                    ensureChunk(dim, lookup.chassisPos());
                     addChassis(queue, seenChassis, dim, lookup.chassisPos());
                 }
             }
         }
         return sortPullOrder(local, localChassis, found);
+    }
+
+    private static void ensureChunk(ServerLevel level, BlockPos pos) {
+        level.getChunk(pos.getX() >> 4, pos.getZ() >> 4);
     }
 
     private static void addChassis(List<ChassisRef> queue, Set<String> seen, ServerLevel level, BlockPos pos) {

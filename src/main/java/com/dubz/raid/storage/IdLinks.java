@@ -27,7 +27,8 @@ public class IdLinks extends SavedData {
             IdLinks::new,
             RecordCodecBuilder.create(instance -> instance.group(
                     Codec.INT.fieldOf("next").forGetter(data -> data.nextId),
-                    Codec.list(Endpoint.CODEC).fieldOf("ends").forGetter(IdLinks::endpointList)
+                    Codec.list(Endpoint.CODEC).fieldOf("ends").forGetter(IdLinks::endpointList),
+                    Codec.list(Codec.INT).optionalFieldOf("doomed", List.of()).forGetter(data -> List.copyOf(data.doomed))
             ).apply(instance, IdLinks::from))
     );
 
@@ -38,13 +39,14 @@ public class IdLinks extends SavedData {
     public IdLinks() {
     }
 
-    private IdLinks(int nextId, List<Endpoint> ends) {
+    private IdLinks(int nextId, List<Endpoint> ends, List<Integer> doomed) {
         this.nextId = Math.max(1, nextId);
         this.ends.addAll(ends);
+        this.doomed.addAll(doomed);
     }
 
-    public static IdLinks from(int nextId, List<Endpoint> ends) {
-        return new IdLinks(nextId, ends);
+    public static IdLinks from(int nextId, List<Endpoint> ends, List<Integer> doomed) {
+        return new IdLinks(nextId, ends, doomed);
     }
 
     public static IdLinks get(MinecraftServer server) {
@@ -109,6 +111,24 @@ public class IdLinks extends SavedData {
         return pairId > 0 && doomed.contains(pairId);
     }
 
+    public boolean pairHasValidArrays(MinecraftServer server, int pairId) {
+        if (pairId <= 0 || doomed.contains(pairId)) {
+            return false;
+        }
+        int ok = 0;
+        for (Endpoint end : endsOf(pairId)) {
+            ServerLevel dim = server.getLevel(end.dim);
+            if (dim == null) {
+                continue;
+            }
+            NetworkGraph.Lookup lookup = NetworkGraph.get(dim).lookupCable(end.pos);
+            if (lookup.status() == NetworkStatus.OK && lookup.chassisPos() != null) {
+                ok++;
+            }
+        }
+        return ok >= 2;
+    }
+
     public void onIrrevocableLoss(MinecraftServer server, int pairId) {
         if (pairId <= 0 || !doomed.add(pairId)) {
             return;
@@ -116,11 +136,10 @@ public class IdLinks extends SavedData {
         setDirty();
         for (Endpoint end : List.copyOf(endsOf(pairId))) {
             ServerLevel dim = server.getLevel(end.dim);
-            if (dim == null || !dim.isLoaded(end.pos)) {
+            if (dim == null || !dim.hasChunk(end.pos.getX() >> 4, end.pos.getZ() >> 4)) {
                 continue;
             }
-            explode(dim, end.pos.getX() + 0.5, end.pos.getY() + 0.5, end.pos.getZ() + 0.5);
-            dim.removeBlock(end.pos, false);
+            explodeAt(dim, end.pos);
             unplace(dim, end.pos);
         }
         for (ServerLevel dim : server.getAllLevels()) {
@@ -129,6 +148,18 @@ public class IdLinks extends SavedData {
                     explode(dim, player.getX(), player.getY(), player.getZ());
                 }
             }
+        }
+    }
+
+    public void explodePlaced(ServerLevel level, BlockPos pos, int pairId) {
+        explodeAt(level, pos);
+        unplace(level, pos);
+    }
+
+    private static void explodeAt(ServerLevel level, BlockPos pos) {
+        explode(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        if (level.getBlockState(pos).getBlock() instanceof com.dubz.raid.block.IdCableBlock) {
+            level.removeBlock(pos, false);
         }
     }
 

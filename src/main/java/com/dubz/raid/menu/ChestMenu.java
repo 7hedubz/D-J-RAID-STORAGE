@@ -77,11 +77,7 @@ public class ChestMenu extends AbstractContainerMenu {
     }
 
     public long storedBytes() {
-        long total = 0;
-        for (DigitizedStorage.Entry entry : clientEntries) {
-            total += RaidMath.bytesFor(entry.stack, entry.count);
-        }
-        return total > 0 ? total : used;
+        return used;
     }
 
     public long capacity() {
