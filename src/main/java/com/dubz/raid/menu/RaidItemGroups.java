@@ -112,6 +112,14 @@ public final class RaidItemGroups {
         }
     }
 
+    public static boolean matchesGroup(ItemStack stack, String needle) {
+        Category category = classify(stack);
+        if (category.id.toLowerCase(java.util.Locale.ROOT).contains(needle)) {
+            return true;
+        }
+        return category.title.getString().toLowerCase(java.util.Locale.ROOT).contains(needle);
+    }
+
     private static Category classify(ItemStack stack) {
         String namespace = namespace(stack);
         if (!"minecraft".equals(namespace)) {

@@ -107,7 +107,7 @@ public class ChestMenu extends AbstractContainerMenu {
             String loc = tag.location().toString().toLowerCase(Locale.ROOT);
             String path = tag.location().getPath().toLowerCase(Locale.ROOT);
             return loc.contains(needle) || path.contains(needle) || ("#" + loc).contains(needle);
-        });
+        }) || RaidItemGroups.matchesGroup(stack, needle);
     }
 
     public List<DigitizedStorage.Entry> visibleEntries() {

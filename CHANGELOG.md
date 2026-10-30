@@ -257,3 +257,7 @@
 
 ## 0.1.73
 - ID Cable (Interdimensional Cable): craft two uniquely numbered paired cables. Linked arrays share a contents list for pulling (local first, then same-dimension furthest, then Overworld/Nether/End by origin). Inserts stay local. Destroying one irrevocably TNT-explodes the other.
+
+## 0.1.74
+- CHEST search also matches group names (Building, Redstone, etc.).
+- Overworld TREE-FARM sides: 0007 left/right/back, 0008 top, 0009 bottom. Swap Sides still swaps left/right.
