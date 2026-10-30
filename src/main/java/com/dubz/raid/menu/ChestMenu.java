@@ -41,6 +41,7 @@ public class ChestMenu extends AbstractContainerMenu {
     private long lastSyncedUsed = Long.MIN_VALUE;
     private long lastSyncedCapacity = Long.MIN_VALUE;
     private NetworkStatus lastSyncedStatus;
+    private boolean linked;
 
     public ChestMenu(int containerId, Inventory inv, FriendlyByteBuf extraData) {
         this(containerId, inv, extraData.readBlockPos());
@@ -84,6 +85,10 @@ public class ChestMenu extends AbstractContainerMenu {
         return capacity;
     }
 
+    public boolean linked() {
+        return linked;
+    }
+
     public void setFilter(String filter) {
         this.filter = filter == null ? "" : filter;
     }
@@ -124,6 +129,7 @@ public class ChestMenu extends AbstractContainerMenu {
         this.status = payload.status();
         this.used = payload.used();
         this.capacity = payload.capacity();
+        this.linked = payload.linked();
         this.clientEntries.clear();
         for (int i = 0; i < payload.items().size(); i++) {
             this.clientEntries.add(new DigitizedStorage.Entry(
@@ -229,7 +235,9 @@ public class ChestMenu extends AbstractContainerMenu {
                 capacity,
                 chassis == null || !(level instanceof ServerLevel serverLevel)
                         ? null
-                        : LinkedRaid.mergedContents(serverLevel, chassis.getBlockPos())
+                        : LinkedRaid.mergedContents(serverLevel, chassis.getBlockPos()),
+                chassis != null && level instanceof ServerLevel serverLevel
+                        && LinkedRaid.pullOrder(serverLevel, chassis.getBlockPos()).size() > 1
         ));
         lastRevision = chassis == null ? Integer.MIN_VALUE : chassis.revision();
         lastSyncedUsed = used;

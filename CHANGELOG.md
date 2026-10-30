@@ -273,3 +273,6 @@
 
 ## 0.1.78
 - Iron CHEST (and vanilla iron) step subtitle is Footsteps instead of the raw `subtitles.block.generic.step` key.
+
+## 0.1.79
+- CHEST combined (top-right) count only shows when the array has an ID Cable link.

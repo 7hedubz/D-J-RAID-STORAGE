@@ -30,7 +30,7 @@ public final class ModPayloads {
     }
 
     public static void register(RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar("3");
+        PayloadRegistrar registrar = event.registrar("4");
         registrar.playToServer(ExtractPayload.TYPE, ExtractPayload.STREAM_CODEC, ExtractPayload::handle);
         registrar.playToServer(InsertCarriedPayload.TYPE, InsertCarriedPayload.STREAM_CODEC, InsertCarriedPayload::handle);
         registrar.playToServer(ToggleCrafterPayload.TYPE, ToggleCrafterPayload.STREAM_CODEC, ToggleCrafterPayload::handle);
@@ -98,7 +98,8 @@ public final class ModPayloads {
             long capacity,
             List<ItemStack> items,
             List<Long> counts,
-            List<Long> localCounts
+            List<Long> localCounts,
+            boolean linked
     ) implements CustomPacketPayload {
         public static final Type<StorageSyncPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath(RaidMod.MOD_ID, "storage_sync"));
         public static final StreamCodec<RegistryFriendlyByteBuf, StorageSyncPayload> STREAM_CODEC = StreamCodec.of(
@@ -115,6 +116,7 @@ public final class ModPayloads {
             buf.writeEnum(payload.status);
             buf.writeVarLong(payload.used);
             buf.writeVarLong(payload.capacity);
+            buf.writeBoolean(payload.linked);
             buf.writeVarInt(payload.items.size());
             for (int i = 0; i < payload.items.size(); i++) {
                 ItemStack.STREAM_CODEC.encode(buf, payload.items.get(i));
@@ -127,6 +129,7 @@ public final class ModPayloads {
             NetworkStatus status = buf.readEnum(NetworkStatus.class);
             long used = buf.readVarLong();
             long capacity = buf.readVarLong();
+            boolean linked = buf.readBoolean();
             int size = buf.readVarInt();
             List<ItemStack> items = new ArrayList<>(size);
             List<Long> counts = new ArrayList<>(size);
@@ -136,10 +139,10 @@ public final class ModPayloads {
                 counts.add(buf.readVarLong());
                 localCounts.add(buf.readVarLong());
             }
-            return new StorageSyncPayload(status, used, capacity, items, counts, localCounts);
+            return new StorageSyncPayload(status, used, capacity, items, counts, localCounts, linked);
         }
 
-        public static StorageSyncPayload from(NetworkStatus status, long used, long capacity, DigitizedStorage storage) {
+        public static StorageSyncPayload from(NetworkStatus status, long used, long capacity, DigitizedStorage storage, boolean linked) {
             List<ItemStack> items = new ArrayList<>();
             List<Long> counts = new ArrayList<>();
             List<Long> localCounts = new ArrayList<>();
@@ -150,7 +153,7 @@ public final class ModPayloads {
                     localCounts.add(entry.localCount);
                 }
             }
-            return new StorageSyncPayload(status, used, capacity, items, counts, localCounts);
+            return new StorageSyncPayload(status, used, capacity, items, counts, localCounts, linked);
         }
 
         public static void handle(StorageSyncPayload payload, IPayloadContext context) {

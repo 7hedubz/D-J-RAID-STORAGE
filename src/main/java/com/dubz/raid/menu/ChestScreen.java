@@ -244,8 +244,12 @@ public class ChestScreen extends AbstractContainerScreen<ChestMenu> {
                         stack.setCount(1);
                         graphics.item(stack, x, y);
                         graphics.itemDecorations(font, stack, x, y);
-                        drawCount(graphics, formatCount(entry.count), x, y, true);
-                        drawCount(graphics, formatCount(entry.localCount), x, y, false);
+                        if (menu.linked()) {
+                            drawCount(graphics, formatCount(entry.count), x, y, true);
+                            drawCount(graphics, formatCount(entry.localCount), x, y, false);
+                        } else {
+                            drawCount(graphics, formatCount(entry.count), x, y, false);
+                        }
                         if (hovered != null && ItemStack.isSameItemSameComponents(entry.stack, hovered.stack)) {
                             graphics.fill(x, y, x + 16, y + 16, 0x80FFFFFF);
                         }
