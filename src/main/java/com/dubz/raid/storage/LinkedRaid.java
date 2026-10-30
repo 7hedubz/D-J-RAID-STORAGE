@@ -147,7 +147,7 @@ public final class LinkedRaid {
                 other.add(ref);
             }
         }
-        sameDim.sort(Comparator.comparingDouble((ChassisRef ref) -> ref.pos.distSqr(localPos)).reversed());
+        sameDim.sort(Comparator.comparingDouble(ref -> ref.pos.distSqr(localPos)));
         Comparator<ChassisRef> origin = Comparator.comparingDouble(ref -> ref.pos.distSqr(BlockPos.ZERO));
         overworld.sort(origin);
         nether.sort(origin);

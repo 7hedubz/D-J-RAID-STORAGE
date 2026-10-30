@@ -267,3 +267,6 @@
 
 ## 0.1.76
 - CHEST item counts: combined total top-right, local array count bottom-right.
+
+## 0.1.77
+- Same-dimension ID Cable pulls take from the closest other array to the one you are using. Origin-distance order is only for other dimensions.
