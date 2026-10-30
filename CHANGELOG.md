@@ -270,3 +270,6 @@
 
 ## 0.1.77
 - Same-dimension ID Cable pulls take from the closest other array to the one you are using. Origin-distance order is only for other dimensions.
+
+## 0.1.78
+- Iron CHEST (and vanilla iron) step subtitle is Footsteps instead of the raw `subtitles.block.generic.step` key.

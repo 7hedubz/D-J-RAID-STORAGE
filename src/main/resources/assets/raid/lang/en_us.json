@@ -96,5 +96,6 @@
   "subtitles.block.raid.cable.hit": "Cable breaking",
   "subtitles.block.raid.cable.fall": "Cable falls",
   "subtitles.block.raid.chest.open": "CHEST opens",
-  "subtitles.block.raid.chest.close": "CHEST closes"
+  "subtitles.block.raid.chest.close": "CHEST closes",
+  "subtitles.block.generic.step": "Footsteps"
 }
