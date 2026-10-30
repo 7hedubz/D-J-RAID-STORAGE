@@ -8,13 +8,15 @@
     }
   ],
   "pattern": [
-    "TTT",
+    "TBT",
     "TST",
-    "TQT"
+    "PQP"
   ],
   "key": {
     "T": "betterend:thallasium_ingot",
+    "B": "minecraft:bone_block",
     "S": "minecraft:stonecutter",
+    "P": "minecraft:phantom_membrane",
     "Q": "raid:quartz_chest"
   },
   "result": {

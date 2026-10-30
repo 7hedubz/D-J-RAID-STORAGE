@@ -1,9 +1,17 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "ingredients": [
-    "raid:quartz_chest",
-    "minecraft:stonecutter"
+  "pattern": [
+    "LBL",
+    "LSL",
+    "DQD"
   ],
+  "key": {
+    "L": "#minecraft:logs",
+    "B": "minecraft:bone_block",
+    "S": "minecraft:stonecutter",
+    "D": "minecraft:diorite",
+    "Q": "raid:quartz_chest"
+  },
   "result": { "id": "raid:tree_farm", "count": 1 }
 }

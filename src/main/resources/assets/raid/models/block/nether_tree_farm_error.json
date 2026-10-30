@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "raid:block/nether_tree_farm/front_ok",
+    "particle": "raid:block/nether_tree_farm/front_error",
     "north": "raid:block/nether_tree_farm/front_error",
     "south": "raid:block/nether_tree_farm/back",
-    "east": "raid:block/nether_tree_farm/right",
-    "west": "raid:block/nether_tree_farm/left",
+    "east": "raid:block/nether_tree_farm/left",
+    "west": "raid:block/nether_tree_farm/right",
     "up": "raid:block/nether_tree_farm/top",
     "down": "raid:block/nether_tree_farm/bottom",
     "emissive": "raid:block/nether_tree_farm/front_error_e"

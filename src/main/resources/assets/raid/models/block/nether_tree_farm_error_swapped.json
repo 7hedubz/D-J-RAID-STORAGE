@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "raid:block/nether_tree_farm/front_ok",
+    "particle": "raid:block/nether_tree_farm/front_error",
     "north": "raid:block/nether_tree_farm/front_error",
     "south": "raid:block/nether_tree_farm/back",
-    "east": "raid:block/nether_tree_farm/left",
-    "west": "raid:block/nether_tree_farm/right",
+    "east": "raid:block/nether_tree_farm/left_swapped",
+    "west": "raid:block/nether_tree_farm/right_swapped",
     "up": "raid:block/nether_tree_farm/top",
     "down": "raid:block/nether_tree_farm/bottom",
     "emissive": "raid:block/nether_tree_farm/front_error_e"
@@ -25,23 +25,11 @@
       "faces": {
         "north": {
           "texture": "#north",
-          "cullface": "north",
-          "uv": [
-            16,
-            0,
-            0,
-            16
-          ]
+          "cullface": "north"
         },
         "south": {
           "texture": "#south",
-          "cullface": "south",
-          "uv": [
-            16,
-            0,
-            0,
-            16
-          ]
+          "cullface": "south"
         },
         "east": {
           "texture": "#east",
@@ -53,8 +41,7 @@
         },
         "up": {
           "texture": "#up",
-          "cullface": "up",
-          "rotation": 180
+          "cullface": "up"
         },
         "down": {
           "texture": "#down",
@@ -81,13 +68,7 @@
       "faces": {
         "north": {
           "texture": "#emissive",
-          "cullface": "north",
-          "uv": [
-            16,
-            0,
-            0,
-            16
-          ]
+          "cullface": "north"
         }
       }
     }

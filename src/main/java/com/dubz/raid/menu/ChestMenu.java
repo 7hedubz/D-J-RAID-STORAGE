@@ -91,6 +91,24 @@ public class ChestMenu extends AbstractContainerMenu {
         this.filter = filter == null ? "" : filter;
     }
 
+    private static boolean matchesFilter(ItemStack stack, String needle) {
+        String name = stack.getHoverName().getString().toLowerCase(Locale.ROOT);
+        if (name.contains(needle)) {
+            return true;
+        }
+        String id = stack.typeHolder().unwrapKey()
+                .map(key -> key.identifier().toString().toLowerCase(Locale.ROOT))
+                .orElse("");
+        if (id.contains(needle)) {
+            return true;
+        }
+        return stack.typeHolder().tags().anyMatch(tag -> {
+            String loc = tag.location().toString().toLowerCase(Locale.ROOT);
+            String path = tag.location().getPath().toLowerCase(Locale.ROOT);
+            return loc.contains(needle) || path.contains(needle) || ("#" + loc).contains(needle);
+        });
+    }
+
     public List<DigitizedStorage.Entry> visibleEntries() {
         if (filter.isBlank()) {
             return List.copyOf(clientEntries);
@@ -98,8 +116,7 @@ public class ChestMenu extends AbstractContainerMenu {
         String needle = filter.toLowerCase(Locale.ROOT);
         List<DigitizedStorage.Entry> out = new ArrayList<>();
         for (DigitizedStorage.Entry entry : clientEntries) {
-            String name = entry.stack.getHoverName().getString().toLowerCase(Locale.ROOT);
-            if (name.contains(needle)) {
+            if (matchesFilter(entry.stack, needle)) {
                 out.add(entry);
             }
         }

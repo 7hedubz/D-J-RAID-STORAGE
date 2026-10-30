@@ -1,13 +1,13 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "raid:block/end_tree_farm/side",
+    "particle": "raid:block/end_tree_farm/front_ok",
     "north": "raid:block/end_tree_farm/front_ok",
-    "south": "raid:block/end_tree_farm/side",
+    "south": "raid:block/end_tree_farm/back",
     "east": "raid:block/end_tree_farm/right",
-    "west": "raid:block/end_tree_farm/side",
-    "up": "raid:block/end_tree_farm/side",
-    "down": "raid:block/end_tree_farm/side",
+    "west": "raid:block/end_tree_farm/left",
+    "up": "raid:block/end_tree_farm/top",
+    "down": "raid:block/end_tree_farm/bottom",
     "emissive": "raid:block/end_tree_farm/front_ok_e"
   },
   "elements": [

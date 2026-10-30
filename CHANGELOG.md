@@ -246,3 +246,8 @@
 
 ## 0.1.70
 - Replaced all machine and cable SFX from the updated sounds pack. Cable break now also uses break2.
+
+## 0.1.71
+- TREE-FARM recipe is now logs + bone block + stonecutter + diorite + Quartz CHEST. End TREE-FARM uses thallasium, bone block, stonecutter, phantom membrane, Quartz CHEST. Nether TREE-FARM top-middle is a bone block.
+- CHEST search matches item tags as well as names. Stone (and other building-tab blocks) group under Building, not Natural.
+- New overworld and End TREE-FARM textures. Nether TREE-FARM Swap Sides no longer flips front/back/top; left/right use 0008/0008B and 0009/0009B.

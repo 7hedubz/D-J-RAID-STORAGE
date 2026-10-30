@@ -2,12 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "W C",
+    "WBC",
     "WSC",
     "NQN"
   ],
   "key": {
     "W": "minecraft:warped_stem",
+    "B": "minecraft:bone_block",
     "C": "minecraft:crimson_stem",
     "S": "minecraft:stonecutter",
     "N": "minecraft:nether_brick",

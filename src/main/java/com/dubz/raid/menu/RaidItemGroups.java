@@ -158,11 +158,11 @@ public final class RaidItemGroups {
         if (inTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
             return FUNCTIONAL;
         }
-        if (inTab(item, CreativeModeTabs.NATURAL_BLOCKS)) {
-            return NATURAL;
-        }
         if (inTab(item, CreativeModeTabs.BUILDING_BLOCKS)) {
             return BUILDING;
+        }
+        if (inTab(item, CreativeModeTabs.NATURAL_BLOCKS)) {
+            return NATURAL;
         }
         if (inTab(item, CreativeModeTabs.INGREDIENTS)) {
             return INGREDIENTS;
