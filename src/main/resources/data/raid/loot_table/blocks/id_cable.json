@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "raid:id_cable",
+          "modifier": {
+            "type": "minecraft:copy_components",
+            "include": [
+              "raid:id_pair"
+            ],
+            "source": "block_entity"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

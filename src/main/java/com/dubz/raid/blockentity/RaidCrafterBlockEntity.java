@@ -9,6 +9,7 @@ import com.dubz.raid.block.RaidHopperBlock;
 import com.dubz.raid.registry.ModBlockEntities;
 import com.dubz.raid.storage.DeviceVisuals;
 import com.dubz.raid.storage.OutputRouter;
+import com.dubz.raid.storage.LinkedRaid;
 import com.dubz.raid.storage.NetworkGraph;
 import com.dubz.raid.storage.NetworkStatus;
 import com.dubz.raid.storage.RaidMath;
@@ -135,7 +136,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
                 && level.getBlockEntity(lookup.chassisPos()) instanceof RaidChassisBlockEntity chassis) {
             for (int i = 0; i < 9; i++) {
                 ItemStack ghost = pattern.get(i);
-                if (!ghost.isEmpty() && chassis.storage().countOf(ghost) > 0) {
+                if (!ghost.isEmpty() && LinkedRaid.countOf(level, chassis.getBlockPos(), ghost) > 0) {
                     mask |= 1 << i;
                 }
             }
@@ -158,7 +159,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
         if (recipe.isEmpty()) {
             return;
         }
-        if (!hasIngredients(chassis)) {
+        if (!hasIngredients(level, chassis)) {
             return;
         }
         List<ItemStack> taken = new ArrayList<>();
@@ -169,7 +170,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
                 grid.add(ItemStack.EMPTY);
                 continue;
             }
-            ItemStack extracted = chassis.extract(ghost, 1);
+            ItemStack extracted = LinkedRaid.extract(level, chassis.getBlockPos(), ghost, 1);
             if (extracted.isEmpty()) {
                 refund(chassis, lookup.capacity(), taken);
                 return;
@@ -201,7 +202,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
         }
     }
 
-    private boolean hasIngredients(RaidChassisBlockEntity chassis) {
+    private boolean hasIngredients(ServerLevel level, RaidChassisBlockEntity chassis) {
         long[] need = new long[9];
         ItemStack[] keys = new ItemStack[9];
         int used = 0;
@@ -225,7 +226,7 @@ public class RaidCrafterBlockEntity extends BlockEntity implements MenuProvider 
             }
         }
         for (int i = 0; i < used; i++) {
-            if (chassis.storage().countOf(keys[i]) < need[i]) {
+            if (LinkedRaid.countOf(level, chassis.getBlockPos(), keys[i]) < need[i]) {
                 return false;
             }
         }

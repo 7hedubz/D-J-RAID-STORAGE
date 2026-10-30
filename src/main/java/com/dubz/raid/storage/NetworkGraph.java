@@ -185,6 +185,22 @@ public class NetworkGraph extends SavedData {
         return visited;
     }
 
+    public Set<BlockPos> cablesFromDevice(BlockPos devicePos) {
+        Node node = nodes.get(devicePos.immutable());
+        if (node == null) {
+            return Set.of();
+        }
+        if (node.type == NodeType.CABLE) {
+            return floodCables(node.pos);
+        }
+        BlockPos cablePos = node.pos.relative(port(node));
+        Node cable = nodes.get(cablePos);
+        if (cable == null || cable.type != NodeType.CABLE) {
+            return Set.of();
+        }
+        return floodCables(cablePos);
+    }
+
     public void refreshVisuals(ServerLevel level) {
         for (Node node : List.copyOf(nodes.values())) {
             if (!level.isLoaded(node.pos)) {

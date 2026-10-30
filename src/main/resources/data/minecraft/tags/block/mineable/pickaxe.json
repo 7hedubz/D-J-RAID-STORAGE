@@ -3,6 +3,7 @@
   "values": [
     "raid:raid_chassis",
     "raid:data_cable",
+    "raid:id_cable",
     "raid:hopper",
     "raid:auto_crafter",
     "raid:tree_farm",

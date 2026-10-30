@@ -5,6 +5,7 @@ import com.dubz.raid.block.DataCableBlock;
 import com.dubz.raid.block.RaidConnect;
 import com.dubz.raid.registry.ModBlockEntities;
 import com.dubz.raid.storage.DeviceVisuals;
+import com.dubz.raid.storage.LinkedRaid;
 import com.dubz.raid.storage.NetworkGraph;
 import com.dubz.raid.storage.NetworkStatus;
 import com.dubz.raid.storage.RaidMath;
@@ -73,7 +74,7 @@ public class CollectorBlockEntity extends BlockEntity implements MenuProvider {
                 break;
             }
         }
-        boolean noBucket = chassis != null && filledPresent && chassis.storage().countOf(new ItemStack(Items.BUCKET)) <= 0;
+        boolean noBucket = chassis != null && filledPresent && LinkedRaid.countOf(server, chassis.getBlockPos(), new ItemStack(Items.BUCKET)) <= 0;
         boolean extra = (entity.running && noCauldron) || (entity.running && full) || (entity.running && noBucket);
         DeviceVisuals.apply(server, pos, DeviceVisuals.status(entity.running, lookup, extra));
         if (!entity.running || extra || lookup.status() != NetworkStatus.OK || chassis == null) {
@@ -102,7 +103,7 @@ public class CollectorBlockEntity extends BlockEntity implements MenuProvider {
             if (DeviceVisuals.full(new NetworkGraph.Lookup(NetworkStatus.OK, chassis.getBlockPos(), capacity), chassis, need)) {
                 return;
             }
-            ItemStack empty = chassis.extract(new ItemStack(Items.BUCKET), 1);
+            ItemStack empty = LinkedRaid.extract(level, chassis.getBlockPos(), new ItemStack(Items.BUCKET), 1);
             if (empty.isEmpty()) {
                 return;
             }

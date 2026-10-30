@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "ECE",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:shulker_shell",
+    "E": "minecraft:ender_eye",
+    "C": "minecraft:ender_chest"
+  },
+  "result": { "id": "raid:id_cable", "count": 2 }
+}

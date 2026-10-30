@@ -1,0 +1,22 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "base": "raid:block/id_cable",
+    "particle": "raid:block/id_cable"
+  },
+  "elements": [
+    {
+      "from": [5, 5, 0],
+      "to": [11, 11, 5],
+      "faces": {
+        "north": {"texture": "#base", "uv": [5, 5, 11, 11]},
+        "east":  {"texture": "#base", "uv": [0, 5, 5, 11]},
+        "south": {"texture": "#base", "uv": [5, 5, 11, 11]},
+        "west":  {"texture": "#base", "uv": [11, 5, 16, 11]},
+        "up":    {"texture": "#base", "uv": [5, 0, 11, 5]},
+        "down":  {"texture": "#base", "uv": [5, 11, 11, 16]}
+      }
+    }
+  ]
+}

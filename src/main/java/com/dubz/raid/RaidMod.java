@@ -9,6 +9,7 @@ import com.dubz.raid.registry.ModItems;
 import com.dubz.raid.registry.ModMenus;
 import com.dubz.raid.registry.ModSounds;
 import com.dubz.raid.storage.CableItemHandler;
+import com.dubz.raid.storage.IdCableEvents;
 import com.dubz.raid.storage.RaidSettings;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
@@ -37,10 +38,14 @@ public class RaidMod {
         NeoForge.EVENT_BUS.addListener(RaidCommands::register);
         NeoForge.EVENT_BUS.addListener(RaidSettings::onServerStarted);
         NeoForge.EVENT_BUS.addListener(RaidSettings::onPlayerLogin);
+        NeoForge.EVENT_BUS.addListener(IdCableEvents::onExpire);
+        NeoForge.EVENT_BUS.addListener(IdCableEvents::onLeave);
+        NeoForge.EVENT_BUS.addListener(IdCableEvents::onTick);
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create, ModBlocks.DATA_CABLE.get());
+        event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create, ModBlocks.ID_CABLE.get());
         event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create, ModBlocks.RAID_CHASSIS.get());
         event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create, ModBlocks.HOPPER.get());
         event.registerBlock(Capabilities.Item.BLOCK, CableItemHandler::create,

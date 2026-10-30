@@ -5,6 +5,7 @@ import com.dubz.raid.block.RaidConnect;
 import com.dubz.raid.block.RaidHopperBlock;
 import com.dubz.raid.menu.HopperMenu;
 import com.dubz.raid.registry.ModBlockEntities;
+import com.dubz.raid.storage.LinkedRaid;
 import com.dubz.raid.storage.OutputRouter;
 import com.dubz.raid.storage.NetworkGraph;
 import com.dubz.raid.storage.NetworkStatus;
@@ -95,7 +96,7 @@ public class RaidHopperBlockEntity extends BlockEntity implements MenuProvider {
                 || !(level.getBlockEntity(lookup.chassisPos()) instanceof RaidChassisBlockEntity chassis)) {
             return;
         }
-        ItemStack extracted = chassis.extract(slot, 1);
+        ItemStack extracted = LinkedRaid.extract(level, chassis.getBlockPos(), slot, 1);
         if (extracted.isEmpty()) {
             return;
         }

@@ -2,12 +2,14 @@ package com.dubz.raid.registry;
 
 import com.dubz.raid.RaidMod;
 import com.dubz.raid.block.DataCableBlock;
+import com.dubz.raid.block.IdCableBlock;
 import com.dubz.raid.block.RaidChassisBlock;
 import com.dubz.raid.block.RaidChestBlock;
 import com.dubz.raid.block.CollectorBlock;
 import com.dubz.raid.block.LookerBlock;
 import com.dubz.raid.block.RaidCrafterBlock;
 import com.dubz.raid.block.TreeFarmBlock;
+import com.dubz.raid.item.IdCableItem;
 import com.dubz.raid.item.MachineItem;
 import com.dubz.raid.block.RaidHopperBlock;
 import com.dubz.raid.item.RaidChassisItem;
@@ -32,6 +34,13 @@ public class ModBlocks {
 
     public static final DeferredBlock<DataCableBlock> DATA_CABLE = register("data_cable",
             props -> new DataCableBlock(props.mapColor(MapColor.COLOR_ORANGE).strength(1.0f).sound(ModSounds.cable())
+                    .noOcclusion()
+                    .isSuffocating((state, level, pos) -> false)
+                    .isViewBlocking((state, level, pos, box) -> false)
+                    .isRedstoneConductor((state, level, pos) -> false)));
+
+    public static final DeferredBlock<IdCableBlock> ID_CABLE = register("id_cable",
+            props -> new IdCableBlock(props.mapColor(MapColor.COLOR_PURPLE).strength(1.0f).sound(ModSounds.cable())
                     .noOcclusion()
                     .isSuffocating((state, level, pos) -> false)
                     .isViewBlocking((state, level, pos, box) -> false)
@@ -81,6 +90,8 @@ public class ModBlocks {
         DeferredBlock<T> block = BLOCKS.registerBlock(name, factory);
         if (name.equals("raid_chassis")) {
             ModItems.ITEMS.registerItem(name, props -> new RaidChassisItem(block.get(), props.useBlockDescriptionPrefix()));
+        } else if (name.equals("id_cable")) {
+            ModItems.ITEMS.registerItem(name, props -> new IdCableItem(block.get(), props.useBlockDescriptionPrefix()));
         } else {
             ModItems.ITEMS.registerItem(name, props -> new BlockItem(block.get(), props.useBlockDescriptionPrefix()));
         }

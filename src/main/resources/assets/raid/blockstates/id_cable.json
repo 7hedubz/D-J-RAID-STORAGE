@@ -1,0 +1,62 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "raid:block/id_cable_center"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "raid:block/id_cable_connection"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "raid:block/id_cable_connection",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "raid:block/id_cable_connection",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "raid:block/id_cable_connection",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "raid:block/id_cable_connection",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "raid:block/id_cable_connection",
+        "x": 90
+      }
+    }
+  ]
+}

@@ -18,6 +18,7 @@ public class ModCreativeTabs {
             .displayItems((params, output) -> {
                 output.accept(ModBlocks.RAID_CHASSIS.get());
                 output.accept(ModBlocks.DATA_CABLE.get());
+                output.accept(ModBlocks.ID_CABLE.get());
                 output.accept(ModBlocks.HOPPER.get());
                 output.accept(ModBlocks.AUTO_CRAFTER.get());
                 output.accept(ModBlocks.TREE_FARM.get());

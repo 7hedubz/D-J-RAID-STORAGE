@@ -1,6 +1,7 @@
 package com.dubz.raid.registry;
 
 import com.dubz.raid.RaidMod;
+import com.dubz.raid.blockentity.IdCableBlockEntity;
 import com.dubz.raid.blockentity.RaidChassisBlockEntity;
 import com.dubz.raid.blockentity.CollectorBlockEntity;
 import com.dubz.raid.blockentity.LookerBlockEntity;
@@ -22,6 +23,12 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("raid_chassis", () -> new BlockEntityType<>(
                     RaidChassisBlockEntity::new,
                     ModBlocks.RAID_CHASSIS.get()
+            ));
+
+    public static final Supplier<BlockEntityType<IdCableBlockEntity>> ID_CABLE =
+            BLOCK_ENTITIES.register("id_cable", () -> new BlockEntityType<>(
+                    IdCableBlockEntity::new,
+                    ModBlocks.ID_CABLE.get()
             ));
 
     public static final Supplier<BlockEntityType<RaidHopperBlockEntity>> HOPPER =

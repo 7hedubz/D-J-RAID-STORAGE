@@ -6,6 +6,7 @@ import com.dubz.raid.network.ModPayloads;
 import com.dubz.raid.registry.ModMenus;
 import com.dubz.raid.registry.ModSounds;
 import com.dubz.raid.storage.DigitizedStorage;
+import com.dubz.raid.storage.LinkedRaid;
 import com.dubz.raid.storage.NetworkGraph;
 import com.dubz.raid.storage.NetworkStatus;
 import com.dubz.raid.storage.RaidMath;
@@ -175,7 +176,7 @@ public class ChestMenu extends AbstractContainerMenu {
             if (want <= 0) {
                 return;
             }
-            ItemStack extracted = chassis.extract(template, want);
+            ItemStack extracted = LinkedRaid.extract(serverLevel, chassis.getBlockPos(), template, want);
             if (extracted.isEmpty()) {
                 return;
             }
@@ -191,7 +192,7 @@ public class ChestMenu extends AbstractContainerMenu {
         long remaining = amount;
         while (remaining > 0) {
             int want = (int) Math.min(template.getMaxStackSize(), remaining);
-            ItemStack extracted = chassis.extract(template, want);
+            ItemStack extracted = LinkedRaid.extract(serverLevel, chassis.getBlockPos(), template, want);
             if (extracted.isEmpty()) {
                 break;
             }
@@ -227,7 +228,9 @@ public class ChestMenu extends AbstractContainerMenu {
                 status,
                 used,
                 capacity,
-                chassis == null ? null : chassis.storage()
+                chassis == null || !(level instanceof ServerLevel serverLevel)
+                        ? null
+                        : LinkedRaid.mergedContents(serverLevel, chassis.getBlockPos())
         ));
         lastRevision = chassis == null ? Integer.MIN_VALUE : chassis.revision();
         lastSyncedUsed = used;
