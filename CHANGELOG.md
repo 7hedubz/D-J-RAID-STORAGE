@@ -279,3 +279,6 @@
 
 ## 0.1.80
 - AUTO-CRAFTER textures from RAID_crafter_00. Front 0001–0006. Viewer-left 0010, viewer-right 0009, top 0008, back/bottom 0007. Swap Sides still swaps left/right only.
+
+## 0.1.81
+- Nether TREE-FARM GUI open/close sounds replaced with netherwoodNewSfx open/close.
