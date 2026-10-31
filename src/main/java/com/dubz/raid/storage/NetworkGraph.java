@@ -86,6 +86,10 @@ public class NetworkGraph extends SavedData {
         put(new Node(pos.immutable(), NodeType.COLLECTOR, ChestTier.STONE, facing, swapped));
     }
 
+    public boolean has(BlockPos pos) {
+        return nodes.containsKey(pos.immutable());
+    }
+
     public void remove(BlockPos pos) {
         if (nodes.remove(pos.immutable()) != null) {
             setDirty();

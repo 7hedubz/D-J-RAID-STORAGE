@@ -61,6 +61,9 @@ public class DataCableBlock extends Block {
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
                                      Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
+        if (level instanceof ServerLevel server) {
+            NetworkGraph.get(server).addCable(pos);
+        }
         return state.setValue(PROPERTY_BY_DIRECTION.get(directionToNeighbour),
                 RaidConnect.cableConnects(neighbourState, directionToNeighbour));
     }

@@ -282,3 +282,6 @@
 
 ## 0.1.81
 - Nether TREE-FARM GUI open/close sounds replaced with netherwoodNewSfx open/close.
+
+## 0.1.82
+- Vanilla hoppers pushing into data cables re-register missing cable graph nodes, load the Chassis chunk, and report hopper capacity as items that fit (not leftover bytes).

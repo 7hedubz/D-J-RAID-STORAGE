@@ -55,11 +55,18 @@ public final class CableItemHandler implements ResourceHandler<ItemResource> {
     public long getCapacityAsLong(int index, ItemResource resource) {
         Objects.checkIndex(index, size());
         Target target = resolve();
-        if (target == null || (!resource.isEmpty() && !RaidMath.canDigitize(resource.toStack()))) {
+        if (target == null) {
             return 0;
         }
-        long remaining = target.capacity - target.chassis.storage().usedBytes();
-        return Math.max(0, remaining);
+        long used = target.chassis.storage().usedBytes();
+        if (resource.isEmpty()) {
+            return RaidMath.itemsThatFit(ItemStack.EMPTY, 0, Integer.MAX_VALUE, used, target.capacity);
+        }
+        ItemStack stack = resource.toStack();
+        if (!RaidMath.canDigitize(stack)) {
+            return 0;
+        }
+        return RaidMath.itemsThatFit(stack, target.chassis.storage().countOf(stack), Integer.MAX_VALUE, used, target.capacity);
     }
 
     @Override
@@ -96,13 +103,18 @@ public final class CableItemHandler implements ResourceHandler<ItemResource> {
         if (!(level instanceof ServerLevel server)) {
             return null;
         }
-        NetworkGraph.Lookup lookup = NetworkGraph.get(server).lookupCable(pos);
+        NetworkGraph graph = NetworkGraph.get(server);
+        if (com.dubz.raid.block.RaidConnect.isCable(server.getBlockState(pos)) && !graph.has(pos)) {
+            graph.addCable(pos);
+        }
+        NetworkGraph.Lookup lookup = graph.lookupCable(pos);
         if (lookup.status() != NetworkStatus.OK || lookup.chassisPos() == null || lookup.capacity() <= 0) {
-            lookup = NetworkGraph.get(server).lookupDevice(pos);
+            lookup = graph.lookupDevice(pos);
         }
         if (lookup.status() != NetworkStatus.OK || lookup.chassisPos() == null || lookup.capacity() <= 0) {
             return null;
         }
+        server.getChunk(lookup.chassisPos());
         if (!(server.getBlockEntity(lookup.chassisPos()) instanceof RaidChassisBlockEntity chassis)) {
             return null;
         }
