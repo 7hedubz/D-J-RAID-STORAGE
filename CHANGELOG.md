@@ -285,3 +285,6 @@
 
 ## 0.1.82
 - Vanilla hoppers pushing into data cables re-register missing cable graph nodes, load the Chassis chunk, and report hopper capacity as items that fit (not leftover bytes).
+
+## 0.1.83
+- RAID HOPPER no longer pushes extracted items into a Chassis or CHEST. Pull-from-RAID and vanilla outputs are unchanged. AUTO-CRAFTER can still output to RAID.
